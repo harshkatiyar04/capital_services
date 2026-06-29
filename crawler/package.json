@@ -1,0 +1,16 @@
+{
+  "name": "capitalservices-crawler",
+  "version": "1.0.0",
+  "description": "Website crawler for capitalservices.com - extracts all content for redesign",
+  "type": "module",
+  "scripts": {
+    "crawl": "node crawler.mjs",
+    "start": "node crawler.mjs"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0",
+    "node-fetch": "^3.3.2",
+    "pdfkit": "^0.19.1",
+    "puppeteer-core": "^24.43.1"
+  }
+}

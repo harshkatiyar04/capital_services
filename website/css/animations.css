@@ -1,0 +1,119 @@
+/* ================================================================
+   CAPITAL SERVICES — Animations
+   ================================================================ */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.65s var(--ease-out),
+    transform 0.65s var(--ease-out);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-28px);
+  transition:
+    opacity 0.65s var(--ease-out),
+    transform 0.65s var(--ease-out);
+}
+
+.reveal-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(28px);
+  transition:
+    opacity 0.65s var(--ease-out),
+    transform 0.65s var(--ease-out);
+}
+
+.reveal-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.94);
+  transition:
+    opacity 0.65s var(--ease-out),
+    transform 0.65s var(--ease-out);
+}
+
+.reveal-scale.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Stagger grid children */
+.stagger-children > .reveal:nth-child(1) { transition-delay: 0ms; }
+.stagger-children > .reveal:nth-child(2) { transition-delay: 70ms; }
+.stagger-children > .reveal:nth-child(3) { transition-delay: 140ms; }
+.stagger-children > .reveal:nth-child(4) { transition-delay: 210ms; }
+.stagger-children > .reveal:nth-child(5) { transition-delay: 280ms; }
+.stagger-children > .reveal:nth-child(6) { transition-delay: 350ms; }
+.stagger-children > .reveal:nth-child(7) { transition-delay: 420ms; }
+.stagger-children > .reveal:nth-child(8) { transition-delay: 490ms; }
+.stagger-children > .reveal:nth-child(9) { transition-delay: 560ms; }
+.stagger-children > .reveal:nth-child(10) { transition-delay: 630ms; }
+
+.stagger-children .reveal:nth-child(1) { transition-delay: 0ms; }
+.stagger-children .reveal:nth-child(2) { transition-delay: 70ms; }
+.stagger-children .reveal:nth-child(3) { transition-delay: 140ms; }
+.stagger-children .reveal:nth-child(4) { transition-delay: 210ms; }
+.stagger-children .reveal:nth-child(5) { transition-delay: 280ms; }
+.stagger-children .reveal:nth-child(6) { transition-delay: 350ms; }
+
+/* Hero entrance */
+.hero-animate-1 { animation: fadeUp 0.8s var(--ease-out) 0.1s both; }
+.hero-animate-2 { animation: fadeUp 0.8s var(--ease-out) 0.3s both; }
+.hero-animate-3 { animation: fadeUp 0.8s var(--ease-out) 0.45s both; }
+.hero-animate-4 { animation: fadeUp 0.8s var(--ease-out) 0.6s both; }
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal-left,
+  .reveal-right,
+  .reveal-scale,
+  .hero-animate-1,
+  .hero-animate-2,
+  .hero-animate-3,
+  .hero-animate-4 {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .hero-bg img {
+    animation: none;
+  }
+}
+
+/* Clients page — case grid must stay visible for filters */
+#case-grid .case-card,
+#case-grid .case-card.reveal,
+.filter-bar.reveal {
+  opacity: 1;
+  transform: none;
+}
