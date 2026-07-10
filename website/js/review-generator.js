@@ -1,5 +1,6 @@
 
-const GOOGLE_MAPS_REVIEW_URL = 'https://search.google.com/local/writereview?placeid=ChIJK7FSuKRBdkgRSTWp5H8Etv0';
+export const GOOGLE_MAPS_REVIEW_URL =
+  'https://search.google.com/local/writereview?placeid=ChIJK7FSuKRBdkgRSTWp5H8Etv0';
 
 const FALLBACK_REVIEWS = [
   "Capital Services were brilliant after our kitchen flood — quick make-safe, thorough drying, and a flawless reinstatement. Couldn't recommend them more.",
@@ -14,13 +15,16 @@ const FALLBACK_REVIEWS = [
 
 async function generateReviewWithAI() {
   try {
-    const response = await fetch('/api/generate-review', { method: 'POST' });
-    if (!response.ok) throw new Error('API error');
+    const response = await fetch('/api/generate-review', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+    });
+    if (!response.ok) throw new Error(`API error ${response.status}`);
     const data = await response.json();
-    if (data.review) return data.review;
-    return getRandomFallback();
+    if (data.review) return { review: data.review, source: 'ai' };
+    throw new Error('Empty review');
   } catch {
-    return getRandomFallback();
+    return { review: getRandomFallback(), source: 'fallback' };
   }
 }
 
@@ -28,7 +32,6 @@ function getRandomFallback() {
   const idx = (Date.now() + Math.floor(Math.random() * 1000)) % FALLBACK_REVIEWS.length;
   return FALLBACK_REVIEWS[idx];
 }
-
 
 async function copyToClipboard(text) {
   try {
@@ -52,7 +55,6 @@ async function copyToClipboard(text) {
   }
 }
 
-
 export function initReviewGenerator() {
   const leaveReviewBtn = document.getElementById('leave-review-btn');
   const modal = document.getElementById('review-modal');
@@ -65,7 +67,13 @@ export function initReviewGenerator() {
   const loadingEl = modal.querySelector('.review-loading');
   const contentEl = modal.querySelector('.review-content');
   const starsContainer = modal.querySelector('.review-stars-display');
+  const footerNote = modal.querySelector('.review-modal-footer p');
 
+  if (goBtn && !goBtn.getAttribute('href')) {
+    goBtn.setAttribute('href', GOOGLE_MAPS_REVIEW_URL);
+    goBtn.setAttribute('target', '_blank');
+    goBtn.setAttribute('rel', 'noopener noreferrer');
+  }
 
   leaveReviewBtn.addEventListener('click', async (e) => {
     e.preventDefault();
@@ -85,11 +93,18 @@ export function initReviewGenerator() {
       });
     }
 
-    const review = await generateReviewWithAI();
+    const { review, source } = await generateReviewWithAI();
 
     loadingEl.style.display = 'none';
     contentEl.style.display = 'block';
     reviewTextEl.textContent = review;
+
+    if (footerNote) {
+      footerNote.textContent =
+        source === 'ai'
+          ? 'Review ready — copy it, then paste on Google when the page opens.'
+          : 'Review ready — copy it, then paste on Google when the page opens.';
+    }
 
     contentEl.style.opacity = '0';
     contentEl.style.transform = 'translateY(10px)';
@@ -107,7 +122,8 @@ export function initReviewGenerator() {
 
       if (copied) {
         const originalText = copyBtn.innerHTML;
-        copyBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Copied!';
+        copyBtn.innerHTML =
+          '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Copied!';
         copyBtn.classList.add('copied');
         setTimeout(() => {
           copyBtn.innerHTML = originalText;
@@ -118,38 +134,20 @@ export function initReviewGenerator() {
   }
 
   if (goBtn) {
-    goBtn.addEventListener('click', async () => {
-      const text = reviewTextEl.textContent;
-      await copyToClipboard(text);
-
-      const originalHtml = goBtn.innerHTML;
-      goBtn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied! Opening Google...';
-      goBtn.style.backgroundColor = '#10b981';
-      goBtn.style.color = '#fff';
-
-      setTimeout(() => {
-        window.open(GOOGLE_MAPS_REVIEW_URL, '_blank');
-        setTimeout(() => {
-          goBtn.innerHTML = originalHtml;
-          goBtn.style.backgroundColor = '';
-          goBtn.style.color = '';
-        }, 500);
-      }, 800);
+    goBtn.addEventListener('click', () => {
+      void copyToClipboard(reviewTextEl.textContent);
     });
   }
-
 
   if (closeBtn) {
     closeBtn.addEventListener('click', closeModal);
   }
-
 
   modal.addEventListener('click', (e) => {
     if (e.target === modal) {
       closeModal();
     }
   });
-
 
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && modal.classList.contains('active')) {
