@@ -3,14 +3,14 @@ export const GOOGLE_MAPS_REVIEW_URL =
   'https://search.google.com/local/writereview?placeid=ChIJK7FSuKRBdkgRSTWp5H8Etv0';
 
 const FALLBACK_REVIEWS = [
-  "Capital Services were brilliant after our kitchen flood — quick make-safe, thorough drying, and a flawless reinstatement. Couldn't recommend them more.",
-  "After fire damage, they handled everything from strip-out to rebuild with real care and clear communication throughout.",
-  "Water damage restoration was seamless — professional team, excellent updates, and the finished result exceeded our expectations.",
-  "They coordinated with our insurers brilliantly on a major loss and delivered work that looks better than before.",
-  "Subsidence repairs were handled efficiently — knowledgeable team and outstanding workmanship from start to finish.",
-  "From emergency make-safe to final reinstatement, they took the stress out of a difficult situation.",
-  "Flooding at our home was stressful, but Capital Services managed the full restoration with genuine care and skill.",
-  "Fire damage restoration was handled with complete professionalism — smooth insurance process and immaculate finish.",
+  "Capital Services were brilliant after our kitchen flood — they attended quickly for the make-safe, set up professional drying throughout the property, and managed the full reinstatement with clear updates at every stage. The team were respectful of our home and kept us informed throughout the insurance process. We felt genuinely looked after from the first call through to sign-off. Couldn't recommend them more highly.",
+  "After fire damage to our property, Capital Services handled everything from emergency strip-out and decontamination through to the full rebuild. Their surveyors and contractors worked seamlessly with our insurer, and communication was excellent from start to finish. The finished result exceeded our expectations and the whole experience was far less stressful than we feared.",
+  "I was thoroughly impressed with the professionalism and efficiency of Capital Services after a burst pipe caused significant water damage to our home. Their team responded promptly, carried out thorough drying and monitoring, and coordinated all reinstatement works without us having to chase anyone. The property was returned to a superb standard and we would happily use them again.",
+  "They coordinated with our insurers brilliantly on a major loss at our commercial premises, minimising downtime while works were completed to a very high standard. Capital Services managed tenders, contractors and progress reporting throughout, which gave us real confidence in the process. Outstanding service from a knowledgeable team.",
+  "Subsidence repairs were handled efficiently from investigation through to specialist remediation and reinstatement. The surveyors explained every step clearly and the workmanship was excellent throughout. Capital Services made a complex claim feel manageable and we are delighted with the outcome.",
+  "From emergency make-safe following storm damage through to final reinstatement, Capital Services took the stress out of a difficult situation. They were on site quickly, kept the property secure, and delivered quality repairs on schedule. A professional, customer-focused service we would recommend without hesitation.",
+  "Flooding at our home was incredibly stressful, but Capital Services managed the full restoration with genuine care and skill. Drying, strip-out and rebuild were all handled under one roof with consistent communication. The team went above and beyond to get us back to normal as quickly as possible.",
+  "Fire and smoke damage restoration was handled with complete professionalism — from the initial make-safe and drying through to a flawless reinstatement. Capital Services worked closely with our insurer and kept us updated at every stage. The quality of finish was immaculate and the process was smooth throughout.",
 ];
 
 async function generateReviewWithAI() {
