@@ -1460,6 +1460,42 @@
   overflow: hidden;
 }
 
+.location-card .office-map {
+  width: 100%;
+  height: 220px;
+  background: #eef1f4;
+  z-index: 0;
+}
+
+.location-card .office-map.is-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+}
+
+.location-card .office-map .leaflet-container {
+  font-family: var(--font-primary);
+  background: #eef1f4;
+}
+
+.office-map-pin {
+  background: transparent;
+  border: none;
+}
+
+.office-map-pin-dot {
+  display: block;
+  width: 18px;
+  height: 18px;
+  margin: 5px;
+  border-radius: 50%;
+  background: var(--brand-amber);
+  border: 2.5px solid var(--brand-black);
+  box-shadow: 0 2px 8px rgba(26, 26, 26, 0.25);
+}
+
 .location-card .map-placeholder {
   width: 100%;
   height: 200px;
