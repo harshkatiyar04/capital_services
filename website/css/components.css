@@ -1003,7 +1003,57 @@
   color: var(--text-secondary);
   line-height: 1.65;
   max-width: 36ch;
+  margin: 0 auto var(--space-md);
+}
+
+.team-card-footer {
+  display: flex;
+  justify-content: center;
+  padding-top: var(--space-xs);
+}
+
+.linkedin-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-light);
+  background: var(--bg-white);
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+
+.linkedin-link:hover {
+  color: #0a66c2;
+  border-color: rgba(10, 102, 194, 0.35);
+  background: rgba(10, 102, 194, 0.06);
+}
+
+.linkedin-link svg {
+  flex-shrink: 0;
+}
+
+/* Directors row */
+.directors-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-xl);
+  max-width: 1080px;
   margin: 0 auto;
+}
+
+.directors-grid .team-card .bio {
+  max-width: 32ch;
+}
+
+@media (max-width: 960px) {
+  .directors-grid {
+    grid-template-columns: 1fr;
+    max-width: 420px;
+  }
 }
 
 @media (max-width: 720px) {
@@ -1087,6 +1137,28 @@
   box-shadow:
     0 0 0 3px var(--bg-white),
     0 0 0 5px var(--brand-amber);
+  overflow: hidden;
+}
+
+.lead-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+.lead-card-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  width: 100%;
+  margin-bottom: var(--space-sm);
+}
+
+.lead-card-head .linkedin-link {
+  margin-top: 0.15rem;
 }
 
 .lead-card h4 {
@@ -1170,6 +1242,11 @@
   max-height: 56px;
   max-width: 92%;
   width: auto;
+}
+
+.lead-logo--lv img {
+  max-height: 44px;
+  max-width: 88%;
 }
 
 .lead-tag {

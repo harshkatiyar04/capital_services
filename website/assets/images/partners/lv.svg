@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 64" role="img" aria-label="LV=">
+  <g fill="#009639">
+    <!-- LV= green heart brand mark -->
+    <path d="M22 42.5c0 0-14-11.5-14-21.2 0-6.2 4.8-10.8 11-10.8 3.6 0 6.8 1.8 8.5 4.6 1.7-2.8 4.9-4.6 8.5-4.6 6.2 0 11 4.6 11 10.8 0 9.7-15 21.2-15 21.2z" transform="translate(0 2) scale(0.82)"/>
+    <!-- LV= wordmark -->
+    <text x="46" y="43" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700" letter-spacing="-0.5">LV=</text>
+  </g>
+</svg>
