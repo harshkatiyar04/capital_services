@@ -62,18 +62,6 @@
 
 .btn-ghost:hover { color: var(--brand-amber); }
 
-.btn-danger {
-  background: var(--brand-amber);
-  color: var(--brand-black);
-}
-
-.btn-danger:hover {
-  background: var(--brand-amber-light);
-  color: var(--brand-black);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 16px rgba(232, 160, 32, 0.3);
-}
-
 .btn-sm { padding: 10px 20px; font-size: var(--fs-xs); }
 .btn-lg { padding: 16px 36px; font-size: var(--fs-base); }
 
@@ -668,29 +656,6 @@
   display: flex;
   align-items: center;
   gap: var(--space-md);
-}
-
-.navbar .nav-emergency {
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-  color: var(--brand-amber);
-  font-size: var(--fs-xs);
-  font-weight: var(--fw-semibold);
-  text-transform: uppercase;
-  letter-spacing: var(--ls-wide);
-}
-
-.navbar .nav-emergency:hover {
-  color: var(--brand-amber-light);
-}
-
-.navbar .nav-emergency .pulse-dot {
-  width: 7px;
-  height: 7px;
-  background: var(--brand-amber);
-  border-radius: 50%;
-  animation: pulse-dot 2s infinite;
 }
 
 .hamburger {
@@ -1734,6 +1699,30 @@
   border-radius: 0 var(--radius-md) var(--radius-md) 0;
 }
 
+/* Contact sidebar — Service Coverage card */
+.contact-coverage-card {
+  margin-bottom: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-coverage-actions {
+  display: flex;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+  margin-top: var(--space-md);
+}
+
+.contact-coverage-thumb {
+  width: 100%;
+  height: 138px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light);
+  margin-top: var(--space-lg);
+}
+
 /* Video card */
 .video-card {
   position: relative;
@@ -1872,11 +1861,6 @@
 
 
 .chatbot-close:hover { opacity: 1; }
-
-@keyframes pulse-dot {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
-}
 
 @media (max-width: 1024px) {
   .footer-grid { grid-template-columns: repeat(2, 1fr); }

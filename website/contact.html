@@ -424,7 +424,6 @@
         <a href="contact.html" class="nav-link active">Contact</a>
       </div>
       <div class="nav-actions">
-        <a href="#emergency" class="nav-emergency"><span class="pulse-dot"></span> Emergency Line</a>
         <a href="contact.html" class="btn btn-primary btn-sm">Get in Touch</a>
       </div>
       <button class="hamburger" id="hamburger-btn" aria-label="Toggle menu"><span></span><span></span><span></span></button>
@@ -502,14 +501,28 @@
         </div>
 
         <div class="reveal-right">
-          <div class="info-block" id="emergency" style="border-left: 4px solid var(--brand-red);">
-            <h4>Emergency Line</h4>
-            <p style="font-size: var(--fs-sm); margin-bottom: var(--space-md);">For urgent make-safe and emergency response.</p>
-            <a href="contact.html" class="btn btn-danger btn-sm">Contact Emergency Line</a>
-          </div>
-          <div class="commitment-box" style="margin-top: var(--space-md);">
+          <div class="commitment-box">
             <h4 style="margin-bottom: var(--space-sm);">24-Hour Response Guarantee</h4>
             <p style="font-size: var(--fs-sm);">Every enquiry receives a personal response within 24 hours.</p>
+          </div>
+
+          <div class="info-block contact-coverage-card">
+            <h4 style="margin-bottom: var(--space-sm);">Service Coverage</h4>
+            <p style="font-size: var(--fs-sm);">
+              Not sure if you are serviceable? Check our interactive postcode map for London, the Home Counties, and the South Coast (including the Isle of Wight).
+            </p>
+
+            <div class="contact-coverage-actions" role="group" aria-label="Coverage quick links">
+              <a href="about.html#coverage" class="btn btn-outline-dark btn-sm">Check coverage</a>
+              <a href="about.html#locations" class="btn btn-ghost btn-sm">Office locations</a>
+            </div>
+
+            <img
+              src="assets/images/postcode-coverage-source.png"
+              alt="Postcode coverage areas map (source preview)"
+              loading="lazy"
+              class="contact-coverage-thumb"
+            >
           </div>
         </div>
       </div>
