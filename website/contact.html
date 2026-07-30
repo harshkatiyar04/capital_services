@@ -500,31 +500,52 @@
           </div>
         </div>
 
-        <div class="reveal-right">
+        <aside class="contact-aside reveal-right">
           <div class="commitment-box">
-            <h4 style="margin-bottom: var(--space-sm);">24-Hour Response Guarantee</h4>
-            <p style="font-size: var(--fs-sm);">Every enquiry receives a personal response within 24 hours.</p>
+            <h4>24-Hour Response Guarantee</h4>
+            <p>Every enquiry receives a personal response within 24 hours.</p>
           </div>
 
-          <div class="info-block contact-coverage-card">
-            <h4 style="margin-bottom: var(--space-sm);">Service Coverage</h4>
-            <p style="font-size: var(--fs-sm);">
-              Not sure if you are serviceable? Check our interactive postcode map for London, the Home Counties, and the South Coast (including the Isle of Wight).
-            </p>
-
-            <div class="contact-coverage-actions" role="group" aria-label="Coverage quick links">
-              <a href="about.html#coverage" class="btn btn-outline-dark btn-sm">Check coverage</a>
-              <a href="about.html#locations" class="btn btn-ghost btn-sm">Office locations</a>
+          <div class="contact-coverage-panel">
+            <div class="contact-coverage-head">
+              <span class="section-label">Coverage</span>
+              <h3>Where we serve</h3>
+              <p>Check your postcode on our live map — London, Home Counties &amp; South Coast.</p>
             </div>
 
-            <img
-              src="assets/images/postcode-coverage-source.png"
-              alt="Postcode coverage areas map (source preview)"
-              loading="lazy"
-              class="contact-coverage-thumb"
-            >
+            <form class="contact-coverage-check" id="contact-coverage-form" novalidate>
+              <label for="contact-coverage-postcode" class="visually-hidden">Postcode</label>
+              <div class="contact-coverage-check-row">
+                <input
+                  type="text"
+                  id="contact-coverage-postcode"
+                  name="postcode"
+                  placeholder="e.g. WD18 8EW"
+                  autocomplete="postal-code"
+                  maxlength="10"
+                  aria-describedby="contact-coverage-result"
+                >
+                <button type="submit" class="btn btn-primary btn-sm">Check</button>
+              </div>
+              <p class="coverage-check-result" id="contact-coverage-result" role="status" aria-live="polite"></p>
+            </form>
+
+            <div class="contact-coverage-map-wrap">
+              <div
+                id="contact-coverage-map"
+                class="contact-coverage-map"
+                role="img"
+                aria-label="Interactive map of Capital Services postcode coverage"
+              ></div>
+              <p class="contact-coverage-status" id="contact-coverage-status">Loading map…</p>
+            </div>
+
+            <a href="about.html#coverage" class="contact-coverage-link">
+              Full coverage map &amp; area list
+              <span aria-hidden="true">&rarr;</span>
+            </a>
           </div>
-        </div>
+        </aside>
       </div>
     </div>
   </section>

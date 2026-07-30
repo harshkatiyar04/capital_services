@@ -14,6 +14,7 @@ const profiles = {
   'keith-saunders': 'keith-saunders-449b5850',
   'simon-edwards': 'simon-edwards-3352a840',
   'ajay-mavinkurve': 'ajay-mavinkurve',
+  'terry-hallahan': 'terry-hallahan-70413243',
 };
 
 await fs.mkdir(outDir, { recursive: true });

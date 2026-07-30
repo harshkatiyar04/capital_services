@@ -3,12 +3,15 @@
    Navigation, scroll effects, global functionality
    ================================================================ */
 
+import { initTestimonialsCarousel } from './testimonials-carousel.js';
+
 document.addEventListener('DOMContentLoaded', () => {
   initNavbar();
   initMobileNav();
   initSmoothScroll();
   initChatbot();
   setActiveNavLink();
+  initTestimonialsCarousel();
 });
 
 /* ── Sticky Navbar ── */

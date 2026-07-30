@@ -4,19 +4,42 @@ import {
   isPostcodeCovered,
 } from './coverage-data.js';
 
+/** Coverage map colours — balanced brand amber (readable, not harsh) */
 const POLYGON_STYLE = {
+  color: '#e0b060',
+  weight: 0.65,
+  opacity: 0.7,
+  fillColor: '#f5c04a',
+  fillOpacity: 0.46,
+};
+
+const POLYGON_HOVER = {
+  color: '#d4921a',
+  weight: 1.1,
+  opacity: 0.88,
+  fillColor: '#e8a020',
+  fillOpacity: 0.54,
+};
+
+const POLYGON_FOCUS = {
   color: '#c88410',
   weight: 1.25,
   opacity: 0.95,
   fillColor: '#e8a020',
-  fillOpacity: 0.38,
+  fillOpacity: 0.58,
 };
 
-const POLYGON_HOVER = {
-  weight: 2.25,
-  fillOpacity: 0.55,
-  color: '#1a1a1a',
-};
+function applyPolygonStyle(layer, style) {
+  layer.setStyle({ ...style });
+}
+
+function resetPolygonStyle(layer) {
+  if (typeof layer.resetStyle === 'function') {
+    layer.resetStyle();
+    return;
+  }
+  applyPolygonStyle(layer, POLYGON_STYLE);
+}
 
 function loadLeafletAssets() {
   return new Promise((resolve, reject) => {
@@ -63,29 +86,21 @@ function renderChipList(container) {
   ).join('');
 }
 
-export async function initCoverageMap() {
-  const mapEl = document.getElementById('coverage-map');
-  if (!mapEl) return;
-
-  const statusEl = document.getElementById('coverage-map-status');
-  const chipsEl = document.getElementById('coverage-chips');
-  const form = document.getElementById('coverage-check-form');
-  const input = document.getElementById('coverage-postcode');
-  const resultEl = document.getElementById('coverage-check-result');
-
-  renderChipList(chipsEl);
-
+async function mountCoverageMap(mapEl, { zoomControl = true, statusEl = null } = {}) {
   let L;
   try {
     L = await loadLeafletAssets();
   } catch {
     if (statusEl) statusEl.textContent = 'Map library could not be loaded.';
-    return;
+    mapEl.classList.add('is-fallback');
+    mapEl.textContent = 'Map unavailable';
+    return null;
   }
 
   const map = L.map(mapEl, {
     scrollWheelZoom: false,
-    zoomControl: true,
+    zoomControl,
+    attributionControl: false,
   }).setView([51.45, -0.9], 8);
 
   L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
@@ -95,11 +110,27 @@ export async function initCoverageMap() {
     maxZoom: 18,
   }).addTo(map);
 
+  if (zoomControl) {
+    L.control.attribution({ prefix: false }).addTo(map);
+  }
+
+  mapEl.addEventListener('mouseleave', () => {
+    map.scrollWheelZoom.disable();
+    resetAllFeatureStyles();
+  });
+
   mapEl.addEventListener('mouseenter', () => map.scrollWheelZoom.enable());
-  mapEl.addEventListener('mouseleave', () => map.scrollWheelZoom.disable());
 
   const layerGroup = L.featureGroup().addTo(map);
   const layersByCode = new Map();
+  const featureLayers = [];
+  let hoveredLayer = null;
+  let focusTimer = null;
+
+  function resetAllFeatureStyles() {
+    featureLayers.forEach((lyr) => resetPolygonStyle(lyr));
+    hoveredLayer = null;
+  }
 
   if (statusEl) statusEl.textContent = 'Loading coverage areas…';
 
@@ -109,6 +140,8 @@ export async function initCoverageMap() {
       const layer = L.geoJSON(geojson, {
         style: POLYGON_STYLE,
         onEachFeature(feature, lyr) {
+          featureLayers.push(lyr);
+
           const district =
             feature.properties?.name ||
             feature.properties?.Name ||
@@ -117,12 +150,20 @@ export async function initCoverageMap() {
           lyr.bindPopup(
             `<div class="coverage-popup"><strong>${area.name}</strong><br><span>${area.code}${district && district !== area.code ? ` · ${district}` : ''}</span></div>`
           );
+
           lyr.on('mouseover', function () {
-            this.setStyle(POLYGON_HOVER);
-            this.bringToFront();
+            if (focusTimer) return;
+            if (hoveredLayer && hoveredLayer !== this) {
+              resetPolygonStyle(hoveredLayer);
+            }
+            hoveredLayer = this;
+            applyPolygonStyle(this, POLYGON_HOVER);
           });
+
           lyr.on('mouseout', function () {
-            this.setStyle(POLYGON_STYLE);
+            if (focusTimer) return;
+            if (hoveredLayer === this) hoveredLayer = null;
+            resetPolygonStyle(this);
           });
         },
       });
@@ -136,7 +177,7 @@ export async function initCoverageMap() {
   const failed = results.filter((r) => r.status === 'rejected').length;
 
   if (layerGroup.getLayers().length) {
-    map.fitBounds(layerGroup.getBounds(), { padding: [28, 28], maxZoom: 10 });
+    map.fitBounds(layerGroup.getBounds(), { padding: [24, 24], maxZoom: 10 });
   }
 
   if (statusEl) {
@@ -146,25 +187,35 @@ export async function initCoverageMap() {
         : `${loaded} areas loaded (${failed} unavailable)`;
   }
 
+  const invalidate = () => map.invalidateSize();
+  setTimeout(invalidate, 200);
+  setTimeout(invalidate, 600);
+  window.addEventListener('resize', invalidate);
+
   function focusArea(code) {
     const layer = layersByCode.get(code);
     if (!layer) return;
-    map.fitBounds(layer.getBounds(), { padding: [40, 40], maxZoom: 11 });
-    layer.eachLayer((l) => {
-      l.setStyle(POLYGON_HOVER);
-      setTimeout(() => l.setStyle(POLYGON_STYLE), 1600);
-    });
-    chipsEl?.querySelectorAll('.coverage-chip').forEach((chip) => {
-      chip.classList.toggle('is-active', chip.dataset.code === code);
-    });
+
+    if (focusTimer) {
+      clearTimeout(focusTimer);
+      focusTimer = null;
+    }
+
+    resetAllFeatureStyles();
+    map.fitBounds(layer.getBounds(), { padding: [36, 36], maxZoom: 11 });
+
+    layer.eachLayer((l) => applyPolygonStyle(l, POLYGON_FOCUS));
+
+    focusTimer = setTimeout(() => {
+      resetAllFeatureStyles();
+      focusTimer = null;
+    }, 1600);
   }
 
-  chipsEl?.addEventListener('click', (e) => {
-    const chip = e.target.closest('.coverage-chip');
-    if (!chip) return;
-    focusArea(chip.dataset.code);
-  });
+  return { map, layersByCode, focusArea, invalidate, resetAllFeatureStyles };
+}
 
+function wirePostcodeForm({ form, input, resultEl, focusArea }) {
   form?.addEventListener('submit', (e) => {
     e.preventDefault();
     const value = input?.value?.trim() || '';
@@ -173,7 +224,7 @@ export async function initCoverageMap() {
     resultEl?.classList.remove('is-yes', 'is-no', 'is-invalid');
 
     if (check.reason === 'invalid') {
-      resultEl.textContent = 'Enter a full UK postcode (e.g. WD18 8EW or GU46 6GA).';
+      resultEl.textContent = 'Enter a UK postcode (e.g. WD18 8EW).';
       resultEl?.classList.add('is-invalid');
       return;
     }
@@ -182,14 +233,53 @@ export async function initCoverageMap() {
       const place = check.meta?.name || 'your area';
       resultEl.innerHTML = `<strong>Yes — we cover ${place}</strong> (${check.area}).`;
       resultEl?.classList.add('is-yes');
-      focusArea(check.area);
+      focusArea?.(check.area);
     } else {
-      resultEl.innerHTML = `<strong>Outside current coverage</strong> — postcode area ${check.area} is not on our serviceable map. Contact us and we’ll advise.`;
+      resultEl.innerHTML = `<strong>Outside current coverage</strong> — ${check.area} isn’t on our map. Contact us and we’ll advise.`;
       resultEl?.classList.add('is-no');
     }
   });
+}
 
-  // Invalidate size after layout/fonts settle
-  setTimeout(() => map.invalidateSize(), 200);
-  window.addEventListener('resize', () => map.invalidateSize());
+export async function initCoverageMap() {
+  const mapEl = document.getElementById('coverage-map');
+  if (!mapEl) return;
+
+  const statusEl = document.getElementById('coverage-map-status');
+  const chipsEl = document.getElementById('coverage-chips');
+  const form = document.getElementById('coverage-check-form');
+  const input = document.getElementById('coverage-postcode');
+  const resultEl = document.getElementById('coverage-check-result');
+
+  renderChipList(chipsEl);
+
+  const ctx = await mountCoverageMap(mapEl, { zoomControl: true, statusEl });
+  if (!ctx) return;
+
+  chipsEl?.addEventListener('click', (e) => {
+    const chip = e.target.closest('.coverage-chip');
+    if (!chip) return;
+    ctx.focusArea(chip.dataset.code);
+    chipsEl.querySelectorAll('.coverage-chip').forEach((c) => {
+      c.classList.toggle('is-active', c.dataset.code === chip.dataset.code);
+    });
+  });
+
+  wirePostcodeForm({ form, input, resultEl, focusArea: ctx.focusArea });
+}
+
+/** Compact interactive coverage map for Contact sidebar */
+export async function initContactCoverageMap() {
+  const mapEl = document.getElementById('contact-coverage-map');
+  if (!mapEl) return;
+
+  const statusEl = document.getElementById('contact-coverage-status');
+  const form = document.getElementById('contact-coverage-form');
+  const input = document.getElementById('contact-coverage-postcode');
+  const resultEl = document.getElementById('contact-coverage-result');
+
+  const ctx = await mountCoverageMap(mapEl, { zoomControl: false, statusEl });
+  if (!ctx) return;
+
+  wirePostcodeForm({ form, input, resultEl, focusArea: ctx.focusArea });
 }
