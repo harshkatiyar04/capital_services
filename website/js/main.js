@@ -58,7 +58,7 @@ function initMobileNav() {
   });
 
   // Close on link click
-  mobileNav.querySelectorAll('.nav-link').forEach(link => {
+  mobileNav.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
       hamburger.classList.remove('active');
       mobileNav.classList.remove('active');

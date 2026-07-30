@@ -589,22 +589,8 @@
 }
 
 @media (max-width: 768px) {
-  .testimonials-carousel .testimonial-card {
-    flex-basis: min(86vw, 340px);
-    height: 360px;
-  }
-
   .testimonials-carousel .testimonial-card .quote {
-    -webkit-line-clamp: 7;
-  }
-
-  .testimonials-carousel-toolbar {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .testimonials-carousel-controls {
-    align-self: flex-end;
+    -webkit-line-clamp: 6;
   }
 }
 
@@ -895,6 +881,13 @@
   font-size: var(--fs-xl);
   font-weight: var(--fw-semibold);
   color: var(--text-primary);
+}
+
+.mobile-nav-cta {
+  margin-top: var(--space-md);
+  width: min(100%, 280px);
+  justify-content: center;
+  text-align: center;
 }
 
 /* Footer */

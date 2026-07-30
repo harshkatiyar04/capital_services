@@ -401,13 +401,28 @@
       margin-right: var(--space-xs);
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 767px) {
       .review-modal-card {
-        margin: var(--space-md);
+        margin: var(--space-sm);
         max-height: 92vh;
+        width: calc(100% - 1rem);
       }
-      .review-modal-body { padding: var(--space-md) var(--space-lg); }
+      .review-modal-body { padding: var(--space-md); }
       .review-actions { grid-template-columns: 1fr; }
+      .btn-review {
+        width: 100%;
+        justify-content: center;
+        padding: 14px 20px;
+        font-size: var(--fs-sm);
+      }
+      .review-cta-hint {
+        font-size: var(--fs-xs);
+        text-align: center;
+      }
+      .review-stars-row .star-icon {
+        width: 28px;
+        height: 28px;
+      }
     }
   </style>
 </head>
@@ -437,6 +452,7 @@
     <a href="clients.html" class="nav-link">Clients</a>
     <a href="testimonials.html" class="nav-link">Testimonials</a>
     <a href="contact.html" class="nav-link">Contact</a>
+    <a href="contact.html" class="btn btn-primary mobile-nav-cta">Get in Touch</a>
   </div>
 
   <section class="page-hero">
