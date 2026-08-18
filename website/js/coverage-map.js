@@ -3,43 +3,56 @@ import {
   GEOJSON_BASE,
   isPostcodeCovered,
 } from './coverage-data.js';
+import { applyStoredAccent, initMapColourPreview } from './accent-preview.js';
 
-/** Coverage map colours — balanced brand amber (readable, not harsh) */
-const POLYGON_STYLE = {
-  color: '#e0b060',
-  weight: 0.65,
-  opacity: 0.7,
-  fillColor: '#f5c04a',
-  fillOpacity: 0.46,
-};
+const coverageRestylers = new Set();
 
-const POLYGON_HOVER = {
-  color: '#d4921a',
-  weight: 1.1,
-  opacity: 0.88,
-  fillColor: '#e8a020',
-  fillOpacity: 0.54,
-};
+function cssVar(name, fallback) {
+  const value = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  return value || fallback;
+}
 
-const POLYGON_FOCUS = {
-  color: '#c88410',
-  weight: 1.25,
-  opacity: 0.95,
-  fillColor: '#e8a020',
-  fillOpacity: 0.58,
-};
+function getPolygonStyle() {
+  return {
+    color: cssVar('--map-stroke', '#e0b060'),
+    weight: 0.65,
+    opacity: 0.7,
+    fillColor: cssVar('--map-fill', '#f5c04a'),
+    fillOpacity: Number(cssVar('--map-fill-opacity', '0.46')) || 0.46,
+  };
+}
+
+function getPolygonHover() {
+  return {
+    color: cssVar('--map-hover-stroke', '#d4921a'),
+    weight: 1.1,
+    opacity: 0.88,
+    fillColor: cssVar('--map-hover-fill', '#e8a020'),
+    fillOpacity: Number(cssVar('--map-hover-opacity', '0.54')) || 0.54,
+  };
+}
+
+function getPolygonFocus() {
+  return {
+    color: cssVar('--map-focus-stroke', '#c88410'),
+    weight: 1.25,
+    opacity: 0.95,
+    fillColor: cssVar('--map-focus-fill', '#e8a020'),
+    fillOpacity: (Number(cssVar('--map-hover-opacity', '0.54')) || 0.54) + 0.04,
+  };
+}
 
 function applyPolygonStyle(layer, style) {
   layer.setStyle({ ...style });
 }
 
 function resetPolygonStyle(layer) {
-  if (typeof layer.resetStyle === 'function') {
-    layer.resetStyle();
-    return;
-  }
-  applyPolygonStyle(layer, POLYGON_STYLE);
+  applyPolygonStyle(layer, getPolygonStyle());
 }
+
+window.addEventListener('capital:accent-change', () => {
+  coverageRestylers.forEach((fn) => fn());
+});
 
 function loadLeafletAssets() {
   return new Promise((resolve, reject) => {
@@ -138,7 +151,7 @@ async function mountCoverageMap(mapEl, { zoomControl = true, statusEl = null } =
     COVERAGE_AREAS.map(async (area) => {
       const geojson = await fetchAreaGeoJSON(area.code);
       const layer = L.geoJSON(geojson, {
-        style: POLYGON_STYLE,
+        style: () => getPolygonStyle(),
         onEachFeature(feature, lyr) {
           featureLayers.push(lyr);
 
@@ -157,7 +170,7 @@ async function mountCoverageMap(mapEl, { zoomControl = true, statusEl = null } =
               resetPolygonStyle(hoveredLayer);
             }
             hoveredLayer = this;
-            applyPolygonStyle(this, POLYGON_HOVER);
+            applyPolygonStyle(this, getPolygonHover());
           });
 
           lyr.on('mouseout', function () {
@@ -204,13 +217,15 @@ async function mountCoverageMap(mapEl, { zoomControl = true, statusEl = null } =
     resetAllFeatureStyles();
     map.fitBounds(layer.getBounds(), { padding: [36, 36], maxZoom: 11 });
 
-    layer.eachLayer((l) => applyPolygonStyle(l, POLYGON_FOCUS));
+    layer.eachLayer((l) => applyPolygonStyle(l, getPolygonFocus()));
 
     focusTimer = setTimeout(() => {
       resetAllFeatureStyles();
       focusTimer = null;
     }, 1600);
   }
+
+  coverageRestylers.add(resetAllFeatureStyles);
 
   return { map, layersByCode, focusArea, invalidate, resetAllFeatureStyles };
 }
@@ -252,6 +267,8 @@ export async function initCoverageMap() {
   const resultEl = document.getElementById('coverage-check-result');
 
   renderChipList(chipsEl);
+  applyStoredAccent();
+  initMapColourPreview(document.getElementById('map-colour-preview'));
 
   const ctx = await mountCoverageMap(mapEl, { zoomControl: true, statusEl });
   if (!ctx) return;
@@ -277,6 +294,9 @@ export async function initContactCoverageMap() {
   const form = document.getElementById('contact-coverage-form');
   const input = document.getElementById('contact-coverage-postcode');
   const resultEl = document.getElementById('contact-coverage-result');
+
+  applyStoredAccent();
+  initMapColourPreview(document.getElementById('map-colour-preview'));
 
   const ctx = await mountCoverageMap(mapEl, { zoomControl: false, statusEl });
   if (!ctx) return;

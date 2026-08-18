@@ -12,7 +12,19 @@
   --brand-red-dark: #a50d25;
   --brand-amber: #e8a020;
   --brand-amber-light: #f5c04a;
+  --brand-amber-deep: #c88410;
   --brand-yellow: #ffc857;
+  --accent-ink: #1a1a1a;
+  --accent-rgb: 232, 160, 32;
+  --accent-light-rgb: 245, 192, 74;
+  --map-fill: #f5c04a;
+  --map-stroke: #e0b060;
+  --map-hover-fill: #e8a020;
+  --map-hover-stroke: #d4921a;
+  --map-focus-fill: #e8a020;
+  --map-focus-stroke: #c88410;
+  --map-fill-opacity: 0.46;
+  --map-hover-opacity: 0.54;
 
   /* Surfaces */
   --bg-primary: #faf9f7;

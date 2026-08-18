@@ -110,7 +110,7 @@
   background: var(--brand-amber);
   margin: 0 auto var(--space-xl);
   border-radius: var(--radius-full);
-  box-shadow: 0 0 12px rgba(232, 160, 32, 0.5);
+  box-shadow: 0 0 12px rgba(var(--accent-rgb), 0.5);
 }
 
 .hero .hero-content h1 {
