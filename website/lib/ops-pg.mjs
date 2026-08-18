@@ -172,11 +172,12 @@ export async function pgListSurveys() {
 
 export async function pgInsertSurvey(survey) {
   const q = await ensureSchema();
+  const sectionsJson = JSON.stringify(survey.sections ?? []);
   await q`INSERT INTO ops_surveys (
     id, job_id, customer_name, job_ref, overall_satisfaction, improvement, sections, created_at
   ) VALUES (
     ${survey.id}, ${survey.jobId}, ${survey.customerName}, ${survey.jobRef},
-    ${survey.overallSatisfaction}, ${survey.improvement}, ${survey.sections}::jsonb,
+    ${survey.overallSatisfaction}, ${survey.improvement}, ${sectionsJson}::jsonb,
     ${survey.createdAt}
   )`;
   await q`UPDATE ops_jobs SET survey_id = ${survey.id} WHERE id = ${survey.jobId}`;
