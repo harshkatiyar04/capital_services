@@ -8,10 +8,15 @@
       "maxDuration": 30
     },
     "api/ops.js": {
-      "maxDuration": 15
+      "maxDuration": 15,
+      "includeFiles": "lib/**"
     }
   },
   "rewrites": [
-    { "source": "/api/ops/:path*", "destination": "/api/ops?path=:path*" }
+    { "source": "/api/ops/:path*", "destination": "/api/ops?path=:path*" },
+    { "source": "/team", "destination": "/team.html" },
+    { "source": "/crew", "destination": "/crew.html" },
+    { "source": "/admin", "destination": "/admin.html" },
+    { "source": "/survey", "destination": "/survey.html" }
   ]
 }
