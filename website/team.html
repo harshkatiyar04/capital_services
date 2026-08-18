@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Team | Capital Services</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/jpeg" href="assets/logos/CS Logo No text House and Heart Large - High Res.jpg">
+  <link rel="stylesheet" href="css/design-system.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/ops.css">
+  <script type="module" src="js/team-app.js"></script>
+</head>
+<body class="ops-body">
+  <div class="ops-shell">
+    <header class="ops-top">
+      <a class="ops-brand" href="index.html">
+        <img src="assets/logos/Capital Services LOGO.jpg" alt="Capital Services">
+        <span class="ops-brand-copy">
+          <small>Internal</small>
+          <strong>Team</strong>
+        </span>
+      </a>
+      <div class="ops-top-links">
+        <a href="index.html">Public site</a>
+      </div>
+    </header>
+
+    <div id="choose">
+      <p class="ops-kicker">Capital Services</p>
+      <h1 class="ops-title">Who are you?</h1>
+      <p class="ops-lede">Workers log jobs and collect reviews on site. Office sees the ledger and leaderboard.</p>
+      <div class="ops-choice">
+        <button type="button" class="ops-choice-card" data-gate="worker">
+          <small>Field</small>
+          <strong>Worker</strong>
+          <span>Sign in or create an account. Log the job, then collect the review.</span>
+        </button>
+        <button type="button" class="ops-choice-card" data-gate="admin">
+          <small>Office</small>
+          <strong>Admin</strong>
+          <span>Responses, people, and the five-tier board.</span>
+        </button>
+      </div>
+    </div>
+
+    <div id="worker-gate" class="ops-hidden ops-login-wide">
+      <button type="button" class="ops-link" data-back>← Back</button>
+      <div class="ops-split">
+        <div class="ops-card">
+          <p class="ops-kicker">Already with us</p>
+          <h2 class="ops-title" style="font-size:1.9rem">Worker sign in</h2>
+          <form id="worker-login">
+            <div class="ops-field">
+              <label for="w-id">Work ID</label>
+              <input class="ops-input" id="w-id" autocomplete="username" placeholder="CS-1041" required>
+            </div>
+            <div class="ops-field">
+              <label for="w-pass">Password</label>
+              <input class="ops-input" id="w-pass" type="password" autocomplete="current-password" required>
+            </div>
+            <p class="ops-error ops-hidden" id="w-login-err"></p>
+            <button class="btn btn-primary" type="submit" style="width:100%">Enter dashboard</button>
+          </form>
+        </div>
+        <div class="ops-card">
+          <p class="ops-kicker">New to the crew</p>
+          <h2 class="ops-title" style="font-size:1.9rem">Worker signup</h2>
+          <form id="worker-signup">
+            <div class="ops-field">
+              <label for="s-name">Full name</label>
+              <input class="ops-input" id="s-name" autocomplete="name" required>
+            </div>
+            <div class="ops-field">
+              <label for="s-role">Line of work</label>
+              <select class="ops-select" id="s-role" required>
+                <option value="trade">On-site crew</option>
+                <option value="office">Office staff</option>
+                <option value="surveyor">Surveyor</option>
+              </select>
+            </div>
+            <div class="ops-field">
+              <label for="s-pass">Password</label>
+              <input class="ops-input" id="s-pass" type="password" autocomplete="new-password" minlength="8" required>
+            </div>
+            <div class="ops-field">
+              <label for="s-pass-2">Confirm password</label>
+              <input class="ops-input" id="s-pass-2" type="password" autocomplete="new-password" minlength="8" required>
+            </div>
+            <p class="ops-error ops-hidden" id="w-sign-err"></p>
+            <button class="btn btn-primary" type="submit" style="width:100%">Create account</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div id="admin-gate" class="ops-hidden ops-login">
+      <button type="button" class="ops-link" data-back style="margin-bottom:1rem">← Back</button>
+      <div class="ops-card">
+        <p class="ops-kicker">Restricted</p>
+        <h2 class="ops-title" style="font-size:1.9rem">Admin sign in</h2>
+        <form id="admin-login">
+          <div class="ops-field">
+            <label for="a-id">User</label>
+            <input class="ops-input" id="a-id" value="admin" autocomplete="username" required>
+          </div>
+          <div class="ops-field">
+            <label for="a-pass">Password</label>
+            <input class="ops-input" id="a-pass" type="password" autocomplete="current-password" required>
+          </div>
+          <p class="ops-error ops-hidden" id="a-err"></p>
+          <button class="btn btn-primary" type="submit" style="width:100%">Enter office</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

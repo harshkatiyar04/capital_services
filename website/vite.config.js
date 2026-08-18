@@ -2,14 +2,20 @@ import { defineConfig } from 'vite';
 import { resolve } from 'path';
 import { readFileSync } from 'fs';
 import { exec } from 'child_process';
+import 'dotenv/config';
+import { handleOpsRequest } from './lib/ops-handler.mjs';
 
 function groqProxyPlugin() {
   let envKey = '';
+  let envModel = 'openai/gpt-oss-120b';
   try {
     const envFile = readFileSync(resolve(__dirname, '.env'), 'utf-8');
-    const match = envFile.match(/GROQ_API_KEY=(.+)/);
-    if (match) envKey = match[1].trim();
+    const keyMatch = envFile.match(/GROQ_API_KEY=(.+)/);
+    if (keyMatch) envKey = keyMatch[1].trim();
+    const modelMatch = envFile.match(/GROQ_MODEL=(.+)/);
+    if (modelMatch) envModel = modelMatch[1].trim();
   } catch {}
+  const model = process.env.GROQ_MODEL || envModel;
 
   const prompts = [
     "Write an authentic 5-star Google review (4-6 sentences, around 80-120 words) for Capital Services, a property restoration and insurance claims company in Watford, UK. They handle fire/flood damage restoration, drying, strip-out works, reinstatement, and major loss projects. Sound like a real homeowner or business owner. Mention specific services like making safe, drying, or reinstatement naturally. Do NOT use any greeting or sign-off. Just the review text. Be warm, genuine, and detailed.",
@@ -42,7 +48,7 @@ function groqProxyPlugin() {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
             body: JSON.stringify({
-              model: 'llama-3.3-70b-versatile',
+              model,
               messages: [
                 { role: 'system', content: 'You write authentic Google reviews. Output ONLY the review text — no quotes, no labels.' },
                 { role: 'user', content: prompt }
@@ -86,6 +92,18 @@ function groqProxyPlugin() {
         res.setHeader('Content-Type', 'application/json');
         res.end(JSON.stringify({ success: true }));
       });
+
+      server.middlewares.use(async (req, res, next) => {
+        const url = req.url || '';
+        if (!url.startsWith('/api/ops')) return next();
+        try {
+          await handleOpsRequest(req, res);
+        } catch (err) {
+          res.statusCode = 500;
+          res.setHeader('Content-Type', 'application/json');
+          res.end(JSON.stringify({ error: err.message || 'Server error' }));
+        }
+      });
     },
   };
 }
@@ -103,6 +121,10 @@ export default defineConfig({
         clients: resolve(__dirname, 'clients.html'),
         testimonials: resolve(__dirname, 'testimonials.html'),
         contact: resolve(__dirname, 'contact.html'),
+        team: resolve(__dirname, 'team.html'),
+        crew: resolve(__dirname, 'crew.html'),
+        admin: resolve(__dirname, 'admin.html'),
+        survey: resolve(__dirname, 'survey.html'),
       },
     },
   },

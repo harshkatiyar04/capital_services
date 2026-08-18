@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Worker dashboard | Capital Services</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/jpeg" href="assets/logos/CS Logo No text House and Heart Large - High Res.jpg">
+  <link rel="stylesheet" href="css/design-system.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/ops.css">
+  <script type="module" src="js/crew-app.js"></script>
+</head>
+<body class="ops-body">
+  <div class="ops-shell">
+    <header class="ops-top">
+      <a class="ops-brand" href="team.html">
+        <img src="assets/logos/Capital Services LOGO.jpg" alt="Capital Services">
+        <span class="ops-brand-copy">
+          <small>Worker</small>
+          <strong>Dashboard</strong>
+        </span>
+      </a>
+      <div class="ops-top-links">
+        <span id="who"></span>
+        <button type="button" class="ops-link" id="logout-btn">Sign out</button>
+      </div>
+    </header>
+    <div id="board"></div>
+  </div>
+
+  <div class="ops-overlay ops-hidden" id="review-overlay" role="dialog" aria-modal="true">
+    <div class="ops-overlay-card">
+      <div class="ops-overlay-bar">
+        <div>
+          <p class="ops-kicker">Hand the phone over</p>
+          <h2 id="review-title">Collect review</h2>
+        </div>
+        <button type="button" class="ops-link" id="close-review">Close</button>
+      </div>
+      <form id="review-form"></form>
+    </div>
+  </div>
+</body>
+</html>

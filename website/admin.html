@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Office ledger | Capital Services</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/jpeg" href="assets/logos/CS Logo No text House and Heart Large - High Res.jpg">
+  <link rel="stylesheet" href="css/design-system.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/ops.css">
+  <script type="module" src="js/admin-app.js"></script>
+</head>
+<body class="ops-body">
+  <div class="ops-shell">
+    <header class="ops-top">
+      <a class="ops-brand" href="index.html">
+        <img src="assets/logos/Capital Services LOGO.jpg" alt="Capital Services">
+        <span class="ops-brand-copy">
+          <small>Office</small>
+          <strong>House ledger</strong>
+        </span>
+      </a>
+      <div class="ops-top-links">
+        <a href="team.html">Team door</a>
+        <button type="button" class="ops-link" id="logout-btn">Sign out</button>
+      </div>
+    </header>
+
+    <div id="gate" class="ops-login ops-card">
+      <p class="ops-kicker">Restricted</p>
+      <h1 class="ops-title" style="font-size:2rem">Office sign-in</h1>
+      <form id="login-form" style="margin-top:1.25rem">
+        <div class="ops-field">
+          <label for="identifier">User</label>
+          <input class="ops-input" id="identifier" autocomplete="username" value="admin" required>
+        </div>
+        <div class="ops-field">
+          <label for="password">Password</label>
+          <input class="ops-input" id="password" type="password" autocomplete="current-password" required>
+        </div>
+        <p class="ops-error ops-hidden" id="login-error"></p>
+        <button class="btn btn-primary" type="submit" style="width:100%">Enter</button>
+      </form>
+    </div>
+
+    <div id="app" class="ops-hidden">
+      <div class="ops-grid">
+        <nav class="ops-rail" id="rail">
+          <button type="button" class="is-on" data-view="overview">Overview</button>
+          <button type="button" data-view="board">Leaderboard</button>
+          <button type="button" data-view="people">Issue IDs</button>
+          <button type="button" data-view="cards">Job cards</button>
+        </nav>
+        <div id="panel"></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

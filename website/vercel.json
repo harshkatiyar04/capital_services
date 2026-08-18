@@ -6,6 +6,12 @@
   "functions": {
     "api/generate-review.js": {
       "maxDuration": 30
+    },
+    "api/ops.js": {
+      "maxDuration": 15
     }
-  }
+  },
+  "rewrites": [
+    { "source": "/api/ops/:path*", "destination": "/api/ops?path=:path*" }
+  ]
 }

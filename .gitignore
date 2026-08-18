@@ -9,6 +9,9 @@ build/
 .vite/
 *.local
 
+# Live credentials & survey ledger
+website/data/ops-store.json
+
 # Environment & secrets
 .env
 .env.*

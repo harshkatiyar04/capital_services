@@ -7,6 +7,9 @@ dist/
 # Vite cache
 .vite/
 
+# Live credentials & survey ledger
+data/ops-store.json
+
 # Environment
 .env
 .env.*
