@@ -459,8 +459,7 @@
   #differentiators .feature-card:hover,
   #differentiators .feature-card:nth-child(even):hover,
   .service-card:hover,
-  .team-card:hover,
-  .lead-card:hover {
+  .team-card:hover {
     transform: none;
   }
 
@@ -525,10 +524,6 @@
     grid-template-columns: 1fr;
     max-width: 100%;
     gap: var(--space-md);
-  }
-
-  .lead-card {
-    padding: var(--space-lg);
   }
 
   .cert-grid {
@@ -817,8 +812,7 @@
   .feature-card:hover,
   .service-card:hover,
   .case-card:hover,
-  .team-card:hover,
-  .lead-card:hover,
+  .team-card:hover {
   .cert-card:hover {
     transform: none;
     box-shadow: var(--shadow-sm);

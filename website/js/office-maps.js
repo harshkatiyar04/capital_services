@@ -21,6 +21,17 @@ export const OFFICES = [
     directionsUrl:
       'https://www.google.com/maps/dir/?api=1&destination=Yateley%2C%20Hampshire%2C%20UK',
   },
+  {
+    id: 'kings-langley',
+    name: 'Kings Langley',
+    region: 'Hertfordshire',
+    address: 'Units 9–10, Kings Park Industrial Estate, Primrose Hill, WD4 8ST',
+    lat: 51.715047,
+    lng: -0.443667,
+    zoom: 16,
+    directionsUrl:
+      'https://www.google.com/maps/dir/?api=1&destination=Units%209-10%2C%20Kings%20Park%20Industrial%20Estate%2C%20Primrose%20Hill%2C%20Kings%20Langley%20WD4%208ST%2C%20United%20Kingdom',
+  },
 ];
 
 function loadLeaflet() {
@@ -95,7 +106,7 @@ export async function initOfficeMaps() {
 
     L.marker([office.lat, office.lng], { icon: pin })
       .addTo(map)
-      .bindPopup(`<strong>${office.name}</strong><br>${office.region}`);
+      .bindPopup(`<strong>${office.name}</strong><br>${office.address || office.region}`);
 
     el.addEventListener('mouseenter', () => map.scrollWheelZoom.enable());
     el.addEventListener('mouseleave', () => map.scrollWheelZoom.disable());

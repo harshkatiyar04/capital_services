@@ -16,6 +16,7 @@ load_dotenv()
 
 REVIEW_URL = "https://search.google.com/local/writereview?placeid=ChIJK7FSuKRBdkgRSTWp5H8Etv0"
 GROQ_API_KEY = os.getenv("GROQ_API_KEY", "")
+GROQ_MODEL = os.getenv("GROQ_MODEL", "openai/gpt-oss-120b")
 PROFILE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".chrome-profile")
 
 PROMPTS = [
@@ -45,7 +46,7 @@ def generate_review_async():
             "https://api.groq.com/openai/v1/chat/completions",
             headers={"Content-Type": "application/json", "Authorization": f"Bearer {GROQ_API_KEY}"},
             json={
-                "model": "llama-3.3-70b-versatile",
+                "model": GROQ_MODEL,
                 "messages": [
                     {"role": "system", "content": "You write authentic Google reviews. Output ONLY the review text — no quotes, no labels."},
                     {"role": "user", "content": random.choice(PROMPTS)},

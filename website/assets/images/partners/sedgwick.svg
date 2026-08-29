@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 72" role="img" aria-label="Sedgwick">
+  <rect width="320" height="72" fill="#ffffff"/>
+  <text x="12" y="48" font-family="Arial, Helvetica, sans-serif" font-size="36" font-weight="700" fill="#1a1a1a">sedgwick</text>
+  <!-- double chevron -->
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M232 22 L252 36 L232 50" stroke="#5a9600" stroke-width="7"/>
+    <path d="M248 22 L268 36 L248 50" stroke="#7ab800" stroke-width="7"/>
+  </g>
+</svg>

@@ -1,0 +1,498 @@
+{
+  "cloudName": "foxrj3tm",
+  "uploadedAt": "2026-08-29T17:25:28.441Z",
+  "assets": {
+    "assets/images/hero-about.png": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939245/capital-services/heroes/hero-about.jpg",
+      "publicId": "capital-services/heroes/hero-about",
+      "bytes": 720749,
+      "format": "jpg"
+    },
+    "assets/images/hero-clients.png": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939247/capital-services/heroes/hero-clients.jpg",
+      "publicId": "capital-services/heroes/hero-clients",
+      "bytes": 706564,
+      "format": "jpg"
+    },
+    "assets/images/hero-contact.png": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939249/capital-services/heroes/hero-contact.jpg",
+      "publicId": "capital-services/heroes/hero-contact",
+      "bytes": 656616,
+      "format": "jpg"
+    },
+    "assets/images/hero-home.png": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939252/capital-services/heroes/hero-home.jpg",
+      "publicId": "capital-services/heroes/hero-home",
+      "bytes": 833300,
+      "format": "jpg"
+    },
+    "assets/images/hero-services.png": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939255/capital-services/heroes/hero-services.jpg",
+      "publicId": "capital-services/heroes/hero-services",
+      "bytes": 1056379,
+      "format": "jpg"
+    },
+    "assets/images/hero-testimonials.png": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939257/capital-services/heroes/hero-testimonials.jpg",
+      "publicId": "capital-services/heroes/hero-testimonials",
+      "bytes": 666142,
+      "format": "jpg"
+    },
+    "assets/images/partners/1.png": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939258/capital-services/partners/1.png",
+      "publicId": "capital-services/partners/1",
+      "bytes": 8635,
+      "format": "png"
+    },
+    "assets/images/partners/10.png": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939259/capital-services/partners/10.png",
+      "publicId": "capital-services/partners/10",
+      "bytes": 5305,
+      "format": "png"
+    },
+    "assets/images/partners/11.png": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939260/capital-services/partners/11.png",
+      "publicId": "capital-services/partners/11",
+      "bytes": 5878,
+      "format": "png"
+    },
+    "assets/images/partners/12.png": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939261/capital-services/accreditations/12.png",
+      "publicId": "capital-services/accreditations/12",
+      "bytes": 9377,
+      "format": "png"
+    },
+    "assets/images/partners/13.png": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939263/capital-services/accreditations/13.png",
+      "publicId": "capital-services/accreditations/13",
+      "bytes": 11690,
+      "format": "png"
+    },
+    "assets/images/partners/14.png": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939264/capital-services/accreditations/14.png",
+      "publicId": "capital-services/accreditations/14",
+      "bytes": 28257,
+      "format": "png"
+    },
+    "assets/images/partners/15.png": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939264/capital-services/accreditations/15.png",
+      "publicId": "capital-services/accreditations/15",
+      "bytes": 12349,
+      "format": "png"
+    },
+    "assets/images/partners/16.png": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939265/capital-services/accreditations/16.png",
+      "publicId": "capital-services/accreditations/16",
+      "bytes": 17925,
+      "format": "png"
+    },
+    "assets/images/partners/2.png": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939266/capital-services/partners/2.png",
+      "publicId": "capital-services/partners/2",
+      "bytes": 5495,
+      "format": "png"
+    },
+    "assets/images/partners/3.png": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939267/capital-services/partners/3.png",
+      "publicId": "capital-services/partners/3",
+      "bytes": 9050,
+      "format": "png"
+    },
+    "assets/images/partners/4.png": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939268/capital-services/partners/4.png",
+      "publicId": "capital-services/partners/4",
+      "bytes": 8705,
+      "format": "png"
+    },
+    "assets/images/partners/6.png": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939270/capital-services/partners/6.png",
+      "publicId": "capital-services/partners/6",
+      "bytes": 6695,
+      "format": "png"
+    },
+    "assets/images/partners/7.png": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939271/capital-services/partners/7.png",
+      "publicId": "capital-services/partners/7",
+      "bytes": 15987,
+      "format": "png"
+    },
+    "assets/images/partners/8.png": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939272/capital-services/partners/8.png",
+      "publicId": "capital-services/partners/8",
+      "bytes": 7169,
+      "format": "png"
+    },
+    "assets/images/partners/9.png": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939273/capital-services/partners/9.png",
+      "publicId": "capital-services/partners/9",
+      "bytes": 14733,
+      "format": "png"
+    },
+    "assets/images/partners/bellway.jpg": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939274/capital-services/developers/bellway.jpg",
+      "publicId": "capital-services/developers/bellway",
+      "bytes": 2976,
+      "format": "jpg"
+    },
+    "assets/images/partners/berkeley.jpg": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939275/capital-services/developers/berkeley.jpg",
+      "publicId": "capital-services/developers/berkeley",
+      "bytes": 4694,
+      "format": "jpg"
+    },
+    "assets/images/partners/bovis-homes.jpg": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939276/capital-services/developers/bovis-homes.jpg",
+      "publicId": "capital-services/developers/bovis-homes",
+      "bytes": 4300,
+      "format": "jpg"
+    },
+    "assets/images/partners/cale-homes.png": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939277/capital-services/developers/cale-homes.png",
+      "publicId": "capital-services/developers/cale-homes",
+      "bytes": 1526,
+      "format": "png"
+    },
+    "assets/images/partners/crawford.png": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939277/capital-services/partners/crawford.png",
+      "publicId": "capital-services/partners/crawford",
+      "bytes": 22352,
+      "format": "png"
+    },
+    "assets/images/partners/crest-nicholson.png": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939278/capital-services/developers/crest-nicholson.png",
+      "publicId": "capital-services/developers/crest-nicholson",
+      "bytes": 2631,
+      "format": "png"
+    },
+    "assets/images/partners/home.png": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939280/capital-services/partners/home.png",
+      "publicId": "capital-services/partners/home",
+      "bytes": 319814,
+      "format": "png"
+    },
+    "assets/images/partners/lovell.jpg": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939281/capital-services/developers/lovell.jpg",
+      "publicId": "capital-services/developers/lovell",
+      "bytes": 2184,
+      "format": "jpg"
+    },
+    "assets/images/partners/lv.png": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1788024361/capital-services/partners/lv.png",
+      "publicId": "capital-services/partners/lv",
+      "bytes": 1018809,
+      "format": "png"
+    },
+    "assets/images/partners/lv.svg": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1788024362/capital-services/partners/lv.svg",
+      "publicId": "capital-services/partners/lv",
+      "bytes": 521,
+      "format": "svg"
+    },
+    "assets/images/partners/rectory.jpg": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939288/capital-services/developers/rectory.jpg",
+      "publicId": "capital-services/developers/rectory",
+      "bytes": 1937,
+      "format": "jpg"
+    },
+    "assets/images/partners/sedgwick-logo.png": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939289/capital-services/partners/sedgwick-logo.png",
+      "publicId": "capital-services/partners/sedgwick-logo",
+      "bytes": 32231,
+      "format": "png"
+    },
+    "assets/images/partners/sedgwick.png": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1788024367/capital-services/partners/sedgwick.png",
+      "publicId": "capital-services/partners/sedgwick",
+      "bytes": 32421,
+      "format": "png"
+    },
+    "assets/images/partners/sedgwick.svg": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1788024368/capital-services/partners/sedgwick.svg",
+      "publicId": "capital-services/partners/sedgwick",
+      "bytes": 535,
+      "format": "svg"
+    },
+    "assets/images/partners/spitfire-bespoke-homes.jpg": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939293/capital-services/developers/spitfire-bespoke-homes.jpg",
+      "publicId": "capital-services/developers/spitfire-bespoke-homes",
+      "bytes": 8209,
+      "format": "jpg"
+    },
+    "assets/images/partners/taylor-wimpey.jpg": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939294/capital-services/developers/taylor-wimpey.jpg",
+      "publicId": "capital-services/developers/taylor-wimpey",
+      "bytes": 5030,
+      "format": "jpg"
+    },
+    "assets/images/postcode-coverage-source.png": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939296/capital-services/coverage/postcode-coverage-source.jpg",
+      "publicId": "capital-services/coverage/postcode-coverage-source",
+      "bytes": 192035,
+      "format": "jpg"
+    },
+    "assets/images/simon.png": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939297/capital-services/misc/simon.png",
+      "publicId": "capital-services/misc/simon",
+      "bytes": 127019,
+      "format": "png"
+    },
+    "assets/images/team/aa.png": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939298/capital-services/team/aa.png",
+      "publicId": "capital-services/team/aa",
+      "bytes": 42224,
+      "format": "png"
+    },
+    "assets/images/team/ajay-mavinkurve.jpg": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1788024376/capital-services/team/ajay-mavinkurve.jpg",
+      "publicId": "capital-services/team/ajay-mavinkurve",
+      "bytes": 10968,
+      "format": "jpg"
+    },
+    "assets/images/team/ajay-mavinkurve.png": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1788024377/capital-services/team/ajay-mavinkurve.png",
+      "publicId": "capital-services/team/ajay-mavinkurve",
+      "bytes": 153723,
+      "format": "png"
+    },
+    "assets/images/team/ajay-mavinkurve.webp": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1788024379/capital-services/team/ajay-mavinkurve.webp",
+      "publicId": "capital-services/team/ajay-mavinkurve",
+      "bytes": 13178,
+      "format": "webp"
+    },
+    "assets/images/team/debbie-braxton.jpg": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939302/capital-services/team/debbie-braxton.jpg",
+      "publicId": "capital-services/team/debbie-braxton",
+      "bytes": 18384,
+      "format": "jpg"
+    },
+    "assets/images/team/jo-dunk.jpg": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939303/capital-services/team/jo-dunk.jpg",
+      "publicId": "capital-services/team/jo-dunk",
+      "bytes": 12062,
+      "format": "jpg"
+    },
+    "assets/images/team/keith-saunders.jpg": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939304/capital-services/team/keith-saunders.jpg",
+      "publicId": "capital-services/team/keith-saunders",
+      "bytes": 17038,
+      "format": "jpg"
+    },
+    "assets/images/team/kirstie-macdonald.jpg": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939305/capital-services/team/kirstie-macdonald.jpg",
+      "publicId": "capital-services/team/kirstie-macdonald",
+      "bytes": 8984,
+      "format": "jpg"
+    },
+    "assets/images/team/naomi-awad.jpg": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939305/capital-services/team/naomi-awad.jpg",
+      "publicId": "capital-services/team/naomi-awad",
+      "bytes": 14206,
+      "format": "jpg"
+    },
+    "assets/images/team/sid-turner.jpg": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939306/capital-services/team/sid-turner.jpg",
+      "publicId": "capital-services/team/sid-turner",
+      "bytes": 9959,
+      "format": "jpg"
+    },
+    "assets/images/team/simon-edwards.jpg": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1788024387/capital-services/team/simon-edwards.jpg",
+      "publicId": "capital-services/team/simon-edwards",
+      "bytes": 11416,
+      "format": "jpg"
+    },
+    "assets/images/team/simon-edwards.png": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1788024389/capital-services/team/simon-edwards.png",
+      "publicId": "capital-services/team/simon-edwards",
+      "bytes": 127019,
+      "format": "png"
+    },
+    "assets/images/team/terrryhallhan.png": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939311/capital-services/team/terrryhallhan.png",
+      "publicId": "capital-services/team/terrryhallhan",
+      "bytes": 321948,
+      "format": "png"
+    },
+    "assets/images/team/terry-hallahan.png": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939312/capital-services/team/terry-hallahan.png",
+      "publicId": "capital-services/team/terry-hallahan",
+      "bytes": 130571,
+      "format": "png"
+    },
+    "assets/images/team/terry-hallahan1.png": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939315/capital-services/team/terry-hallahan1.png",
+      "publicId": "capital-services/team/terry-hallahan1",
+      "bytes": 321948,
+      "format": "png"
+    },
+    "assets/images/team/trans.png": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939316/capital-services/team/trans.png",
+      "publicId": "capital-services/team/trans",
+      "bytes": 219236,
+      "format": "png"
+    },
+    "assets/images/trusted-partners-strip.png": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939317/capital-services/partners/trusted-partners-strip.jpg",
+      "publicId": "capital-services/partners/trusted-partners-strip",
+      "bytes": 18915,
+      "format": "jpg"
+    },
+    "assets/images/trusted-partners-strip1.png": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939318/capital-services/partners/trusted-partners-strip1.png",
+      "publicId": "capital-services/partners/trusted-partners-strip1",
+      "bytes": 22352,
+      "format": "png"
+    },
+    "assets/images/work/after/Gemini_Generated_Image_17jca217jca217jc-clean.png": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1788024402/capital-services/work-after/storm-damage.png",
+      "publicId": "capital-services/work-after/storm-damage",
+      "bytes": 9065821,
+      "format": "png"
+    },
+    "assets/images/work/after/Gemini_Generated_Image_7scia37scia37sci-clean.png": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1788024409/capital-services/work-after/fire-smoke-damage.png",
+      "publicId": "capital-services/work-after/fire-smoke-damage",
+      "bytes": 7766191,
+      "format": "png"
+    },
+    "assets/images/work/after/Gemini_Generated_Image_dhidbqdhidbqdhid-clean.png": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1788024416/capital-services/work-after/escape-of-water.png",
+      "publicId": "capital-services/work-after/escape-of-water",
+      "bytes": 7185253,
+      "format": "png"
+    },
+    "assets/images/work/after/Gemini_Generated_Image_k4yq0ek4yq0ek4yq-clean.png": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1788024424/capital-services/work-after/subsidence-damage.png",
+      "publicId": "capital-services/work-after/subsidence-damage",
+      "bytes": 10076536,
+      "format": "png"
+    },
+    "assets/images/work/after/Gemini_Generated_Image_kaqbvnkaqbvnkaqb-clean.png": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1788024434/capital-services/work-after/flood-damage.png",
+      "publicId": "capital-services/work-after/flood-damage",
+      "bytes": 8345391,
+      "format": "png"
+    },
+    "assets/images/work/after/Gemini_Generated_Image_vup3yrvup3yrvup3 (1)-clean.png": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1788024448/capital-services/work-after/impact-damage.png",
+      "publicId": "capital-services/work-after/impact-damage",
+      "bytes": 8985903,
+      "format": "png"
+    },
+    "assets/images/work/bespoke-service.jpg": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939319/capital-services/featured-work/bespoke-service.jpg",
+      "publicId": "capital-services/featured-work/bespoke-service",
+      "bytes": 34164,
+      "format": "jpg"
+    },
+    "assets/images/work/commercial-restored.png": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939322/capital-services/featured-work/commercial-restored.jpg",
+      "publicId": "capital-services/featured-work/commercial-restored",
+      "bytes": 729822,
+      "format": "jpg"
+    },
+    "assets/images/work/custom-care.jpg": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939323/capital-services/featured-work/custom-care.jpg",
+      "publicId": "capital-services/featured-work/custom-care",
+      "bytes": 34262,
+      "format": "jpg"
+    },
+    "assets/images/work/escape-of-water.png": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939327/capital-services/featured-work/escape-of-water.jpg",
+      "publicId": "capital-services/featured-work/escape-of-water",
+      "bytes": 749880,
+      "format": "jpg"
+    },
+    "assets/images/work/fire-damage-restored.png": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939331/capital-services/featured-work/fire-damage-restored.jpg",
+      "publicId": "capital-services/featured-work/fire-damage-restored",
+      "bytes": 776111,
+      "format": "jpg"
+    },
+    "assets/images/work/fire-smoke-damage.png": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939337/capital-services/featured-work/fire-smoke-damage.jpg",
+      "publicId": "capital-services/featured-work/fire-smoke-damage",
+      "bytes": 1015794,
+      "format": "jpg"
+    },
+    "assets/images/work/flood-damage.png": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939343/capital-services/featured-work/flood-damage.jpg",
+      "publicId": "capital-services/featured-work/flood-damage",
+      "bytes": 949655,
+      "format": "jpg"
+    },
+    "assets/images/work/impact-damage.png": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939349/capital-services/featured-work/impact-damage.jpg",
+      "publicId": "capital-services/featured-work/impact-damage",
+      "bytes": 1004304,
+      "format": "jpg"
+    },
+    "assets/images/work/insurance-repair.png": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939354/capital-services/featured-work/insurance-repair.jpg",
+      "publicId": "capital-services/featured-work/insurance-repair",
+      "bytes": 1056379,
+      "format": "jpg"
+    },
+    "assets/images/work/major-loss-restored.png": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939358/capital-services/featured-work/major-loss-restored.jpg",
+      "publicId": "capital-services/featured-work/major-loss-restored",
+      "bytes": 770989,
+      "format": "jpg"
+    },
+    "assets/images/work/reinstatement.png": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939363/capital-services/featured-work/reinstatement.jpg",
+      "publicId": "capital-services/featured-work/reinstatement",
+      "bytes": 833300,
+      "format": "jpg"
+    },
+    "assets/images/work/storm-damage.png": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939366/capital-services/featured-work/storm-damage.jpg",
+      "publicId": "capital-services/featured-work/storm-damage",
+      "bytes": 1026322,
+      "format": "jpg"
+    },
+    "assets/images/work/storm-reinstatement-restored.png": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939370/capital-services/featured-work/storm-reinstatement-restored.jpg",
+      "publicId": "capital-services/featured-work/storm-reinstatement-restored",
+      "bytes": 982261,
+      "format": "jpg"
+    },
+    "assets/images/work/subsidence-damage.png": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939375/capital-services/featured-work/subsidence-damage.jpg",
+      "publicId": "capital-services/featured-work/subsidence-damage",
+      "bytes": 1138908,
+      "format": "jpg"
+    },
+    "assets/images/work/subsidence-restored.png": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939380/capital-services/featured-work/subsidence-restored.jpg",
+      "publicId": "capital-services/featured-work/subsidence-restored",
+      "bytes": 1167387,
+      "format": "jpg"
+    },
+    "assets/images/work/water-damage-restored.png": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939383/capital-services/featured-work/water-damage-restored.jpg",
+      "publicId": "capital-services/featured-work/water-damage-restored",
+      "bytes": 688393,
+      "format": "jpg"
+    },
+    "assets/logos/Capital Services LOGO.jpg": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939389/capital-services/logos/capital-services-logo.jpg",
+      "publicId": "capital-services/logos/capital-services-logo",
+      "bytes": 1091641,
+      "format": "jpg"
+    },
+    "assets/logos/CS Logo & title House and Heart Large - High Res.jpg": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939390/capital-services/logos/cs-logo-title-house-and-heart-large-high-res.jpg",
+      "publicId": "capital-services/logos/cs-logo-title-house-and-heart-large-high-res",
+      "bytes": 175035,
+      "format": "jpg"
+    },
+    "assets/logos/CS Logo No text House and Heart Large - High Res.jpg": {
+      "url": "https://res.cloudinary.com/foxrj3tm/image/upload/v1787939391/capital-services/logos/cs-logo-no-text-house-and-heart-large-high-res.jpg",
+      "publicId": "capital-services/logos/cs-logo-no-text-house-and-heart-large-high-res",
+      "bytes": 89461,
+      "format": "jpg"
+    }
+  }
+}

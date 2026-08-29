@@ -36,7 +36,7 @@ async function generateReview() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${GROQ_API_KEY}` },
       body: JSON.stringify({
-        model: 'llama-3.3-70b-versatile',
+        model: process.env.GROQ_MODEL || 'openai/gpt-oss-120b',
         messages: [
           { role: 'system', content: 'You write authentic Google reviews. Output ONLY the review text — no quotes, no labels.' },
           { role: 'user', content: prompt }

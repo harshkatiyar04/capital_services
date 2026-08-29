@@ -253,20 +253,315 @@
   border-color: var(--brand-amber);
 }
 
+/* — Before / Worker / After image stack — */
 .peril-card-image {
   aspect-ratio: 16 / 10;
   overflow: hidden;
+  position: relative;
+  cursor: pointer;
 }
 
-.peril-card-image img {
+/* Base layer: AFTER (restored) image — always at bottom */
+.peril-card-image .peril-img-after {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform var(--duration-slow) var(--ease-out);
+  z-index: 1;
+  /* Placeholder effect for cards without real after images */
+  filter: brightness(1.2) contrast(1.1) saturate(1.4);
+  /* Subtle zoom for drama when revealed */
+  transform: scale(1.08);
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.peril-card:hover .peril-card-image img {
-  transform: scale(1.05);
+/* Real generated after images need no filter */
+.peril-card-image .peril-img-after.peril-img-real {
+  filter: none;
+}
+
+/* Top layer: BEFORE (damaged) image — circular clip reveal on hover */
+.peril-card-image .peril-img-before {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 3;
+  /* Full visibility by default */
+  clip-path: circle(150% at 50% 50%);
+  transition: clip-path 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Golden flash ring — sits between before and after during reveal */
+.peril-card-image::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(232,160,32,0.5) 0%, rgba(232,160,32,0.15) 40%, transparent 70%);
+  z-index: 2;
+  transform: translate(-50%, -50%);
+  transition: width 0.6s ease, height 0.6s ease, opacity 0.4s ease 0.5s;
+  opacity: 1;
+  pointer-events: none;
+}
+
+/* Worker overlay — middle layer */
+.peril-worker-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(26, 26, 26, 0.72);
+  backdrop-filter: blur(3px);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+
+/* Progress sweep bar */
+.peril-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--brand-amber), var(--brand-amber-light));
+  z-index: 5;
+  border-radius: 0 2px 2px 0;
+  transition: width 0s;
+}
+
+/* Before/After label badges */
+.peril-label {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 6;
+  padding: 4px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 11px;
+  font-weight: var(--fw-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-wide);
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.peril-label--before {
+  background: rgba(200, 16, 46, 0.9);
+  color: #fff;
+}
+
+.peril-label--after {
+  background: rgba(34, 139, 34, 0.9);
+  color: #fff;
+  opacity: 0;
+}
+
+/* Default state: show "BEFORE" label */
+.peril-card-image:not(.is-animating):not(.show-after) .peril-label--before {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Worker animation content */
+.peril-worker-content {
+  text-align: center;
+  color: #fff;
+  transform: translateY(12px);
+  opacity: 0;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.peril-worker-overlay.visible .peril-worker-content {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* CS Logo container — centered, spacious */
+.cs-logo-ring {
+  position: relative;
+  margin: 0 auto 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Full logo — readable at proper size */
+.cs-logo-icon {
+  width: 140px;
+  height: auto;
+  border-radius: 8px;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 4px 24px rgba(232, 160, 32, 0.25), 0 2px 8px rgba(0,0,0,0.4);
+}
+
+/* Progress ring — sits behind logo, subtle */
+.progress-ring {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  display: none; /* hidden — using bottom progress bar instead */
+}
+
+/* Worker overlay text */
+.worker-text {
+  font-family: var(--font-primary);
+  font-size: 13px;
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-wide);
+  color: rgba(255,255,255,0.9);
+  margin-top: 4px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.worker-dots {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  margin-top: 8px;
+}
+
+.worker-dots span {
+  width: 6px;
+  height: 6px;
+  background: var(--brand-amber);
+  border-radius: 50%;
+  animation: dotBlink 1.4s infinite both;
+}
+
+.worker-dots span:nth-child(1) { animation-delay: 0s; }
+.worker-dots span:nth-child(2) { animation-delay: 0.2s; }
+.worker-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes dotBlink {
+  0% { opacity: 0.2; transform: scale(0.8); }
+  20% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0.2; transform: scale(0.8); }
+}
+
+/* --- HOVER ANIMATION STATES --- */
+
+/* Phase 1: Hover starts — show worker overlay + start progress bar */
+.peril-card-image.is-animating .peril-worker-overlay {
+  opacity: 1;
+}
+
+.peril-card-image.is-animating .peril-progress {
+  width: 100%;
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Phase 2: Circular reveal — before image clips away from center */
+.peril-card-image.show-after .peril-img-before {
+  clip-path: circle(0% at 50% 50%);
+  transition: clip-path 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* After image zooms to natural scale during reveal */
+.peril-card-image.show-after .peril-img-after {
+  transform: scale(1);
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Golden flash ring expands during reveal */
+.peril-card-image.show-after::after {
+  width: 200%;
+  height: 200%;
+  opacity: 0;
+  transition: width 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              height 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.4s ease 0.5s;
+}
+
+/* Worker overlay fades during reveal */
+.peril-card-image.show-after .peril-worker-overlay {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+/* Progress bar fades */
+.peril-card-image.show-after .peril-progress {
+  opacity: 0;
+  transition: opacity 0.3s ease 0.1s;
+}
+
+/* After label appears with pop */
+.peril-card-image.show-after .peril-label--after {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition: opacity 0.4s ease 0.5s, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.5s;
+}
+
+.peril-card-image.show-after .peril-label--before {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+/* Reset on mouse leave — reverse circular reveal */
+.peril-card-image.is-resetting .peril-img-before {
+  clip-path: circle(150% at 50% 50%);
+  transition: clip-path 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.peril-card-image.is-resetting .peril-img-after {
+  transform: scale(1.08);
+  transition: transform 0.6s ease;
+}
+
+.peril-card-image.is-resetting::after {
+  width: 0;
+  height: 0;
+  opacity: 1;
+  transition: width 0s, height 0s, opacity 0s;
+}
+
+.peril-card-image.is-resetting .peril-worker-overlay {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.peril-card-image.is-resetting .peril-progress {
+  width: 0;
+  transition: width 0.3s ease;
+}
+
+.peril-card-image.is-resetting .peril-label--after {
+  opacity: 0;
+  transform: translateY(-6px);
+}
+
+.peril-card-image.is-resetting .peril-label--before {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.3s ease 0.3s, transform 0.3s ease 0.3s;
+}
+
+/* Reduced motion: instant swap, no animation */
+@media (prefers-reduced-motion: reduce) {
+  .peril-card-image .peril-img-before,
+  .peril-card-image .peril-img-after,
+  .peril-worker-overlay,
+  .peril-progress,
+  .peril-label,
+  .peril-worker-content {
+    animation: none !important;
+    transition: none !important;
+  }
 }
 
 .peril-card-body {
@@ -1242,33 +1537,88 @@
   }
 }
 
-/* Team leads — insurer account leads */
+/* Team leads — simple hover flip cards */
 .leads-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--space-xl);
   align-items: stretch;
 }
 
-.lead-card {
+.flip-card {
+  display: flex;
+  flex-direction: column;
   background: var(--bg-white);
   border: 1px solid var(--border-light);
   border-radius: var(--radius-lg);
-  padding: var(--space-xl) var(--space-lg) var(--space-lg);
-  text-align: center;
-  position: relative;
+  box-shadow: var(--shadow-sm);
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 100%;
+  perspective: 1200px;
   transition:
-    transform var(--duration-normal) var(--ease-out),
     box-shadow var(--duration-normal) var(--ease-out),
     border-color var(--duration-normal) var(--ease-out);
 }
 
-.lead-card::before {
+.flip-card-inner {
+  position: relative;
+  height: 360px;
+  flex-shrink: 0;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (hover: hover) {
+  .flip-card-inner:hover {
+    transform: rotateY(180deg);
+  }
+
+  .flip-card:has(.flip-card-inner:hover) {
+    box-shadow: var(--shadow-lg);
+    border-color: rgba(var(--accent-rgb), 0.35);
+  }
+}
+
+.flip-card.is-flipped .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card.is-flipped {
+  box-shadow: var(--shadow-lg);
+  border-color: rgba(var(--accent-rgb), 0.35);
+}
+
+.flip-card-foot {
+  flex-shrink: 0;
+  padding: var(--space-sm) var(--space-md) var(--space-md);
+  text-align: center;
+  border-top: 1px solid var(--border-light);
+  background: var(--bg-white);
+  min-height: 3.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flip-card-foot--empty {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.flip-card-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  background: var(--bg-white);
+  padding: var(--space-lg) var(--space-md);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+}
+
+.flip-card-face::before {
   content: '';
   position: absolute;
   top: 0;
@@ -1278,48 +1628,38 @@
   background: linear-gradient(90deg, var(--brand-amber), var(--brand-amber-light));
 }
 
-.lead-card:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-lg);
-  border-color: rgba(var(--accent-rgb), 0.4);
+.flip-card-front {
+  justify-content: center;
 }
 
-.lead-card-top {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-md);
-  margin-bottom: var(--space-md);
-  width: 100%;
+.flip-card-back {
+  transform: rotateY(180deg);
+  background: linear-gradient(165deg, #fffdf8 0%, #ffffff 60%);
+  justify-content: center;
+  padding: var(--space-lg);
 }
 
-.lead-num {
+.flip-num {
   font-size: var(--fs-xs);
   font-weight: var(--fw-bold);
   letter-spacing: var(--ls-wider);
   color: var(--brand-amber);
+  margin-bottom: var(--space-sm);
 }
 
-.lead-avatar {
-  width: 72px;
-  height: 72px;
+.flip-photo {
+  width: 88px;
+  height: 88px;
   border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--brand-black);
-  color: var(--brand-amber);
-  font-family: var(--font-display);
-  font-size: var(--fs-lg);
-  font-weight: 600;
-  letter-spacing: 0.04em;
+  overflow: hidden;
+  flex-shrink: 0;
+  margin-bottom: var(--space-sm);
   box-shadow:
     0 0 0 3px var(--bg-white),
     0 0 0 5px var(--brand-amber);
-  overflow: hidden;
 }
 
-.lead-avatar img {
+.flip-photo img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -1327,123 +1667,71 @@
   display: block;
 }
 
-.lead-card-head {
+.flip-photo--initials {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: var(--space-sm);
-  width: 100%;
-  margin-bottom: var(--space-sm);
+  justify-content: center;
+  background: var(--brand-black);
+  color: var(--brand-amber);
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  font-weight: 600;
+  letter-spacing: 0.04em;
 }
 
-.lead-card-head .linkedin-link {
-  margin-top: 0.15rem;
-}
-
-.lead-card h4 {
+.flip-card h4 {
   font-size: var(--fs-lg);
-  margin-bottom: var(--space-xs);
+  margin: 0 0 0.25rem;
   color: var(--brand-black);
-  width: 100%;
 }
 
-.lead-role {
+.flip-role {
   font-size: var(--fs-xs);
   font-weight: var(--fw-semibold);
   text-transform: uppercase;
   letter-spacing: var(--ls-wider);
   color: var(--text-muted);
-  margin: 0 0 var(--space-xl);
+  margin: 0 0 var(--space-sm);
+}
+
+.flip-bio {
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin: 0;
+  text-align: left;
   width: 100%;
 }
 
-.lead-accounts {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
+.flip-card-back h4 {
+  margin-bottom: var(--space-sm);
   width: 100%;
-  margin-top: auto;
-  align-items: stretch;
 }
 
-.lead-accounts--single {
-  grid-template-columns: 1fr;
-  max-width: none;
-  margin-left: 0;
-  margin-right: 0;
+.flip-card-back .flip-num {
+  margin-bottom: var(--space-xs);
 }
 
-.lead-logo,
-.lead-tag {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 72px;
-  padding: 12px 14px;
-  box-sizing: border-box;
-  background: #ffffff;
-  border: 1px solid var(--border-light);
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  transition:
-    border-color var(--duration-fast) var(--ease-out),
-    box-shadow var(--duration-fast) var(--ease-out);
-}
+@media (prefers-reduced-motion: reduce) {
+  .flip-card-inner {
+    transition: none;
+  }
 
-.lead-logo img {
-  display: block;
-  width: auto;
-  height: auto;
-  max-width: 100%;
-  max-height: 48px;
-  object-fit: contain;
-  object-position: center;
-}
+  .flip-card-back {
+    transform: none;
+    display: none;
+  }
 
-/* Dark logos need room to read — fill the slot */
-.lead-logo--dark {
-  background: #1a1a1a;
-  border-color: #1a1a1a;
-  padding: 0;
-}
+  .flip-card.is-flipped .flip-card-front,
+  .flip-card-inner:hover .flip-card-front {
+    display: none;
+  }
 
-.lead-logo--dark img {
-  width: 100%;
-  height: 100%;
-  max-height: none;
-  object-fit: contain;
-  padding: 14px 16px;
-  box-sizing: border-box;
-}
-
-.lead-logo--wide img {
-  max-height: 56px;
-  max-width: 92%;
-  width: auto;
-}
-
-.lead-logo--lv img {
-  max-height: 44px;
-  max-width: 88%;
-}
-
-.lead-tag {
-  font-size: 1rem;
-  font-weight: var(--fw-bold);
-  letter-spacing: 0.08em;
-  color: var(--brand-black);
-  background: #ffffff;
-}
-
-.lead-card:hover .lead-logo,
-.lead-card:hover .lead-tag {
-  border-color: rgba(var(--accent-rgb), 0.55);
-  box-shadow: 0 4px 14px rgba(26, 26, 26, 0.08);
-}
-
-.lead-card:hover .lead-logo--dark {
-  border-color: var(--brand-amber);
+  .flip-card.is-flipped .flip-card-back,
+  .flip-card-inner:hover .flip-card-back {
+    display: flex;
+    transform: none;
+  }
 }
 
 @media (max-width: 1024px) {

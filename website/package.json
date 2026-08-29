@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "review": "node auto-review.mjs"
+    "review": "node auto-review.mjs",
+    "cloudinary:upload": "node scripts/upload-cloudinary.mjs",
+    "cloudinary:apply": "node scripts/apply-cloudinary-manifest.mjs"
   },
   "devDependencies": {
     "concurrently": "^9.2.3",
@@ -15,6 +17,7 @@
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.1.0",
+    "cloudinary": "^2.11.0",
     "dotenv": "^17.4.2",
     "puppeteer-core": "^24.43.1"
   }
