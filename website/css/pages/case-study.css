@@ -1,0 +1,600 @@
+/* ================================================================
+   CAPITAL SERVICES — Case Study Page Styles
+   ================================================================ */
+
+/* ── Hero (full-bleed photo) ── */
+.cs-hero {
+  position: relative;
+  padding: calc(var(--nav-height) + var(--space-4xl)) 0 var(--space-4xl);
+  background: var(--bg-dark);
+  overflow: hidden;
+  min-height: min(72vh, 640px);
+  display: flex;
+  align-items: flex-end;
+}
+
+.cs-hero__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.cs-hero__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1.06);
+  animation: csHeroKen 18s ease-out forwards;
+}
+
+@keyframes csHeroKen {
+  from { transform: scale(1.1); opacity: 0.85; }
+  to { transform: scale(1.02); opacity: 1; }
+}
+
+.cs-hero__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(180deg, rgba(26, 26, 26, 0.55) 0%, rgba(26, 26, 26, 0.72) 45%, rgba(26, 26, 26, 0.92) 100%),
+    radial-gradient(ellipse 70% 50% at 20% 80%, rgba(232, 160, 32, 0.18) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.cs-hero .container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+.cs-hero__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 6px 16px;
+  background: rgba(232, 160, 32, 0.18);
+  border: 1px solid rgba(232, 160, 32, 0.4);
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-weight: var(--fw-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--brand-amber);
+  margin-bottom: var(--space-xl);
+  backdrop-filter: blur(8px);
+}
+
+.cs-hero__badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--brand-amber);
+  box-shadow: 0 0 0 3px rgba(232, 160, 32, 0.25);
+}
+
+.cs-hero__title {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 5vw, 3.75rem);
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-md);
+  max-width: 720px;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.35);
+}
+
+.cs-hero__subtitle {
+  font-size: clamp(1rem, 1.8vw, 1.2rem);
+  color: rgba(255, 255, 255, 0.72);
+  max-width: 560px;
+  line-height: 1.6;
+  margin-bottom: var(--space-3xl);
+}
+
+.cs-hero__stats {
+  display: flex;
+  gap: 0;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  max-width: 640px;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.cs-hero__stat {
+  flex: 1;
+  padding: var(--space-lg) var(--space-xl);
+  text-align: center;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.cs-hero__stat:last-child {
+  border-right: none;
+}
+
+.cs-hero__stat-value {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: var(--fw-extrabold);
+  color: var(--brand-amber);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.cs-hero__stat-label {
+  font-size: 11px;
+  font-weight: var(--fw-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+/* ── Project Overview ── */
+.cs-overview {
+  padding: var(--space-4xl) 0;
+}
+
+.cs-overview__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3xl);
+}
+
+.cs-overview__col {
+  padding: var(--space-2xl);
+  border-radius: var(--radius-lg);
+  background: var(--bg-white);
+  border: 1px solid var(--border-light);
+}
+
+.cs-overview__col-label {
+  display: block;
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--brand-red);
+  margin-bottom: var(--space-md);
+}
+
+.cs-overview__col-label::before {
+  content: '';
+  display: inline-block;
+  width: 16px;
+  height: 2px;
+  background: var(--brand-amber);
+  margin-right: var(--space-sm);
+  vertical-align: middle;
+}
+
+.cs-overview__col h3 {
+  font-size: var(--fs-xl);
+  margin-bottom: var(--space-lg);
+  color: var(--brand-black);
+}
+
+.cs-overview__col p {
+  font-size: var(--fs-base);
+  line-height: 1.75;
+  color: var(--text-secondary);
+}
+
+.cs-overview__col p + p {
+  margin-top: var(--space-md);
+}
+
+/* ── Before / After Slider ── */
+.cs-gallery {
+  padding: var(--space-4xl) 0;
+  background: var(--bg-muted);
+}
+
+.cs-ba {
+  position: relative;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  cursor: col-resize;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-light);
+  touch-action: none;
+  outline: none;
+}
+
+.cs-ba:focus-visible {
+  box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.45), var(--shadow-lg);
+}
+
+.cs-ba__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  user-select: none;
+  pointer-events: none;
+}
+
+.cs-ba__img--after {
+  z-index: 1;
+}
+
+.cs-ba__img--before {
+  z-index: 2;
+  clip-path: inset(0 50% 0 0);
+}
+
+.cs-ba__handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 3px;
+  background: #fff;
+  z-index: 10;
+  transform: translateX(-50%);
+  cursor: col-resize;
+  box-shadow: 0 0 0 1px rgba(26, 26, 26, 0.15), 0 0 16px rgba(232, 160, 32, 0.45);
+}
+
+.cs-ba__handle::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--brand-amber) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' fill='none' stroke='%231a1a1a' stroke-width='2.5' stroke-linecap='round'%3E%3Cpath d='M7 10H17M7 10L9 7M7 10L9 13M17 10L15 7M17 10L15 13'/%3E%3C/svg%3E") center / 22px no-repeat;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+  border: 2px solid #fff;
+}
+
+.cs-ba__label {
+  position: absolute;
+  bottom: 16px;
+  padding: 6px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 11px;
+  font-weight: var(--fw-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.cs-ba__label--before {
+  left: 16px;
+  background: rgba(200, 16, 46, 0.9);
+  color: #fff;
+}
+
+.cs-ba__label--after {
+  right: 16px;
+  background: rgba(34, 139, 34, 0.9);
+  color: #fff;
+}
+
+.cs-ba.is-hinting .cs-ba__img--before,
+.cs-ba.is-hinting .cs-ba__handle {
+  transition: clip-path 1.1s cubic-bezier(0.32, 0.94, 0.45, 1), left 1.1s cubic-bezier(0.32, 0.94, 0.45, 1);
+}
+
+/* ── Timeline ── */
+.cs-timeline {
+  padding: var(--space-4xl) 0;
+}
+
+.cs-timeline__track {
+  position: relative;
+  padding-left: 48px;
+}
+
+.cs-timeline__track::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 19px;
+  width: 2px;
+  height: 100%;
+  background: var(--border-light);
+}
+
+.cs-timeline__line-fill {
+  position: absolute;
+  top: 0;
+  left: 19px;
+  width: 2px;
+  height: 0;
+  background: linear-gradient(to bottom, var(--brand-amber), var(--brand-amber-light));
+  transition: height 0.1s linear;
+  z-index: 1;
+}
+
+.cs-timeline__item {
+  position: relative;
+  padding-bottom: var(--space-3xl);
+}
+
+.cs-timeline__item:last-child {
+  padding-bottom: 0;
+}
+
+.cs-timeline__dot {
+  position: absolute;
+  left: -48px;
+  top: 2px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--bg-white);
+  border: 2px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  transition:
+    border-color 0.4s var(--ease-out),
+    background 0.4s var(--ease-out),
+    transform 0.35s var(--ease-out),
+    box-shadow 0.35s var(--ease-out);
+}
+
+.cs-timeline__dot svg {
+  width: 18px;
+  height: 18px;
+  color: var(--text-muted);
+  transition: color 0.4s var(--ease-out);
+}
+
+.cs-timeline__item.is-active .cs-timeline__dot {
+  border-color: var(--brand-amber);
+  background: var(--brand-amber);
+  transform: scale(1.06);
+  box-shadow: 0 0 0 4px rgba(var(--accent-rgb), 0.2);
+}
+
+.cs-timeline__item.is-active .cs-timeline__dot svg {
+  color: var(--brand-black);
+}
+
+.cs-timeline__step {
+  font-size: 11px;
+  font-weight: var(--fw-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--brand-amber);
+  margin-bottom: 4px;
+}
+
+.cs-timeline__title {
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-semibold);
+  color: var(--brand-black);
+  margin-bottom: var(--space-sm);
+}
+
+.cs-timeline__desc {
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 540px;
+}
+
+/* ── Project Details Grid ── */
+.cs-details {
+  padding: var(--space-4xl) 0;
+  background: var(--bg-muted);
+}
+
+.cs-details__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-lg);
+}
+
+.cs-detail-card {
+  background: var(--bg-white);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  transition:
+    border-color var(--duration-normal) var(--ease-out),
+    transform var(--duration-normal) var(--ease-out);
+}
+
+.cs-detail-card:hover {
+  border-color: var(--brand-amber);
+  transform: translateY(-3px);
+}
+
+.cs-detail-card__label {
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: var(--space-xs);
+}
+
+.cs-detail-card__value {
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-bold);
+  color: var(--brand-black);
+}
+
+/* ── Testimonial ── */
+.cs-testimonial {
+  padding: var(--space-4xl) 0;
+}
+
+.cs-testimonial__card {
+  max-width: 720px;
+  margin: 0 auto;
+  background: var(--bg-white);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-xl);
+  padding: var(--space-3xl);
+  text-align: center;
+  box-shadow: var(--shadow-md);
+}
+
+.cs-testimonial__stars {
+  display: flex;
+  justify-content: center;
+  gap: 3px;
+  margin-bottom: var(--space-lg);
+  color: var(--brand-amber);
+  font-size: 18px;
+}
+
+.cs-testimonial__quote {
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  font-style: italic;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: var(--space-xl);
+}
+
+.cs-testimonial__author {
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-sm);
+  color: var(--text-primary);
+}
+
+.cs-testimonial__role {
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+}
+
+/* ── CTA Band ── */
+.cs-cta {
+  padding: var(--space-4xl) 0;
+  background: var(--bg-dark);
+  text-align: center;
+}
+
+.cs-cta h2 {
+  color: #ffffff;
+  font-size: var(--fs-3xl);
+  margin-bottom: var(--space-md);
+}
+
+.cs-cta p {
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: var(--space-2xl);
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cs-cta__actions {
+  display: flex;
+  gap: var(--space-md);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.cs-cta .btn-outline {
+  border-color: rgba(255, 255, 255, 0.35);
+  color: #fff;
+}
+
+.cs-cta .btn-outline:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--brand-amber);
+  color: var(--brand-amber);
+}
+
+/* ── Related Case Studies ── */
+.cs-related {
+  padding: var(--space-4xl) 0;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .cs-overview__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cs-details__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .cs-hero {
+    min-height: auto;
+    padding: calc(var(--nav-height) + var(--space-2xl)) 0 var(--space-2xl);
+  }
+
+  .cs-hero__stats {
+    flex-direction: column;
+    max-width: 300px;
+  }
+
+  .cs-hero__stat {
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: var(--space-md);
+  }
+
+  .cs-hero__stat:last-child {
+    border-bottom: none;
+  }
+
+  .cs-details__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cs-ba {
+    aspect-ratio: 4 / 3;
+  }
+
+  .cs-timeline__track {
+    padding-left: 40px;
+  }
+
+  .cs-timeline__dot {
+    left: -40px;
+    width: 32px;
+    height: 32px;
+  }
+
+  .cs-timeline__dot svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .cs-timeline__track::before,
+  .cs-timeline__line-fill {
+    left: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cs-cta__actions {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cs-hero__media img {
+    animation: none;
+    transform: none;
+  }
+
+  .cs-timeline__line-fill,
+  .cs-timeline__dot,
+  .cs-ba.is-hinting .cs-ba__img--before,
+  .cs-ba.is-hinting .cs-ba__handle {
+    transition: none;
+  }
+}

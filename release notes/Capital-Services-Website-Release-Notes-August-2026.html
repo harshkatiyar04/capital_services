@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Capital Services — Website Release Notes (August 2026)</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+    @page {
+      size: A4;
+      margin: 22mm 20mm 24mm 20mm;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', Arial, sans-serif;
+      font-size: 10.5pt;
+      line-height: 1.55;
+      color: #1a1a1a;
+      background: #fff;
+    }
+
+    .cover {
+      page-break-after: always;
+      min-height: 240mm;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 12mm 0;
+      border-bottom: 4px solid #e8a020;
+    }
+
+    .cover .label {
+      font-size: 10pt;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #c8102e;
+      margin-bottom: 14px;
+    }
+
+    .cover h1 {
+      font-size: 28pt;
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 10px;
+      max-width: 16ch;
+    }
+
+    .cover .tagline {
+      font-size: 13pt;
+      color: #5c5c5c;
+      margin-bottom: 36px;
+    }
+
+    .cover .meta {
+      font-size: 10pt;
+      color: #5c5c5c;
+    }
+
+    .cover .meta strong { color: #1a1a1a; }
+
+    h2 {
+      font-size: 14pt;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin: 22px 0 10px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid #f0eeea;
+    }
+
+    h2:first-of-type { margin-top: 0; }
+
+    h3 {
+      font-size: 11pt;
+      font-weight: 700;
+      margin: 14px 0 6px;
+      color: #1a1a1a;
+    }
+
+    p { margin-bottom: 10px; color: #3d3d3d; }
+
+    ul {
+      margin: 0 0 12px 18px;
+      color: #3d3d3d;
+    }
+
+    li { margin-bottom: 5px; }
+
+    .summary-box {
+      background: #faf9f7;
+      border-left: 4px solid #e8a020;
+      padding: 14px 16px;
+      margin: 14px 0 18px;
+      border-radius: 0 6px 6px 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0 18px;
+      font-size: 10pt;
+    }
+
+    th, td {
+      border: 1px solid #e8e4dc;
+      padding: 8px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f0eeea;
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+
+    code {
+      font-family: Consolas, 'Courier New', monospace;
+      font-size: 9.5pt;
+      background: #f5f3ef;
+      padding: 1px 5px;
+      border-radius: 3px;
+    }
+
+    .footer-note {
+      margin-top: 28px;
+      padding-top: 12px;
+      border-top: 1px solid #e8e4dc;
+      font-size: 9pt;
+      color: #8a8a8a;
+    }
+
+    .page-break { page-break-before: always; }
+  </style>
+</head>
+<body>
+
+  <section class="cover">
+    <p class="label">Release Notes</p>
+    <h1>Capital Services Website</h1>
+    <p class="tagline">Insurance Perils animation, Cloudinary CDN &amp; team experience update</p>
+    <p class="meta"><strong>Version:</strong> 1.2.0 &nbsp;|&nbsp; <strong>Release date:</strong> 29 August 2026</p>
+    <p class="meta" style="margin-top:8px;"><strong>Prepared for:</strong> Capital Services Ltd</p>
+    <p class="meta"><strong>Repository:</strong> alphah-dev/capital_services_draft</p>
+    <p class="meta"><strong>Environment:</strong> Vite static site — deployed via Vercel</p>
+  </section>
+
+  <section>
+    <h2>Executive Summary</h2>
+    <div class="summary-box">
+      <p>Release 1.2.0 strengthens the Capital Services demo website with an interactive <strong>Before → After</strong> animation on Insurance Peril cards, a full migration of site imagery to the <strong>Cloudinary CDN</strong>, refreshed <strong>Team Leads</strong> content on the About page, and operational improvements to the internal team portal. The release is production-ready on Vercel and maintains the brand positioning established in version 1.1.0.</p>
+    </div>
+
+    <h2>Release Highlights</h2>
+    <ul>
+      <li>Interactive peril card animation on Home and Services — damaged property transitions to restored outcome on hover (touch-supported).</li>
+      <li>Six AI-generated “after restoration” images hosted on Cloudinary under structured public IDs.</li>
+      <li>Full media CDN migration to Cloudinary account <code>foxrj3tm</code> with automated upload and apply scripts.</li>
+      <li>About page Team Leads redesigned with flip-card profiles, professional bios, and fixed LinkedIn actions.</li>
+      <li>Team portal routes (<code>/team</code>, <code>/crew</code>, <code>/admin</code>, <code>/survey</code>) corrected for Vercel deployment.</li>
+      <li>Survey persistence fix for PostgreSQL JSON handling on the operations API.</li>
+      <li>Responsive layout refinements for laptop, tablet, and mobile viewports.</li>
+    </ul>
+
+    <h2>New Features</h2>
+
+    <h3>Insurance Perils — Before / After Hover Animation</h3>
+    <p>Each of the six peril cards (Escape of Water, Flood Damage, Fire &amp; Smoke, Subsidence, Impact Damage, Storm Damage) now presents a three-phase interaction:</p>
+    <ul>
+      <li><strong>Before state</strong> — Damaged property photograph with a red “Before” badge.</li>
+      <li><strong>Restoration overlay</strong> — Branded Capital Services logo, “Restoring your property…” messaging with animated progress indicator.</li>
+      <li><strong>After reveal</strong> — Circular clip-path transition revealing the restored property image with a green “✓ Restored” badge.</li>
+    </ul>
+    <p>The animation reverses smoothly on mouse leave. On touch devices, the first tap triggers the sequence; a second tap resets the card. Users who prefer reduced motion receive a simplified, non-animated presentation.</p>
+
+    <h3>Cloudinary Media Delivery</h3>
+    <p>Site assets previously served from local <code>assets/</code> paths or legacy CDN accounts have been consolidated on Cloudinary. Delivery URLs include automatic format and quality optimisation (<code>f_auto,q_auto</code>). Restoration “after” images are capped at 1200px width for faster page loads.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Peril</th>
+          <th>Cloudinary path</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Escape of Water</td><td><code>capital-services/work-after/escape-of-water</code></td></tr>
+        <tr><td>Flood Damage</td><td><code>capital-services/work-after/flood-damage</code></td></tr>
+        <tr><td>Fire &amp; Smoke</td><td><code>capital-services/work-after/fire-smoke-damage</code></td></tr>
+        <tr><td>Subsidence</td><td><code>capital-services/work-after/subsidence-damage</code></td></tr>
+        <tr><td>Impact Damage</td><td><code>capital-services/work-after/impact-damage</code></td></tr>
+        <tr><td>Storm Damage</td><td><code>capital-services/work-after/storm-damage</code></td></tr>
+      </tbody>
+    </table>
+
+    <h3>About Page — Team Leads</h3>
+    <ul>
+      <li>Six team lead profiles with numbered cards, circular portraits (or initials where no photograph is available), and role-focused bios sourced from public professional profiles.</li>
+      <li>Hover-to-flip interaction reveals extended biography on the reverse of each card.</li>
+      <li>LinkedIn links positioned in a fixed footer area so they remain clickable and do not rotate with the card.</li>
+      <li>Insurer logo assignments removed from team lead cards in favour of neutral, role-based copy.</li>
+    </ul>
+
+    <h3>Team Portal (Internal)</h3>
+    <ul>
+      <li>Crew login and survey submission workflow.</li>
+      <li>Admin dashboard for issue tracking, survey responses, and leaderboard.</li>
+      <li>PostgreSQL-backed persistence when <code>DATABASE_URL</code> is configured on Vercel.</li>
+    </ul>
+
+    <div class="page-break"></div>
+
+    <h2>Improvements &amp; Fixes</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Area</th>
+          <th>Change</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Vercel routing</td><td>Clean URLs for <code>/team</code>, <code>/crew</code>, <code>/admin</code>, and <code>/survey</code> via <code>vercel.json</code> rewrites.</td></tr>
+        <tr><td>Survey API</td><td>Resolved HTTP 500 when saving survey sections to Postgres (JSON serialisation).</td></tr>
+        <tr><td>Responsive design</td><td>Layout optimisations for 1366px laptops and smaller breakpoints sitewide.</td></tr>
+        <tr><td>Coverage map</td><td>Optional map-only colour preview for stakeholder demonstrations.</td></tr>
+        <tr><td>Leadership imagery</td><td>Updated photography for Ajay Mavinkurve and Terry Hallahan via Cloudinary.</td></tr>
+        <tr><td>Partner assets</td><td>Sedgwick and Home insurer logos added to partner library.</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Pages Affected</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Page</th>
+          <th>Updates in 1.2.0</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Home</td><td>Peril before/after animation; Cloudinary image URLs</td></tr>
+        <tr><td>Services</td><td>Peril before/after animation; Cloudinary image URLs</td></tr>
+        <tr><td>About</td><td>Team Leads flip cards; leadership bios; Cloudinary team photos</td></tr>
+        <tr><td>Team / Crew / Admin / Survey</td><td>Portal pages and API wiring for Vercel</td></tr>
+        <tr><td>All pages</td><td>CDN-delivered heroes, partners, and work imagery</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Technical Notes</h2>
+    <h3>Stack &amp; hosting</h3>
+    <ul>
+      <li><strong>Frontend:</strong> Static HTML, CSS, JavaScript — Vite 6 build.</li>
+      <li><strong>Animation:</strong> Pure CSS transitions and vanilla JavaScript (no third-party animation libraries).</li>
+      <li><strong>CDN:</strong> Cloudinary (<code>foxrj3tm</code>) — 82 assets catalogued in <code>data/cloudinary-manifest.json</code>.</li>
+      <li><strong>Hosting:</strong> Vercel — build command <code>npm run build</code>, output <code>dist/</code>.</li>
+    </ul>
+
+    <h3>Developer scripts</h3>
+    <ul>
+      <li><code>npm run cloudinary:upload</code> — Upload local assets to Cloudinary and refresh manifest.</li>
+      <li><code>npm run cloudinary:apply</code> — Replace local asset paths in HTML, CSS, and JS with CDN delivery URLs.</li>
+    </ul>
+
+    <h3>Environment variables (Vercel)</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Variable</th>
+          <th>Required for</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><code>DATABASE_URL</code></td><td>Team portal / surveys</td><td>Neon or compatible Postgres connection string</td></tr>
+        <tr><td><code>JWT_SECRET</code></td><td>Crew authentication</td><td>Long random string</td></tr>
+        <tr><td><code>ADMIN_USER</code> / <code>ADMIN_PASSWORD</code></td><td>Admin panel</td><td>Change defaults before go-live</td></tr>
+        <tr><td><code>GROQ_API_KEY</code></td><td>AI review draft (Contact)</td><td>Optional; fallback copy available</td></tr>
+        <tr><td><code>CLOUDINARY_*</code></td><td>Local upload scripts only</td><td>Not required on Vercel for live site delivery</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Accessibility &amp; Performance</h2>
+    <ul>
+      <li><code>prefers-reduced-motion</code> honoured on peril card animations and flip-card interactions.</li>
+      <li>Lazy loading applied to non-critical imagery.</li>
+      <li>GPU-accelerated <code>clip-path</code> used for peril reveal transitions.</li>
+      <li>After-restoration images delivered via Cloudinary with automatic compression and format selection.</li>
+    </ul>
+
+    <h2>Known Considerations</h2>
+    <ul>
+      <li>Team lead bios are summarised from publicly available professional information and should be reviewed by HR or leadership before a public go-live.</li>
+      <li>Stephanie Baxter does not currently have a verified LinkedIn profile linked on the site.</li>
+      <li>Cloudinary credentials belong in local <code>.env</code> only — never commit secrets to the repository.</li>
+      <li>Original high-resolution “after” PNGs remain available locally for re-upload if further compression is desired.</li>
+    </ul>
+
+    <h2>Recommended Next Steps</h2>
+    <ul>
+      <li>Confirm Vercel deployment completed successfully after the GitHub push to <code>main</code>.</li>
+      <li>Stakeholder walkthrough of peril animations on desktop and mobile.</li>
+      <li>Leadership sign-off on Team Leads copy and photography.</li>
+      <li>Rotate any credentials that may have been shared during deployment setup.</li>
+      <li>Connect the contact form to a live CRM or email endpoint when ready for production.</li>
+    </ul>
+
+    <p class="footer-note">
+      Capital Services Ltd &nbsp;·&nbsp; "We care and it shows" &nbsp;·&nbsp; Document generated 29 August 2026<br>
+      Release 1.2.0 — supersedes the July 2026 release notes (v1.1.0). Intended for internal stakeholder communication.
+    </p>
+  </section>
+
+</body>
+</html>

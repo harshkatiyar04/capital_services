@@ -1,5 +1,11 @@
 /** Office location mini-maps (Leaflet) */
 
+import {
+  createTileLayer,
+  registerTileLayer,
+  getStoredMapProvider,
+} from './map-tiles.js';
+
 export const OFFICES = [
   {
     id: 'watford',
@@ -86,6 +92,7 @@ export async function initOfficeMaps() {
   }
 
   const pin = createPinIcon(L);
+  const provider = getStoredMapProvider();
 
   mapEls.forEach((el) => {
     const id = el.dataset.officeMap;
@@ -99,10 +106,9 @@ export async function initOfficeMaps() {
       attributionControl: false,
     }).setView([office.lat, office.lng], office.zoom);
 
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-      subdomains: 'abcd',
-      maxZoom: 18,
-    }).addTo(map);
+    const tiles = createTileLayer(L, provider);
+    tiles.addTo(map);
+    registerTileLayer(tiles);
 
     L.marker([office.lat, office.lng], { icon: pin })
       .addTo(map)

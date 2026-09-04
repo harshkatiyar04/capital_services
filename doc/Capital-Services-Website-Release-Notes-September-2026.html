@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Capital Services — Website Release Notes (September 2026)</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+    @page {
+      size: A4;
+      margin: 22mm 20mm 24mm 20mm;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', Arial, sans-serif;
+      font-size: 10.5pt;
+      line-height: 1.55;
+      color: #1a1a1a;
+      background: #fff;
+    }
+
+    .cover {
+      page-break-after: always;
+      min-height: 240mm;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 12mm 0;
+      border-bottom: 4px solid #e8a020;
+    }
+
+    .cover .label {
+      font-size: 10pt;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #c8102e;
+      margin-bottom: 14px;
+    }
+
+    .cover h1 {
+      font-size: 28pt;
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 10px;
+      max-width: 16ch;
+    }
+
+    .cover .tagline {
+      font-size: 13pt;
+      color: #5c5c5c;
+      margin-bottom: 36px;
+    }
+
+    .cover .meta {
+      font-size: 10pt;
+      color: #5c5c5c;
+    }
+
+    .cover .meta strong { color: #1a1a1a; }
+
+    h2 {
+      font-size: 14pt;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin: 22px 0 10px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid #f0eeea;
+    }
+
+    h2:first-of-type { margin-top: 0; }
+
+    h3 {
+      font-size: 11pt;
+      font-weight: 700;
+      margin: 14px 0 6px;
+      color: #1a1a1a;
+    }
+
+    p { margin-bottom: 10px; color: #3d3d3d; }
+
+    ul {
+      margin: 0 0 12px 18px;
+      color: #3d3d3d;
+    }
+
+    li { margin-bottom: 5px; }
+
+    .summary-box {
+      background: #faf9f7;
+      border-left: 4px solid #e8a020;
+      padding: 14px 16px;
+      margin: 14px 0 18px;
+      border-radius: 0 6px 6px 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0 18px;
+      font-size: 10pt;
+    }
+
+    th, td {
+      border: 1px solid #e8e4dc;
+      padding: 8px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f0eeea;
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+
+    code {
+      font-family: Consolas, 'Courier New', monospace;
+      font-size: 9.5pt;
+      background: #f5f3ef;
+      padding: 1px 5px;
+      border-radius: 3px;
+    }
+
+    .footer-note {
+      margin-top: 28px;
+      padding-top: 12px;
+      border-top: 1px solid #e8e4dc;
+      font-size: 9pt;
+      color: #8a8a8a;
+    }
+
+    .page-break { page-break-before: always; }
+  </style>
+</head>
+<body>
+
+  <section class="cover">
+    <p class="label">Release Notes</p>
+    <h1>Capital Services Website</h1>
+    <p class="tagline">Premium case studies, coverage map basemap &amp; site polish</p>
+    <p class="meta"><strong>Version:</strong> 1.3.0 &nbsp;|&nbsp; <strong>Release date:</strong> 5 September 2026</p>
+    <p class="meta" style="margin-top:8px;"><strong>Prepared for:</strong> Capital Services Ltd</p>
+    <p class="meta"><strong>Repository:</strong> alphah-dev/capital_services_draft</p>
+    <p class="meta"><strong>Environment:</strong> Vite static site — deployed via Vercel</p>
+  </section>
+
+  <section>
+    <h2>Executive Summary</h2>
+    <div class="summary-box">
+      <p>Release 1.3.0 delivers six full <strong>illustrative case study</strong> pages with real Cloudinary before/after imagery and an upgraded drag comparison slider, locks the coverage maps to an <strong>Esri Satellite</strong> basemap with brand amber overlays, and removes unfinished demo placeholders from Testimonials. Clients and Home “View Case Study” links now land on dedicated, production-quality story pages.</p>
+    </div>
+
+    <h2>Release Highlights</h2>
+    <ul>
+      <li>Six premium case study pages: Water, Fire, Storm, Subsidence, Commercial, and Major Loss.</li>
+      <li>Real before/after Cloudinary pairs on every page — no CSS-filtered duplicate images.</li>
+      <li>Interactive drag slider with scroll-in hint wipe, clearer handle, and keyboard support.</li>
+      <li>Full-bleed hero, challenge/approach storytelling, six-phase timeline, key data, testimonial, CTA, and related cases.</li>
+      <li>Coverage and office maps use Esri World Imagery; colour-preview demo UI removed.</li>
+      <li>Placeholder “Client Stories” video cards removed from Testimonials.</li>
+      <li>Coverage map status text letter-spacing corrected for readability.</li>
+    </ul>
+
+    <h2>New Features</h2>
+
+    <h3>Premium Case Study Pages</h3>
+    <p>Each peril now has a dedicated page registered in the Vite multi-page build and linked from Clients (all six) and Home (Water, Storm, Commercial). Shared styles and scripts live in <code>css/pages/case-study.css</code> and <code>js/pages/case-study.js</code>.</p>
+    <p>Page structure on every case study:</p>
+    <ul>
+      <li><strong>Full-bleed hero</strong> — scene photography, category badge, title, subtitle, animated claim / duration / trades counters.</li>
+      <li><strong>Challenge / Approach</strong> — two-column project storytelling.</li>
+      <li><strong>Before &amp; After slider</strong> — real photographs with drag, touch, arrow-key control, and a one-time auto-hint wipe on scroll-in.</li>
+      <li><strong>Project timeline</strong> — six concrete phases with scroll-fill progress.</li>
+      <li><strong>Key data</strong> — insurer, location, property type, value, duration, lead.</li>
+      <li><strong>Testimonial, CTA, and related case cards</strong> — cross-linked among the six stories.</li>
+    </ul>
+    <p>Copy is demo-realistic (UK locations, plausible claim values, illustrative insurer names) and matches the tone of the existing marketing site. A cinematic hover reveal was evaluated and intentionally omitted so each page keeps a single, clearer before/after interaction.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Case study</th>
+          <th>Before (Cloudinary)</th>
+          <th>After (Cloudinary)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Escape of Water</td>
+          <td><code>featured-work/escape-of-water</code></td>
+          <td><code>work-after/escape-of-water</code></td>
+        </tr>
+        <tr>
+          <td>Fire Damage</td>
+          <td><code>featured-work/fire-smoke-damage</code></td>
+          <td><code>work-after/fire-smoke-damage</code></td>
+        </tr>
+        <tr>
+          <td>Storm Damage</td>
+          <td><code>featured-work/storm-damage</code></td>
+          <td><code>work-after/storm-damage</code></td>
+        </tr>
+        <tr>
+          <td>Subsidence</td>
+          <td><code>featured-work/subsidence-damage</code></td>
+          <td><code>work-after/subsidence-damage</code></td>
+        </tr>
+        <tr>
+          <td>Commercial</td>
+          <td><code>featured-work/flood-damage</code></td>
+          <td><code>featured-work/commercial-restored</code></td>
+        </tr>
+        <tr>
+          <td>Major Loss</td>
+          <td><code>featured-work/impact-damage</code></td>
+          <td><code>featured-work/major-loss-restored</code></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Coverage Map Basemap</h3>
+    <ul>
+      <li>Shared basemap module (<code>js/map-tiles.js</code>) powers coverage and office maps.</li>
+      <li>Live default: <strong>Esri World Imagery</strong> (satellite) — no third-party API key required.</li>
+      <li>Coverage overlays remain brand amber.</li>
+      <li>Temporary map colour / style preview panels removed from About and Contact.</li>
+    </ul>
+
+    <div class="page-break"></div>
+
+    <h2>Improvements &amp; Fixes</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Area</th>
+          <th>Change</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Clients / Home</td><td>“View Case Study” links point to dedicated <code>case-*.html</code> pages instead of generic Services anchors.</td></tr>
+        <tr><td>Vite build</td><td>All six case study HTML entries registered in <code>vite.config.js</code>.</td></tr>
+        <tr><td>Testimonials</td><td>Removed unfinished video placeholder section (“Client Stories”).</td></tr>
+        <tr><td>Coverage status</td><td>Normalised letter-spacing on <code>.coverage-map-status</code> so area counts read clearly.</td></tr>
+        <tr><td>Accessibility</td><td>Slider supports keyboard (arrows / Home / End); <code>prefers-reduced-motion</code> skips hint animation and counter easing.</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Pages Affected</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Page</th>
+          <th>Updates in 1.3.0</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>case-water.html</td><td>New / rebuilt premium case study</td></tr>
+        <tr><td>case-fire.html</td><td>New / rebuilt premium case study</td></tr>
+        <tr><td>case-storm.html</td><td>New / rebuilt premium case study</td></tr>
+        <tr><td>case-subsidence.html</td><td>New / rebuilt premium case study</td></tr>
+        <tr><td>case-commercial.html</td><td>New / rebuilt premium case study</td></tr>
+        <tr><td>case-major-loss.html</td><td>New / rebuilt premium case study</td></tr>
+        <tr><td>Clients</td><td>Links to all six case studies</td></tr>
+        <tr><td>Home</td><td>Featured case study links updated</td></tr>
+        <tr><td>About / Contact</td><td>Esri satellite basemap; colour preview UI removed</td></tr>
+        <tr><td>Testimonials</td><td>Video placeholders removed</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Technical Notes</h2>
+    <h3>Stack &amp; hosting</h3>
+    <ul>
+      <li><strong>Frontend:</strong> Static HTML, CSS, JavaScript — Vite 6 multi-page build.</li>
+      <li><strong>Maps:</strong> Leaflet + Esri World Imagery tiles via <code>map-tiles.js</code>.</li>
+      <li><strong>CDN:</strong> Cloudinary (<code>foxrj3tm</code>) for case study before/after assets.</li>
+      <li><strong>Hosting:</strong> Vercel — build command <code>npm run build</code>, output <code>dist/</code>.</li>
+    </ul>
+
+    <h3>Case study scripts</h3>
+    <ul>
+      <li>Animated hero counters on scroll-in.</li>
+      <li>Before/after slider with drag, touch, keyboard, and optional auto-hint wipe.</li>
+      <li>Timeline scroll-fill with active phase highlighting.</li>
+    </ul>
+
+    <h3>Environment variables (Vercel)</h3>
+    <p>No new environment variables are required for this release. Cloudinary delivery URLs are baked into HTML. Team portal variables from 1.2.0 remain unchanged.</p>
+
+    <h2>Accessibility &amp; Performance</h2>
+    <ul>
+      <li><code>prefers-reduced-motion</code> honoured on hero counters, slider hint, and timeline transitions.</li>
+      <li>Lazy loading on case study gallery and related-card imagery.</li>
+      <li>Case study media served via Cloudinary <code>f_auto,q_auto</code> with width constraints.</li>
+    </ul>
+
+    <h2>Known Considerations</h2>
+    <ul>
+      <li>Case study narratives are illustrative for the demo website — confirm wording before treating them as public case references.</li>
+      <li>Esri imagery attribution is provided by Leaflet; satellite tiles are subject to Esri’s public tile terms of use.</li>
+      <li>Local high-resolution “after” source PNGs are not committed to Git (already on Cloudinary).</li>
+    </ul>
+
+    <h2>Recommended Next Steps</h2>
+    <ul>
+      <li>Confirm Vercel deployment after the GitHub push to <code>main</code>.</li>
+      <li>Walk through all six case studies on desktop and mobile (slider drag + keyboard).</li>
+      <li>Stakeholder review of case study copy and locations.</li>
+      <li>Optional: add Impact / Flood-only case pages if Clients filters expand later.</li>
+    </ul>
+
+    <p class="footer-note">
+      Capital Services Ltd &nbsp;·&nbsp; "We care and it shows" &nbsp;·&nbsp; Document generated 5 September 2026<br>
+      Release 1.3.0 — supersedes the August 2026 release notes (v1.2.0). Intended for internal stakeholder communication.
+    </p>
+  </section>
+
+</body>
+</html>

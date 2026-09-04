@@ -3,7 +3,11 @@ import {
   GEOJSON_BASE,
   isPostcodeCovered,
 } from './coverage-data.js';
-import { applyStoredAccent, initMapColourPreview } from './accent-preview.js';
+import {
+  createTileLayer,
+  registerTileLayer,
+  getStoredMapProvider,
+} from './map-tiles.js';
 
 const coverageRestylers = new Set();
 
@@ -116,12 +120,9 @@ async function mountCoverageMap(mapEl, { zoomControl = true, statusEl = null } =
     attributionControl: false,
   }).setView([51.45, -0.9], 8);
 
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-    attribution:
-      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>',
-    subdomains: 'abcd',
-    maxZoom: 18,
-  }).addTo(map);
+  const tiles = createTileLayer(L, getStoredMapProvider());
+  tiles.addTo(map);
+  registerTileLayer(tiles);
 
   if (zoomControl) {
     L.control.attribution({ prefix: false }).addTo(map);
@@ -267,8 +268,6 @@ export async function initCoverageMap() {
   const resultEl = document.getElementById('coverage-check-result');
 
   renderChipList(chipsEl);
-  applyStoredAccent();
-  initMapColourPreview(document.getElementById('map-colour-preview'));
 
   const ctx = await mountCoverageMap(mapEl, { zoomControl: true, statusEl });
   if (!ctx) return;
@@ -294,9 +293,6 @@ export async function initContactCoverageMap() {
   const form = document.getElementById('contact-coverage-form');
   const input = document.getElementById('contact-coverage-postcode');
   const resultEl = document.getElementById('contact-coverage-result');
-
-  applyStoredAccent();
-  initMapColourPreview(document.getElementById('map-colour-preview'));
 
   const ctx = await mountCoverageMap(mapEl, { zoomControl: false, statusEl });
   if (!ctx) return;
