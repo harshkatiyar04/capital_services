@@ -52,3 +52,7 @@ assets/c__Users_*/
 
 # Optional large generated PDFs from crawler
 crawler/output/**/*.pdf
+
+# Stakeholder release notes — keep local only, do not push
+doc/
+release notes/
