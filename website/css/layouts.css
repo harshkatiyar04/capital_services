@@ -130,6 +130,27 @@
   box-shadow: 0 24px 64px rgba(0, 0, 0, 0.28);
 }
 
+/* Desktop only — raise and strengthen the hero card */
+@media (min-width: 768px) {
+  .hero {
+    align-items: flex-start;
+  }
+
+  .hero-content {
+    max-width: 920px;
+    margin-top: clamp(3.5rem, 12vh, 7.5rem);
+  }
+
+  .hero .hero-content {
+    background: rgba(18, 18, 18, 0.55);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 28px 72px rgba(0, 0, 0, 0.38);
+    padding: clamp(2rem, 4vw, 3.25rem) clamp(1.75rem, 4vw, 3.5rem);
+  }
+}
+
 .hero .hero-content .hero-tagline {
   font-family: var(--font-tagline);
   font-style: italic;

@@ -372,8 +372,18 @@
     max-width: 100%;
     width: calc(100% - 1.5rem);
     margin: 0 auto;
+    margin-top: 0;
     padding: var(--space-xl) var(--space-md);
     border-radius: var(--radius-md);
+  }
+
+  .hero .hero-content {
+    background: rgba(22, 22, 22, 0.42);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.28);
+    padding: var(--space-xl) var(--space-md);
   }
 
   .hero .hero-content h1 {
