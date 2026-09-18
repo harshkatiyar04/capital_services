@@ -356,8 +356,11 @@
   }
 
   .hero-bg img,
-  .hero-bg-video {
+  .hero-bg-video,
+  .hero-bg-fallback {
     animation: none;
+    /* Bias left toward the worker, with a slight shift right for framing */
+    object-position: 22% center;
   }
 
   .hero-content {
