@@ -2086,6 +2086,23 @@
   color: var(--text-secondary);
 }
 
+.location-card .map-link {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+  text-decoration-color: rgba(26, 26, 26, 0.28);
+  transition: color var(--duration-fast) var(--ease-out), text-decoration-color var(--duration-fast) var(--ease-out);
+}
+
+.location-card h4 .map-link {
+  text-decoration: none;
+}
+
+.location-card .map-link:hover {
+  color: var(--brand-red);
+  text-decoration-color: var(--brand-red);
+}
+
 /* Accordion (services) */
 .service-accordion { display: flex; flex-direction: column; gap: var(--space-md); }
 
