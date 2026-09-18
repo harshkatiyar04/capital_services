@@ -345,13 +345,13 @@
     padding: 0.35rem 0;
   }
 
-  /* Hero */
+  /* Hero — keep card vertically centered on all phones */
   .hero {
     min-height: 100svh;
     min-height: 100dvh;
     padding-top: var(--nav-height);
-    padding-bottom: max(var(--space-2xl), env(safe-area-inset-bottom));
-    align-items: flex-end;
+    padding-bottom: max(var(--space-md), env(safe-area-inset-bottom));
+    align-items: center;
     justify-content: center;
   }
 
