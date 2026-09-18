@@ -1,0 +1,7 @@
+/* TEAM */
+Capital Services (Watford) Ltd
+Insurance repair & property restoration
+
+/* SITE */
+Standards: HTML5, CSS3, Schema.org
+Components: Vite, Vercel, Cloudinary

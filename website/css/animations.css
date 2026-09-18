@@ -151,6 +151,14 @@
   .hero-bg img {
     animation: none;
   }
+
+  .hero-bg-video {
+    display: none;
+  }
+
+  .hero-bg-fallback {
+    z-index: 1;
+  }
 }
 
 /* Clients page — case grid must stay visible for filters */

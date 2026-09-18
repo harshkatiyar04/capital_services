@@ -5,8 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "node scripts/apply-seo.mjs && vite build",
     "preview": "vite preview",
+    "seo": "node scripts/apply-seo.mjs",
+    "migrate:neon": "node scripts/migrate-neon.mjs",
     "review": "node auto-review.mjs",
     "cloudinary:upload": "node scripts/upload-cloudinary.mjs",
     "cloudinary:apply": "node scripts/apply-cloudinary-manifest.mjs"

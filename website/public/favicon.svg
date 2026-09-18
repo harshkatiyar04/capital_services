@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Capital Services">
+  <defs>
+    <linearGradient id="bg" x1="12%" y1="0%" x2="88%" y2="100%">
+      <stop offset="0%" stop-color="#F6C84A"/>
+      <stop offset="55%" stop-color="#E8A020"/>
+      <stop offset="100%" stop-color="#D4890F"/>
+    </linearGradient>
+    <radialGradient id="heart" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#FFE56A"/>
+      <stop offset="100%" stop-color="#E8A020"/>
+    </radialGradient>
+    <linearGradient id="sheen" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.35"/>
+      <stop offset="45%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Rounded app-icon background -->
+  <rect width="64" height="64" rx="14" ry="14" fill="url(#bg)"/>
+  <rect width="64" height="64" rx="14" ry="14" fill="url(#sheen)"/>
+
+  <!-- House silhouette -->
+  <path
+    fill="#1A1A1A"
+    d="M32 12.5
+       L12.5 28.2
+       V30.8
+       H17.2
+       V49.5
+       H46.8
+       V30.8
+       H51.5
+       V28.2
+       Z
+       M43.2 16.2
+       H48.4
+       V23.8
+       L43.2 19.4
+       Z"
+  />
+
+  <!-- Heart -->
+  <path
+    fill="url(#heart)"
+    d="M32 44.2
+       C32 44.2 19.8 36.2 19.8 28.9
+       C19.8 24.9 22.7 22.2 26.4 22.2
+       C28.9 22.2 30.8 23.5 32 25.4
+       C33.2 23.5 35.1 22.2 37.6 22.2
+       C41.3 22.2 44.2 24.9 44.2 28.9
+       C44.2 36.2 32 44.2 32 44.2
+       Z"
+  />
+</svg>

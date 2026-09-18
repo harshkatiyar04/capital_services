@@ -45,6 +45,7 @@ function render() {
       <div class="ops-kpis">
         <div class="ops-kpi"><b>${d.counts.workers}</b><span>Active people</span></div>
         <div class="ops-kpi"><b>${d.counts.jobs || 0}</b><span>Jobs logged</span></div>
+        <div class="ops-kpi"><b>${d.counts.enquiries || 0}</b><span>Enquiries</span></div>
         <div class="ops-kpi"><b>${d.overall != null ? d.overall.toFixed(1) : '—'}</b><span>Overall satisfaction</span></div>
       </div>
       <div class="ops-card">
@@ -143,6 +144,42 @@ function render() {
         await ops('admin/workers/active', {
           method: 'POST',
           body: { workerId: btn.dataset.toggle, active: btn.dataset.active !== 'true' },
+        });
+        cache = await ops('admin/overview');
+        render();
+      });
+    });
+  }
+
+  if (view === 'enquiries') {
+    const rows = d.enquiries || [];
+    panel.innerHTML = `
+      <div class="ops-section-head">
+        <h2>Enquiries</h2>
+        <span class="ops-hint">Contact form + chat · ${rows.length} latest</span>
+      </div>
+      ${rows.length ? rows.map((e) => `
+        <article class="ops-card" data-enquiry="${e.id}">
+          <div class="ops-section-head">
+            <h2 style="font-size:1.15rem">${e.name} · ${e.email}</h2>
+            <span class="ops-hint">${new Date(e.createdAt).toLocaleString('en-GB')} · ${e.source} · ${e.status}</span>
+          </div>
+          ${e.phone ? `<p class="ops-comment">Phone: ${e.phone}</p>` : ''}
+          ${e.company ? `<p class="ops-comment">Company: ${e.company}</p>` : ''}
+          ${e.service ? `<p class="ops-comment">Service: ${e.service}</p>` : ''}
+          <p class="ops-comment" style="margin-top:.5rem;white-space:pre-wrap">${e.message}</p>
+          <div class="ops-chips" style="margin-top:.75rem">
+            <button type="button" class="ops-chip ${e.status === 'new' ? 'is-on' : ''}" data-status="new" data-id="${e.id}">New</button>
+            <button type="button" class="ops-chip ${e.status === 'in_progress' ? 'is-on' : ''}" data-status="in_progress" data-id="${e.id}">In progress</button>
+            <button type="button" class="ops-chip ${e.status === 'closed' ? 'is-on' : ''}" data-status="closed" data-id="${e.id}">Closed</button>
+          </div>
+        </article>`).join('') : '<div class="ops-card"><p class="ops-hint">No enquiries yet.</p></div>'}`;
+
+    panel.querySelectorAll('[data-status]').forEach((btn) => {
+      btn.addEventListener('click', async () => {
+        await ops('admin/enquiries/status', {
+          method: 'POST',
+          body: { id: btn.dataset.id, status: btn.dataset.status },
         });
         cache = await ops('admin/overview');
         render();

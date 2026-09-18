@@ -1,0 +1,277 @@
+/**
+ * Apply SEO meta, Open Graph, Twitter cards, canonicals & JSON-LD to public pages.
+ * Also writes public/sitemap.xml and public/robots.txt
+ *
+ * Usage: node scripts/apply-seo.mjs
+ */
+import { readFileSync, writeFileSync, mkdirSync } from 'fs';
+import { resolve, dirname, join } from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const ROOT = resolve(__dirname, '..');
+const cfg = JSON.parse(readFileSync(join(ROOT, 'data', 'seo-config.json'), 'utf-8'));
+const SITE = (process.env.SITE_URL || cfg.siteUrl).replace(/\/$/, '');
+
+const LOGO = cfg.logo;
+const IMAGE = cfg.defaultImage;
+
+function orgJsonLd() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': ['Organization', 'LocalBusiness', 'HomeAndConstructionBusiness'],
+    '@id': `${SITE}/#organization`,
+    name: cfg.siteName,
+    legalName: cfg.legalName,
+    url: SITE,
+    logo: LOGO,
+    image: IMAGE,
+    email: cfg.email,
+    telephone: cfg.phone,
+    slogan: 'We care and it shows',
+    areaServed: [
+      { '@type': 'AdministrativeArea', name: 'London' },
+      { '@type': 'AdministrativeArea', name: 'Home Counties' },
+      { '@type': 'AdministrativeArea', name: 'South Coast' },
+    ],
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: cfg.address.street,
+      addressLocality: cfg.address.locality,
+      addressRegion: cfg.address.region,
+      postalCode: cfg.address.postal,
+      addressCountry: cfg.address.country,
+    },
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: 51.715,
+      longitude: -0.45,
+    },
+    openingHoursSpecification: {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+      opens: '08:00',
+      closes: '17:30',
+    },
+    sameAs: [
+      'https://www.linkedin.com/company/capital-services-watford-ltd',
+    ],
+    knowsAbout: [
+      'Insurance repair',
+      'Property restoration',
+      'Fire damage',
+      'Flood damage',
+      'Escape of water',
+      'Storm damage',
+      'Subsidence',
+      'Major loss claims',
+    ],
+  };
+}
+
+function websiteJsonLd() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${SITE}/#website`,
+    url: SITE,
+    name: cfg.siteName,
+    description: cfg.pages['index.html'].description,
+    publisher: { '@id': `${SITE}/#organization` },
+    inLanguage: 'en-GB',
+  };
+}
+
+function breadcrumbJsonLd(page) {
+  const items = [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: SITE },
+  ];
+  if (page.path !== '/') {
+    items.push({
+      '@type': 'ListItem',
+      position: 2,
+      name: page.title.split('|')[0].trim(),
+      item: `${SITE}${page.path}`,
+    });
+  }
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: items,
+  };
+}
+
+function serviceJsonLd() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'Insurance Repair & Property Restoration',
+    provider: { '@id': `${SITE}/#organization` },
+    areaServed: 'GB',
+    serviceType: [
+      'Insurance repair',
+      'Emergency make-safe',
+      'Drying & reinstatement',
+      'Major loss project management',
+    ],
+    url: `${SITE}/services`,
+  };
+}
+
+function escapeAttr(s) {
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/</g, '&lt;');
+}
+
+function buildHeadBlock(file, page) {
+  const url = `${SITE}${page.path}`;
+  const title = page.title;
+  const desc = page.description;
+  const keywords = page.keywords || '';
+  const ogType = page.ogType || 'website';
+  const image = page.image || IMAGE;
+
+  const graphs = [orgJsonLd(), breadcrumbJsonLd(page)];
+  if (file === 'index.html') graphs.push(websiteJsonLd());
+  if (file === 'services.html') graphs.push(serviceJsonLd());
+
+  const jsonLd = graphs
+    .map((g) => `  <script type="application/ld+json">${JSON.stringify(g)}</script>`)
+    .join('\n');
+
+  return `  <title>${escapeAttr(title)}</title>
+  <meta name="description" content="${escapeAttr(desc)}">
+  <meta name="keywords" content="${escapeAttr(keywords)}">
+  <meta name="author" content="${escapeAttr(cfg.legalName)}">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta name="googlebot" content="index, follow">
+  <meta name="bingbot" content="index, follow">
+  <meta name="theme-color" content="#1a1a1a">
+  <meta name="format-detection" content="telephone=yes">
+  <meta name="geo.region" content="GB-HRT">
+  <meta name="geo.placename" content="Kings Langley, Hertfordshire">
+  <meta name="geo.position" content="51.715;-0.45">
+  <meta name="ICBM" content="51.715, -0.45">
+  <link rel="canonical" href="${escapeAttr(url)}">
+  <link rel="alternate" hreflang="en-GB" href="${escapeAttr(url)}">
+  <link rel="alternate" hreflang="x-default" href="${escapeAttr(url)}">
+  <meta property="og:type" content="${escapeAttr(ogType)}">
+  <meta property="og:locale" content="en_GB">
+  <meta property="og:site_name" content="${escapeAttr(cfg.siteName)}">
+  <meta property="og:title" content="${escapeAttr(title)}">
+  <meta property="og:description" content="${escapeAttr(desc)}">
+  <meta property="og:url" content="${escapeAttr(url)}">
+  <meta property="og:image" content="${escapeAttr(image)}">
+  <meta property="og:image:alt" content="${escapeAttr(cfg.siteName)} — insurance repair specialists">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="${escapeAttr(title)}">
+  <meta name="twitter:description" content="${escapeAttr(desc)}">
+  <meta name="twitter:image" content="${escapeAttr(image)}">
+${jsonLd}`;
+}
+
+const MARK_START = '<!-- SEO:START -->';
+const MARK_END = '<!-- SEO:END -->';
+
+function applyToHtml(file, page) {
+  const path = join(ROOT, file);
+  let html = readFileSync(path, 'utf-8');
+  const block = `${MARK_START}\n${buildHeadBlock(file, page)}\n  ${MARK_END}`;
+
+  if (html.includes(MARK_START) && html.includes(MARK_END)) {
+    html = html.replace(new RegExp(`${MARK_START}[\\s\\S]*?${MARK_END}`), block);
+  } else {
+    // Replace existing title + description (first occurrence pair)
+    const replaced = html.replace(
+      /<title>[\s\S]*?<\/title>\s*<meta name="description" content="[^"]*">/i,
+      block,
+    );
+    if (replaced === html) {
+      // Fallback: insert after charset/viewport
+      html = html.replace(
+        /(<meta name="viewport"[^>]*>)/i,
+        `$1\n  ${block}`,
+      );
+    } else {
+      html = replaced;
+    }
+  }
+
+  // Ensure lang is en-GB
+  html = html.replace(/<html lang="en">/i, '<html lang="en-GB">');
+
+  writeFileSync(path, html);
+  console.log(`SEO applied: ${file}`);
+}
+
+function writeSitemap() {
+  const publicDir = join(ROOT, 'public');
+  mkdirSync(publicDir, { recursive: true });
+  const today = new Date().toISOString().slice(0, 10);
+  const urls = Object.entries(cfg.pages)
+    .map(([file, page]) => {
+      const loc = `${SITE}${page.path === '/' ? '/' : page.path}`;
+      return `  <url>
+    <loc>${loc}</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>${page.changefreq || 'monthly'}</changefreq>
+    <priority>${page.priority || '0.5'}</priority>
+  </url>`;
+    })
+    .join('\n');
+
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls}
+</urlset>
+`;
+  writeFileSync(join(publicDir, 'sitemap.xml'), xml);
+  console.log('Wrote public/sitemap.xml');
+}
+
+function writeRobots() {
+  const publicDir = join(ROOT, 'public');
+  mkdirSync(publicDir, { recursive: true });
+  const txt = `User-agent: *
+Allow: /
+
+# Internal portals - do not index
+Disallow: /admin
+Disallow: /admin.html
+Disallow: /team
+Disallow: /team.html
+Disallow: /crew
+Disallow: /crew.html
+Disallow: /survey
+Disallow: /survey.html
+Disallow: /api/
+
+Sitemap: ${SITE}/sitemap.xml
+`;
+  writeFileSync(join(publicDir, 'robots.txt'), txt);
+  console.log('Wrote public/robots.txt');
+}
+
+function writeHumans() {
+  const publicDir = join(ROOT, 'public');
+  const txt = `/* TEAM */
+Capital Services (Watford) Ltd
+Insurance repair & property restoration
+
+/* SITE */
+Standards: HTML5, CSS3, Schema.org
+Components: Vite, Vercel, Cloudinary
+`;
+  writeFileSync(join(publicDir, 'humans.txt'), txt);
+}
+
+for (const [file, page] of Object.entries(cfg.pages)) {
+  applyToHtml(file, page);
+}
+writeSitemap();
+writeRobots();
+writeHumans();
+console.log(`\nSite URL: ${SITE}`);
+console.log('Done. Set SITE_URL env if your live domain differs, then re-run.');

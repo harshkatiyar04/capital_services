@@ -56,6 +56,20 @@ export async function ensureSchema() {
   await q`INSERT INTO ops_counters (role, n) VALUES
     ('trade', 1040), ('office', 2010), ('surveyor', 3300)
     ON CONFLICT (role) DO NOTHING`;
+  await q`CREATE TABLE IF NOT EXISTS site_enquiries (
+    id TEXT PRIMARY KEY,
+    source TEXT NOT NULL,
+    name TEXT NOT NULL,
+    email TEXT NOT NULL,
+    phone TEXT,
+    company TEXT,
+    service TEXT,
+    message TEXT NOT NULL,
+    status TEXT NOT NULL DEFAULT 'new',
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+  )`;
+  await q`CREATE INDEX IF NOT EXISTS site_enquiries_created_idx ON site_enquiries (created_at DESC)`;
+  await q`CREATE INDEX IF NOT EXISTS site_enquiries_status_idx ON site_enquiries (status)`;
   ready = true;
   return q;
 }
@@ -181,4 +195,45 @@ export async function pgInsertSurvey(survey) {
     ${survey.createdAt}
   )`;
   await q`UPDATE ops_jobs SET survey_id = ${survey.id} WHERE id = ${survey.jobId}`;
+}
+
+function mapEnquiry(r) {
+  if (!r) return null;
+  return {
+    id: r.id,
+    source: r.source,
+    name: r.name,
+    email: r.email,
+    phone: r.phone || '',
+    company: r.company || '',
+    service: r.service || '',
+    message: r.message,
+    status: r.status,
+    createdAt: r.created_at,
+  };
+}
+
+export async function pgInsertEnquiry(enquiry) {
+  const q = await ensureSchema();
+  await q`INSERT INTO site_enquiries (
+    id, source, name, email, phone, company, service, message, status, created_at
+  ) VALUES (
+    ${enquiry.id}, ${enquiry.source}, ${enquiry.name}, ${enquiry.email},
+    ${enquiry.phone || null}, ${enquiry.company || null}, ${enquiry.service || null},
+    ${enquiry.message}, ${enquiry.status || 'new'}, ${enquiry.createdAt}
+  )`;
+  return enquiry;
+}
+
+export async function pgListEnquiries(limit = 100) {
+  const q = await ensureSchema();
+  const cap = Math.min(Math.max(Number(limit) || 100, 1), 300);
+  const rows = await q`SELECT * FROM site_enquiries ORDER BY created_at DESC LIMIT ${cap}`;
+  return rows.map(mapEnquiry);
+}
+
+export async function pgUpdateEnquiryStatus(id, status) {
+  const q = await ensureSchema();
+  const rows = await q`UPDATE site_enquiries SET status = ${status} WHERE id = ${id} RETURNING *`;
+  return mapEnquiry(rows[0]);
 }

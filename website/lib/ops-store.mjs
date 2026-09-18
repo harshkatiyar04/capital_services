@@ -8,13 +8,16 @@ import {
   pgGetJob,
   pgGetWorker,
   pgGetWorkerByWorkId,
+  pgInsertEnquiry,
   pgInsertJob,
   pgInsertSurvey,
   pgInsertWorker,
+  pgListEnquiries,
   pgListJobs,
   pgListSurveys,
   pgListWorkers,
   pgNextWorkNumber,
+  pgUpdateEnquiryStatus,
   pgUpdateWorker,
 } from './ops-pg.mjs';
 
@@ -825,12 +828,14 @@ export async function adminOverview(token) {
   const surveys = await allSurveys();
   const workers = await allWorkers();
   const jobs = await allJobs();
+  const enquiries = hasDatabase() ? await pgListEnquiries(50) : [];
   const overall = surveys.length ? round1(mean(surveys.map((s) => s.overallSatisfaction))) : null;
   return {
     counts: {
       workers: workers.filter((w) => w.active).length,
       surveys: surveys.length,
       jobs: jobs.length,
+      enquiries: enquiries.length,
       thisWeek: surveys.filter((s) => Date.now() - new Date(s.createdAt).getTime() < 7 * 86400000).length,
     },
     overall,
@@ -844,6 +849,7 @@ export async function adminOverview(token) {
       improvement: s.improvement,
       sections: s.sections,
     })),
+    enquiries,
     leaderboard: {
       trade: await buildLeaderboard('trade'),
       office: await buildLeaderboard('office'),
@@ -853,4 +859,88 @@ export async function adminOverview(token) {
     minReviews: MIN_REVIEWS_FOR_TIER,
   };
 }
+
+function normalizeEnquiryInput(body = {}) {
+  const name = String(body.name || '').trim();
+  const email = String(body.email || '').trim().toLowerCase();
+  const message = String(body.message || '').trim();
+  const source = String(body.source || 'contact').trim().toLowerCase();
+  if (!name || name.length > 120) {
+    const err = new Error('Please enter your name');
+    err.status = 400;
+    throw err;
+  }
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 160) {
+    const err = new Error('Please enter a valid email');
+    err.status = 400;
+    throw err;
+  }
+  if (!message || message.length > 4000) {
+    const err = new Error('Please enter a message');
+    err.status = 400;
+    throw err;
+  }
+  if (!['contact', 'chat'].includes(source)) {
+    const err = new Error('Invalid enquiry source');
+    err.status = 400;
+    throw err;
+  }
+  return {
+    id: uid('enq'),
+    source,
+    name,
+    email,
+    phone: String(body.phone || '').trim().slice(0, 40),
+    company: String(body.company || '').trim().slice(0, 120),
+    service: String(body.service || '').trim().slice(0, 80),
+    message,
+    status: 'new',
+    createdAt: nowIso(),
+  };
+}
+
+export async function createEnquiry(body) {
+  assertStorage();
+  if (!hasDatabase()) {
+    const err = new Error('Enquiry storage requires DATABASE_URL');
+    err.status = 503;
+    throw err;
+  }
+  const enquiry = normalizeEnquiryInput(body);
+  await pgInsertEnquiry(enquiry);
+  return {
+    ok: true,
+    id: enquiry.id,
+    message: 'Thanks — your enquiry has been logged. We aim to respond within 24 hours.',
+  };
+}
+
+export async function listEnquiriesAdmin(token) {
+  await requireAdmin(token);
+  if (!hasDatabase()) return { enquiries: [] };
+  return { enquiries: await pgListEnquiries(200) };
+}
+
+export async function setEnquiryStatus({ token, id, status }) {
+  await requireAdmin(token);
+  if (!hasDatabase()) {
+    const err = new Error('DATABASE_URL required');
+    err.status = 503;
+    throw err;
+  }
+  const next = String(status || '').toLowerCase();
+  if (!['new', 'in_progress', 'closed'].includes(next)) {
+    const err = new Error('Invalid status');
+    err.status = 400;
+    throw err;
+  }
+  const updated = await pgUpdateEnquiryStatus(id, next);
+  if (!updated) {
+    const err = new Error('Enquiry not found');
+    err.status = 404;
+    throw err;
+  }
+  return { enquiry: updated };
+}
+
 

@@ -1,13 +1,16 @@
 import {
   adminOverview,
   buildLeaderboard,
+  createEnquiry,
   createWorker,
   getReviewJob,
   getSession,
+  listEnquiriesAdmin,
   listPublicWorkers,
   logJob,
   login,
   logout,
+  setEnquiryStatus,
   setPassword,
   setWorkerActive,
   signupWorker,
@@ -80,6 +83,9 @@ export async function handleOpsRequest(req, res) {
     if (req.method === 'GET' && action === 'admin/overview') {
       return send(res, 200, await adminOverview(token));
     }
+    if (req.method === 'GET' && action === 'admin/enquiries') {
+      return send(res, 200, await listEnquiriesAdmin(token));
+    }
     if (req.method === 'GET' && action === 'job') {
       return send(res, 200, await getReviewJob({ token, jobId: search.get('id') }));
     }
@@ -92,6 +98,7 @@ export async function handleOpsRequest(req, res) {
     if (req.method !== 'POST') return send(res, 405, { error: 'Method not allowed' });
     const body = await readJson(req);
 
+    if (action === 'enquiries') return send(res, 200, await createEnquiry(body));
     if (action === 'login') return send(res, 200, await login(body));
     if (action === 'signup') return send(res, 200, await signupWorker(body));
     if (action === 'logout') return send(res, 200, await logout());
@@ -101,6 +108,9 @@ export async function handleOpsRequest(req, res) {
     if (action === 'admin/workers') return send(res, 200, await createWorker({ token, ...body }));
     if (action === 'admin/workers/active') {
       return send(res, 200, await setWorkerActive({ token, workerId: body.workerId, active: body.active }));
+    }
+    if (action === 'admin/enquiries/status') {
+      return send(res, 200, await setEnquiryStatus({ token, id: body.id, status: body.status }));
     }
 
     return send(res, 404, { error: 'Unknown action' });

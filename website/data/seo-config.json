@@ -1,0 +1,117 @@
+{
+  "siteUrl": "https://www.capitalservices.com",
+  "siteName": "Capital Services",
+  "legalName": "Capital Services (Watford) Ltd",
+  "phone": "+44-1923-270022",
+  "email": "info@capitalservices.com",
+  "locale": "en_GB",
+  "twitter": "",
+  "defaultImage": "https://res.cloudinary.com/foxrj3tm/image/upload/f_auto,q_auto,w_1200/v1787939252/capital-services/heroes/hero-home.jpg",
+  "logo": "https://res.cloudinary.com/foxrj3tm/image/upload/f_auto,q_auto/v1787939389/capital-services/logos/capital-services-logo.jpg",
+  "address": {
+    "street": "Unit 9-10, Kings Park Industrial Estate, Primrose Hill",
+    "locality": "Kings Langley",
+    "region": "Hertfordshire",
+    "postal": "WD4 8ST",
+    "country": "GB"
+  },
+  "pages": {
+    "index.html": {
+      "path": "/",
+      "title": "Insurance Repair & Property Restoration Specialists | Capital Services",
+      "description": "Capital Services — UK insurance repair specialists for fire, flood, escape of water, storm and subsidence. Emergency make-safe, drying and full reinstatement across London, Home Counties & South Coast.",
+      "keywords": "insurance repair, property restoration, fire damage restoration, flood damage, escape of water, storm damage, subsidence repair, emergency make safe, insurance claims restoration, Watford, Hertfordshire",
+      "ogType": "website",
+      "priority": "1.0",
+      "changefreq": "weekly"
+    },
+    "about.html": {
+      "path": "/about",
+      "title": "About Capital Services | Insurance Repair Company UK",
+      "description": "Learn about Capital Services (Watford) Ltd — trusted insurance repair and property restoration specialists with offices in Watford, Yateley and Kings Langley.",
+      "keywords": "about Capital Services, insurance repair company, property restoration UK, Watford, Kings Langley",
+      "priority": "0.8",
+      "changefreq": "monthly"
+    },
+    "services.html": {
+      "path": "/services",
+      "title": "Insurance Claims Services | Validation, Make-Safe & Reinstatement",
+      "description": "Explore Capital Services insurance claims services: validation, cash settlements, emergency make-safe & drying, leak detection, major loss, commercial claims and reinstatement.",
+      "keywords": "insurance claims services, claim validation, emergency drying, leak detection, major loss, commercial insurance repair, reinstatement",
+      "priority": "0.9",
+      "changefreq": "weekly"
+    },
+    "clients.html": {
+      "path": "/clients",
+      "title": "Case Studies & Insurer Partners | Capital Services",
+      "description": "See Capital Services case studies and insurer partnerships — water, fire, storm, subsidence, commercial and major loss insurance repair projects.",
+      "keywords": "insurance repair case studies, insurer partners, property restoration projects",
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "testimonials.html": {
+      "path": "/testimonials",
+      "title": "Client Testimonials | Capital Services Insurance Repair",
+      "description": "Read what homeowners, facilities managers and partners say about Capital Services insurance repair and property restoration work.",
+      "keywords": "Capital Services reviews, insurance repair testimonials",
+      "priority": "0.7",
+      "changefreq": "monthly"
+    },
+    "contact.html": {
+      "path": "/contact",
+      "title": "Contact Capital Services | Insurance Repair Quotes UK",
+      "description": "Contact Capital Services for insurance repair support. Offices in Watford, Yateley and Kings Langley. Check coverage and get a response within 24 hours.",
+      "keywords": "contact Capital Services, insurance repair quote, Watford, Yateley, Kings Langley",
+      "priority": "0.9",
+      "changefreq": "monthly"
+    },
+    "case-water.html": {
+      "path": "/case-water",
+      "title": "Escape of Water Restoration Case Study | Capital Services",
+      "description": "Case study: residential escape of water restoration in Surrey — emergency make-safe, drying and full kitchen reinstatement for an insurance claim.",
+      "keywords": "escape of water restoration, water damage insurance claim, property drying",
+      "priority": "0.7",
+      "changefreq": "monthly"
+    },
+    "case-fire.html": {
+      "path": "/case-fire",
+      "title": "Fire Damage Recovery Case Study | Capital Services",
+      "description": "Case study: kitchen fire and smoke damage recovery in St Albans, Hertfordshire — make-safe, soot remediation and full reinstatement.",
+      "keywords": "fire damage restoration, smoke damage cleaning, insurance fire claim",
+      "priority": "0.7",
+      "changefreq": "monthly"
+    },
+    "case-storm.html": {
+      "path": "/case-storm",
+      "title": "Storm Damage Reinstatement Case Study | Capital Services",
+      "description": "Case study: storm damage reinstatement in Buckinghamshire — emergency roof protection through to internal repairs for an insurance claim.",
+      "keywords": "storm damage repair, roof storm insurance, weather damage reinstatement",
+      "priority": "0.7",
+      "changefreq": "monthly"
+    },
+    "case-subsidence.html": {
+      "path": "/case-subsidence",
+      "title": "Subsidence Remediation Case Study | Capital Services",
+      "description": "Case study: subsidence investigation and remediation in Essex — underpinning, drainage and internal reinstatement for an insurance claim.",
+      "keywords": "subsidence repair, underpinning, insurance subsidence claim",
+      "priority": "0.7",
+      "changefreq": "monthly"
+    },
+    "case-commercial.html": {
+      "path": "/case-commercial",
+      "title": "Commercial Flood Recovery Case Study | Capital Services",
+      "description": "Case study: commercial flood recovery at a Watford business park — phased reinstatement to minimise downtime for an insurance claim.",
+      "keywords": "commercial flood restoration, office flood damage, business insurance repair",
+      "priority": "0.7",
+      "changefreq": "monthly"
+    },
+    "case-major-loss.html": {
+      "path": "/case-major-loss",
+      "title": "Major Loss Impact Damage Case Study | Capital Services",
+      "description": "Case study: major loss impact damage to a period property in Berkshire — emergency shoring and heritage-sensitive reinstatement.",
+      "keywords": "major loss insurance, impact damage restoration, high net worth claims",
+      "priority": "0.7",
+      "changefreq": "monthly"
+    }
+  }
+}

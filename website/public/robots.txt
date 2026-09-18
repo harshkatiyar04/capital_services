@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+
+# Internal portals - do not index
+Disallow: /admin
+Disallow: /admin.html
+Disallow: /team
+Disallow: /team.html
+Disallow: /crew
+Disallow: /crew.html
+Disallow: /survey
+Disallow: /survey.html
+Disallow: /api/
+
+Sitemap: https://www.capitalservices.com/sitemap.xml

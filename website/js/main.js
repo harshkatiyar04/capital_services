@@ -4,6 +4,7 @@
    ================================================================ */
 
 import { initTestimonialsCarousel } from './testimonials-carousel.js';
+import { initChatbot } from './chatbot.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   initNavbar();
@@ -93,27 +94,6 @@ function setActiveNavLink() {
       link.classList.add('active');
     }
   });
-}
-
-/* ── Chatbot Toggle ── */
-function initChatbot() {
-  const fab = document.querySelector('.chatbot-fab');
-  const panel = document.querySelector('.chatbot-panel');
-  if (!fab || !panel) return;
-
-  fab.addEventListener('click', () => {
-    panel.classList.toggle('active');
-    fab.style.display = panel.classList.contains('active') ? 'none' : '';
-  });
-
-  // Close button
-  const closeBtn = panel.querySelector('.chatbot-close');
-  if (closeBtn) {
-    closeBtn.addEventListener('click', () => {
-      panel.classList.remove('active');
-      fab.style.display = '';
-    });
-  }
 }
 
 /* ── Export for module usage ── */
