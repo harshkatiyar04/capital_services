@@ -2446,6 +2446,7 @@
   position: fixed;
   bottom: 96px;
   right: var(--space-xl);
+  left: auto;
   width: min(400px, calc(100vw - 32px));
   height: min(560px, calc(100vh - 120px));
   background: var(--bg-white);
@@ -2457,6 +2458,7 @@
   overflow: hidden;
   opacity: 0;
   transform: translateY(12px) scale(0.98);
+  transform-origin: bottom right;
   pointer-events: none;
   transition: opacity var(--duration-normal) var(--ease-out), transform var(--duration-normal) var(--ease-out);
   box-shadow: 0 24px 48px rgba(0, 0, 0, 0.18);
