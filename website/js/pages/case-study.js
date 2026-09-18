@@ -170,27 +170,68 @@ function initTimeline() {
   if (!track) return;
 
   const fill = track.querySelector('.cs-timeline__line-fill');
-  const items = track.querySelectorAll('.cs-timeline__item');
+  const items = [...track.querySelectorAll('.cs-timeline__item')];
   if (!fill || !items.length) return;
 
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const rail = track;
+
+  function dotCenterY(item) {
+    const dot = item.querySelector('.cs-timeline__dot');
+    if (!dot) return 0;
+    const trackRect = track.getBoundingClientRect();
+    const dotRect = dot.getBoundingClientRect();
+    return dotRect.top + dotRect.height / 2 - trackRect.top + track.scrollTop;
+  }
+
+  function layoutRail() {
+    const first = dotCenterY(items[0]);
+    const last = dotCenterY(items[items.length - 1]);
+    const span = Math.max(0, last - first);
+
+    // Keep grey rail + amber fill aligned to dot centres
+    rail.style.setProperty('--timeline-rail-top', `${first}px`);
+    rail.style.setProperty('--timeline-rail-height', `${span}px`);
+    fill.style.top = `${first}px`;
+
+    if (prefersReduced) {
+      fill.style.height = `${span}px`;
+      items.forEach((item) => item.classList.add('is-active'));
+    }
+
+    return { first, last, span };
+  }
 
   function updateTimeline() {
-    const trackRect = track.getBoundingClientRect();
-    const trackTop = trackRect.top;
-    const trackHeight = trackRect.height;
-    const viewportMid = window.innerHeight * 0.6;
-    const progress = Math.max(0, Math.min((viewportMid - trackTop) / trackHeight, 1));
+    const { first, span } = layoutRail();
+    if (prefersReduced) return;
 
-    fill.style.height = prefersReduced ? '100%' : `${progress * 100}%`;
+    const viewportMark = window.innerHeight * 0.55;
+    let filledTo = first;
 
     items.forEach((item) => {
-      if (item.getBoundingClientRect().top < viewportMid) {
+      const dot = item.querySelector('.cs-timeline__dot');
+      if (!dot) return;
+      const center = dot.getBoundingClientRect().top + dot.offsetHeight / 2;
+      if (center <= viewportMark) {
         item.classList.add('is-active');
+        const localY = dotCenterY(item);
+        if (localY > filledTo) filledTo = localY;
+      } else {
+        item.classList.remove('is-active');
       }
     });
+
+    // Always light the first step when the section is in view
+    if (items[0].getBoundingClientRect().top < window.innerHeight) {
+      items[0].classList.add('is-active');
+    }
+
+    const height = Math.max(0, Math.min(filledTo - first, span));
+    fill.style.height = `${height}px`;
   }
 
   window.addEventListener('scroll', updateTimeline, { passive: true });
+  window.addEventListener('resize', updateTimeline, { passive: true });
   updateTimeline();
 }

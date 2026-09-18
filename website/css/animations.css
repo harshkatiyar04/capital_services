@@ -148,16 +148,10 @@
     transition: none;
   }
 
-  .hero-bg img {
+  .hero-bg img,
+  .hero-bg-image {
     animation: none;
-  }
-
-  .hero-bg-video {
-    display: none;
-  }
-
-  .hero-bg-fallback {
-    z-index: 1;
+    transform: none;
   }
 }
 

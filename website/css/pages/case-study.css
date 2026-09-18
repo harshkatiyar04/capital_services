@@ -295,25 +295,30 @@
   padding-left: 48px;
 }
 
+/* Grey rail — JS sets --timeline-rail-top / --timeline-rail-height to dot centres */
 .cs-timeline__track::before {
   content: '';
   position: absolute;
-  top: 0;
+  top: var(--timeline-rail-top, 22px);
   left: 19px;
   width: 2px;
-  height: 100%;
+  height: var(--timeline-rail-height, calc(100% - 44px));
+  bottom: auto;
   background: var(--border-light);
+  z-index: 0;
+  pointer-events: none;
 }
 
 .cs-timeline__line-fill {
   position: absolute;
-  top: 0;
+  top: 22px;
   left: 19px;
   width: 2px;
   height: 0;
-  background: linear-gradient(to bottom, var(--brand-amber), var(--brand-amber-light));
-  transition: height 0.1s linear;
+  background: var(--brand-amber);
   z-index: 1;
+  pointer-events: none;
+  will-change: height;
 }
 
 .cs-timeline__item {
@@ -394,7 +399,7 @@
 
 .cs-details__grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: var(--space-lg);
 }
 

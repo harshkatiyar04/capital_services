@@ -1323,39 +1323,52 @@
   color: var(--text-inverse);
 }
 
-/* Timeline */
+/* Timeline — Company Milestones (about) */
 .timeline {
+  --timeline-gutter: 28px;
+  --timeline-dot: 12px;
+  --timeline-rail: 2px;
   position: relative;
-  padding-left: 32px;
+  padding-left: var(--timeline-gutter);
 }
 
+/* Grey rail centred on the dots, capped to first → last marker */
 .timeline::before {
   content: '';
   position: absolute;
-  left: 6px;
-  top: 0;
-  bottom: 0;
-  width: 2px;
+  left: calc((var(--timeline-dot) - var(--timeline-rail)) / 2);
+  top: calc(0.35rem + var(--timeline-dot) / 2);
+  bottom: calc(0.35rem + var(--timeline-dot) / 2);
+  width: var(--timeline-rail);
   background: var(--border-light);
+  z-index: 0;
+  pointer-events: none;
 }
 
 .timeline-item {
   position: relative;
   margin-bottom: var(--space-2xl);
-  padding-left: var(--space-xl);
+  padding-left: var(--space-md);
+  z-index: 1;
+}
+
+.timeline-item:last-child {
+  margin-bottom: 0;
 }
 
 .timeline-item::before {
   content: '';
   position: absolute;
-  left: -26px;
-  top: 6px;
-  width: 10px;
-  height: 10px;
+  left: calc(-1 * var(--timeline-gutter));
+  top: 0.35rem;
+  width: var(--timeline-dot);
+  height: var(--timeline-dot);
   border-radius: 50%;
   background: var(--brand-amber);
   border: 2px solid var(--bg-white);
   box-shadow: 0 0 0 2px var(--brand-amber);
+  z-index: 2;
+  box-sizing: border-box;
 }
 
 .timeline-year {
@@ -2421,30 +2434,42 @@
 /* Chatbot */
 .chatbot-fab {
   position: fixed;
-  bottom: var(--space-xl);
+  bottom: calc(var(--space-2xl) + 0.5rem);
   right: var(--space-xl);
   z-index: var(--z-chatbot);
-  width: 56px;
-  height: 56px;
+  width: 72px;
+  height: 72px;
   border-radius: var(--radius-full);
   background: var(--brand-black);
   color: var(--text-inverse);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: var(--shadow-lg);
-  transition: transform var(--duration-normal) var(--ease-out), background var(--duration-normal) var(--ease-out);
+  border: 2px solid rgba(232, 160, 32, 0.55);
+  box-shadow:
+    0 10px 28px rgba(0, 0, 0, 0.28),
+    0 0 0 6px rgba(232, 160, 32, 0.14);
+  transition: transform var(--duration-normal) var(--ease-out), background var(--duration-normal) var(--ease-out), box-shadow var(--duration-normal) var(--ease-out);
+}
+
+.chatbot-fab svg {
+  width: 28px;
+  height: 28px;
 }
 
 .chatbot-fab:hover {
-  transform: scale(1.05);
+  transform: scale(1.08);
   background: var(--brand-amber);
   color: var(--brand-black);
+  border-color: var(--brand-amber);
+  box-shadow:
+    0 14px 32px rgba(0, 0, 0, 0.3),
+    0 0 0 8px rgba(232, 160, 32, 0.22);
 }
 
 .chatbot-panel {
   position: fixed;
-  bottom: 96px;
+  bottom: 118px;
   right: var(--space-xl);
   left: auto;
   width: min(400px, calc(100vw - 32px));
