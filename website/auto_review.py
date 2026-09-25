@@ -14,7 +14,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 load_dotenv()
 
-REVIEW_URL = "https://search.google.com/local/writereview?placeid=ChIJK7FSuKRBdkgRSTWp5H8Etv0"
+REVIEW_URL = "https://search.google.com/local/writereview?placeid=ChIJk7FSuKRBdkgRSTWp5H8Etv0"
 GROQ_API_KEY = os.getenv("GROQ_API_KEY", "")
 GROQ_MODEL = os.getenv("GROQ_MODEL", "openai/gpt-oss-120b")
 PROFILE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".chrome-profile")

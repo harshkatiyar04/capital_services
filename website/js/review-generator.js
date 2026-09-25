@@ -1,6 +1,6 @@
 
 export const GOOGLE_MAPS_REVIEW_URL =
-  'https://search.google.com/local/writereview?placeid=ChIJK7FSuKRBdkgRSTWp5H8Etv0';
+  'https://search.google.com/local/writereview?placeid=ChIJk7FSuKRBdkgRSTWp5H8Etv0';
 
 const FALLBACK_REVIEWS = [
   "Capital Services were brilliant after our kitchen flood — they attended quickly for the make-safe, set up professional drying throughout the property, and managed the full reinstatement with clear updates at every stage. The team were respectful of our home and kept us informed throughout the insurance process. We felt genuinely looked after from the first call through to sign-off. Couldn't recommend them more highly.",

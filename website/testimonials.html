@@ -45,6 +45,7 @@
   <link rel="stylesheet" href="css/responsive.css">
   <script type="module" src="js/main.js"></script>
   <script type="module" src="js/animations.js"></script>
+  <script type="module" src="js/counter.js"></script>
 </head>
 <body>
 
@@ -75,31 +76,37 @@
     <a href="contact.html" class="btn btn-outline-dark mobile-nav-cta">Get in Touch</a>
   </div>
 
-  <section class="page-hero">
-    <div class="hero-content">
-      <h1 class="hero-animate-1">What Our Partners Say</h1>
-    </div>
-  </section>
-
-  <section class="trust-banner">
+  <section class="trust-banner trust-banner--partners">
+    <div class="trust-banner-glow" aria-hidden="true"></div>
     <div class="container">
-      <div class="stats-grid">
-        <div class="stat-card reveal"><div class="stat-value">50,000+</div><div class="stat-label">Claims Processed</div></div>
-        <div class="stat-card reveal"><div class="stat-value">&pound;150m+</div><div class="stat-label">Value of Claims</div></div>
-        <div class="stat-card reveal"><div class="stat-value">4.3+</div><div class="stat-label">Satisfaction</div></div>
-        <div class="stat-card reveal"><div class="stat-value">26+</div><div class="stat-label">Years in Operation</div></div>
+      <div class="trust-banner-header">
+        <span class="section-label" style="color: var(--brand-amber);">Reviews</span>
+        <h1 class="trust-banner-title">What Our Partners Say</h1>
+      </div>
+      <div class="stats-grid stagger-children">
+        <div class="stat-card reveal">
+          <div class="stat-value" data-counter="50000" data-suffix="+" data-format="comma">0</div>
+          <div class="stat-label">Claims Processed</div>
+        </div>
+        <div class="stat-card reveal">
+          <div class="stat-value" data-counter="150" data-prefix="£" data-suffix="m+" data-format="plain">£0</div>
+          <div class="stat-label">Value of Claims</div>
+        </div>
+        <div class="stat-card reveal">
+          <div class="stat-value" data-counter="4.3" data-suffix="+" data-format="decimal">0</div>
+          <div class="stat-label">Satisfaction Rate</div>
+        </div>
+        <div class="stat-card reveal">
+          <div class="stat-value" data-counter="26" data-suffix="+" data-format="plain">0</div>
+          <div class="stat-label">Years in Operation</div>
+        </div>
       </div>
     </div>
   </section>
 
   <section class="section" id="testimonials-grid">
     <div class="container">
-      <div class="section-header center reveal">
-        <span class="section-label">Reviews</span>
-        <h2 class="section-title">Testimonials</h2>
-        <p class="section-subtitle mx-auto">Sourced from Google reviews.</p>
-      </div>
-      <div class="testimonials-carousel reveal">
+      <div class="testimonials-carousel">
         <div class="testimonials-carousel-toolbar">
           <p class="testimonials-carousel-hint">Swipe or use arrows to explore reviews</p>
           <div class="testimonials-carousel-controls">
@@ -182,7 +189,7 @@
         </div>
         <div class="testimonials-dots"></div>
       </div>
-      <div class="text-center reveal" style="margin-top: var(--space-2xl);">
+      <div class="text-center" style="margin-top: var(--space-2xl);">
         <a href="https://www.google.com/maps/place/?q=place_id:ChIJk7FSuKRBdkgRSTWp5H8Etv0" class="btn btn-outline-dark" target="_blank" rel="noopener noreferrer">See All Google Reviews</a>
       </div>
     </div>

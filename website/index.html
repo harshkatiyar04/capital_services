@@ -48,6 +48,7 @@
   <link rel="stylesheet" href="css/responsive.css">
   <script type="module" src="js/main.js"></script>
   <script type="module" src="js/animations.js"></script>
+  <script type="module" src="js/counter.js"></script>
 </head>
 <body>
 
@@ -210,22 +211,27 @@
 
   <!-- TRUST METRICS -->
   <section class="trust-banner" id="trust-metrics">
+    <div class="trust-banner-glow" aria-hidden="true"></div>
     <div class="container">
-      <div class="stats-grid">
+      <div class="trust-banner-header reveal">
+        <span class="section-label" style="color: var(--brand-amber);">Proven Track Record</span>
+        <h2 class="trust-banner-title">Numbers That Speak for Themselves</h2>
+      </div>
+      <div class="stats-grid stagger-children">
         <div class="stat-card reveal">
-          <div class="stat-value">50,000+</div>
+          <div class="stat-value" data-counter="50000" data-suffix="+" data-format="comma">0</div>
           <div class="stat-label">Claims Processed</div>
         </div>
         <div class="stat-card reveal">
-          <div class="stat-value">&pound;150m+</div>
+          <div class="stat-value" data-counter="150" data-prefix="£" data-suffix="m+" data-format="plain">£0</div>
           <div class="stat-label">Value of Claims</div>
         </div>
         <div class="stat-card reveal">
-          <div class="stat-value">4.3+</div>
+          <div class="stat-value" data-counter="4.3" data-suffix="+" data-format="decimal">0</div>
           <div class="stat-label">Satisfaction Rate</div>
         </div>
         <div class="stat-card reveal">
-          <div class="stat-value">26+</div>
+          <div class="stat-value" data-counter="26" data-suffix="+" data-format="plain">0</div>
           <div class="stat-label">Years in Operation</div>
         </div>
       </div>
@@ -490,8 +496,9 @@
       <div class="section-header center reveal">
         <span class="section-label">Reviews</span>
         <h2 class="section-title">What Our Partners Say</h2>
+        <p class="section-subtitle mx-auto">Real feedback from homeowners and partners.</p>
       </div>
-      <div class="testimonials-carousel reveal">
+      <div class="testimonials-carousel">
         <div class="testimonials-carousel-toolbar">
           <p class="testimonials-carousel-hint">Swipe or use arrows to explore reviews</p>
           <div class="testimonials-carousel-controls">

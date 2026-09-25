@@ -1,7 +1,7 @@
 import puppeteer from 'puppeteer-core';
 import 'dotenv/config';
 
-const REVIEW_URL = 'https://search.google.com/local/writereview?placeid=ChIJK7FSuKRBdkgRSTWp5H8Etv0';
+const REVIEW_URL = 'https://search.google.com/local/writereview?placeid=ChIJk7FSuKRBdkgRSTWp5H8Etv0';
 const CHROME_PATH = 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
 const GROQ_API_KEY = process.env.GROQ_API_KEY || '';
 

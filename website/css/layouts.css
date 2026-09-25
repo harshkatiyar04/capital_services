@@ -286,6 +286,14 @@
   margin-bottom: 0;
 }
 
+.page-hero.page-hero--compact {
+  padding: calc(var(--nav-height) + var(--space-2xl)) var(--space-xl) var(--space-2xl);
+}
+
+.page-hero.page-hero--compact .hero-content h1 {
+  margin-bottom: 0;
+}
+
 /* Optional photo hero for pages that need a background image */
 .page-hero.page-hero--photo {
   min-height: 360px;
@@ -361,40 +369,104 @@
   border-radius: var(--radius-lg);
 }
 
-/* Trust banner */
+/* Trust banner — clean divider layout, big count-up numbers */
 .trust-banner {
+  position: relative;
   background: var(--brand-black);
-  padding: var(--space-3xl) 0;
+  padding: var(--space-4xl) 0;
+  overflow: hidden;
+}
+
+.trust-banner-glow {
+  position: absolute;
+  top: -40%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120%;
+  height: 180%;
+  background: radial-gradient(ellipse 50% 40% at 50% 20%,
+    rgba(232, 160, 32, 0.07) 0%,
+    transparent 70%);
+  pointer-events: none;
+}
+
+.trust-banner-header {
+  text-align: center;
+  margin-bottom: var(--space-3xl);
+}
+
+.trust-banner--partners {
+  padding-top: calc(var(--nav-height) + var(--space-3xl));
+}
+
+.trust-banner--partners .trust-banner-header .section-label {
+  display: inline-block;
+  margin-bottom: var(--space-md);
+}
+
+.trust-banner--partners .trust-banner-title {
+  font-family: var(--font-primary);
+  font-size: clamp(1.85rem, 4vw, 2.75rem);
+  font-weight: 700;
+}
+
+.trust-banner-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
 }
 
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: var(--space-xl);
+  gap: 0;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
 .stat-card {
   text-align: center;
-  padding: var(--space-lg);
+  padding: var(--space-xl) clamp(1.25rem, 2.5vw, 2.5rem);
   border-left: 1px solid rgba(255, 255, 255, 0.12);
 }
 
-.stat-card:first-child { border-left: none; }
+.stat-card:first-child {
+  border-left: none;
+}
 
 .stat-card .stat-value {
-  font-size: var(--fs-3xl);
+  font-family: var(--font-primary);
+  font-size: clamp(2.25rem, 4.5vw, 3.5rem);
   font-weight: var(--fw-extrabold);
   color: var(--brand-amber);
-  line-height: 1;
-  margin-bottom: var(--space-sm);
+  line-height: 1.1;
+  margin-bottom: var(--space-md);
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
 .stat-card .stat-label {
-  font-size: var(--fs-xs);
-  color: rgba(255, 255, 255, 0.65);
+  font-size: var(--fs-sm);
+  color: rgba(255, 255, 255, 0.7);
   text-transform: uppercase;
   letter-spacing: var(--ls-wider);
   font-weight: var(--fw-medium);
+}
+
+/* Counted state — subtle number pop */
+.stat-value.counted {
+  animation: statPop 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes statPop {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.06); }
+  100% { transform: scale(1); }
 }
 
 /* CTA section */
@@ -410,11 +482,11 @@
   .grid-3, .grid-4 { grid-template-columns: repeat(2, 1fr); }
   .stats-grid { grid-template-columns: repeat(2, 1fr); }
   .stat-card:nth-child(odd) { border-left: none; }
-  .stat-card { border-left: none; }
   .two-col { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 768px) {
   .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
-  .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-lg) 0; }
+  .stat-card { border-left: none; }
 }

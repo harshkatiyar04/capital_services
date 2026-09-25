@@ -45,6 +45,7 @@ function cloudFolder(relPath) {
   const norm = relPath.replace(/\\/g, '/');
   const file = basename(norm);
   if (norm.startsWith('logos/')) return slugPublicId('capital-services/logos', file);
+  if (norm.startsWith('team_founder/')) return slugPublicId('capital-services/team_founder', file);
   if (norm.startsWith('images/team/')) return slugPublicId('capital-services/team', file);
   if (norm.startsWith('images/work/after/')) {
     return WORK_AFTER_MAP[file] || slugPublicId('capital-services/work-after', file);

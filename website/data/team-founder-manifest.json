@@ -1,0 +1,61 @@
+{
+  "cloudName": "foxrj3tm",
+  "folder": "capital-services/team_founder",
+  "uploadedAt": "2026-09-25T04:42:16.753Z",
+  "assets": {
+    "ajay": {
+      "file": "ajay.jpg",
+      "publicId": "capital-services/team_founder/ajay",
+      "version": 1790311336,
+      "delivery": "https://res.cloudinary.com/foxrj3tm/image/upload/f_auto,q_auto/v1790311336/capital-services/team_founder/ajay"
+    },
+    "debbie": {
+      "file": "debbie.jpg",
+      "publicId": "capital-services/team_founder/debbie",
+      "version": 1790275325,
+      "delivery": "https://res.cloudinary.com/foxrj3tm/image/upload/f_auto,q_auto/v1790275325/capital-services/team_founder/debbie"
+    },
+    "jo": {
+      "file": "jo.jpg",
+      "publicId": "capital-services/team_founder/jo",
+      "version": 1790275327,
+      "delivery": "https://res.cloudinary.com/foxrj3tm/image/upload/f_auto,q_auto/v1790275327/capital-services/team_founder/jo"
+    },
+    "keith": {
+      "file": "keith.jpg",
+      "publicId": "capital-services/team_founder/keith",
+      "version": 1790275329,
+      "delivery": "https://res.cloudinary.com/foxrj3tm/image/upload/f_auto,q_auto/v1790275329/capital-services/team_founder/keith"
+    },
+    "kristie": {
+      "file": "kristie.jpg",
+      "publicId": "capital-services/team_founder/kristie",
+      "version": 1790275331,
+      "delivery": "https://res.cloudinary.com/foxrj3tm/image/upload/f_auto,q_auto/v1790275331/capital-services/team_founder/kristie"
+    },
+    "naomi": {
+      "file": "naomi.jpg",
+      "publicId": "capital-services/team_founder/naomi",
+      "version": 1790275333,
+      "delivery": "https://res.cloudinary.com/foxrj3tm/image/upload/f_auto,q_auto/v1790275333/capital-services/team_founder/naomi"
+    },
+    "sid": {
+      "file": "sid.jpg",
+      "publicId": "capital-services/team_founder/sid",
+      "version": 1790275335,
+      "delivery": "https://res.cloudinary.com/foxrj3tm/image/upload/f_auto,q_auto/v1790275335/capital-services/team_founder/sid"
+    },
+    "simon": {
+      "file": "simon.jpg",
+      "publicId": "capital-services/team_founder/simon",
+      "version": 1790275824,
+      "delivery": "https://res.cloudinary.com/foxrj3tm/image/upload/f_auto,q_auto/v1790275824/capital-services/team_founder/simon"
+    },
+    "terry": {
+      "file": "terry.jpg",
+      "publicId": "capital-services/team_founder/terry",
+      "version": 1790275338,
+      "delivery": "https://res.cloudinary.com/foxrj3tm/image/upload/f_auto,q_auto/v1790275338/capital-services/team_founder/terry"
+    }
+  }
+}

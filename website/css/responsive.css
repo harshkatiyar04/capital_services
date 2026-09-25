@@ -78,11 +78,11 @@
   }
 
   .stat-card .stat-value {
-    font-size: clamp(1.5rem, 2.8vw, 2.25rem);
+    font-size: clamp(1.85rem, 3.5vw, 2.75rem);
   }
 
   .stat-card .stat-label {
-    font-size: 0.6875rem;
+    font-size: 0.75rem;
     letter-spacing: 0.06em;
   }
 
@@ -648,28 +648,28 @@
     padding-left: var(--space-sm);
   }
 
-  /* Trust stats — 2×2 on mobile */
+  /* Trust stats — 2×2 on mobile, keep numbers prominent */
   .trust-banner {
     padding: var(--space-2xl) 0;
   }
 
   .stats-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--space-md);
+    gap: var(--space-xl) 0;
   }
 
   .stat-card {
-    padding: var(--space-sm) var(--space-xs);
+    padding: var(--space-md) var(--space-sm);
     border-left: none;
   }
 
   .stat-card .stat-value {
-    font-size: clamp(1.25rem, 5.5vw, 1.75rem);
+    font-size: clamp(2rem, 8vw, 2.75rem);
     word-break: break-word;
   }
 
   .stat-card .stat-label {
-    font-size: 0.625rem;
+    font-size: 0.6875rem;
     line-height: 1.35;
     letter-spacing: 0.05em;
   }
@@ -958,15 +958,15 @@
   }
 
   .stats-grid {
-    gap: var(--space-sm);
+    gap: var(--space-lg) 0;
   }
 
   .stat-card .stat-value {
-    font-size: 1.2rem;
+    font-size: clamp(1.75rem, 9vw, 2.25rem);
   }
 
   .stat-card .stat-label {
-    font-size: 0.5625rem;
+    font-size: 0.625rem;
   }
 
   .testimonials-carousel .testimonial-card {
