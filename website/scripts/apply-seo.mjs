@@ -132,6 +132,9 @@ function buildHeadBlock(file, page) {
   const keywords = page.keywords || '';
   const ogType = page.ogType || 'website';
   const image = page.image || IMAGE;
+  const imageWidth = page.imageWidth || cfg.shareImageWidth || '1200';
+  const imageHeight = page.imageHeight || cfg.shareImageHeight || '630';
+  const imageAlt = `${cfg.siteName} — insurance repair specialists`;
 
   const graphs = [orgJsonLd(), breadcrumbJsonLd(page)];
   if (file === 'index.html') graphs.push(websiteJsonLd());
@@ -141,7 +144,19 @@ function buildHeadBlock(file, page) {
     .map((g) => `  <script type="application/ld+json">${JSON.stringify(g)}</script>`)
     .join('\n');
 
-  return `  <title>${escapeAttr(title)}</title>
+  const gaId = cfg.gaMeasurementId || '';
+  const gaTag = gaId
+    ? `  <script async src="https://www.googletagmanager.com/gtag/js?id=${escapeAttr(gaId)}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '${escapeAttr(gaId)}');
+  </script>
+`
+    : '';
+
+  return `${gaTag}  <title>${escapeAttr(title)}</title>
   <meta name="description" content="${escapeAttr(desc)}">
   <meta name="keywords" content="${escapeAttr(keywords)}">
   <meta name="author" content="${escapeAttr(cfg.legalName)}">
@@ -164,11 +179,16 @@ function buildHeadBlock(file, page) {
   <meta property="og:description" content="${escapeAttr(desc)}">
   <meta property="og:url" content="${escapeAttr(url)}">
   <meta property="og:image" content="${escapeAttr(image)}">
-  <meta property="og:image:alt" content="${escapeAttr(cfg.siteName)} — insurance repair specialists">
+  <meta property="og:image:secure_url" content="${escapeAttr(image)}">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="${escapeAttr(imageWidth)}">
+  <meta property="og:image:height" content="${escapeAttr(imageHeight)}">
+  <meta property="og:image:alt" content="${escapeAttr(imageAlt)}">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="${escapeAttr(title)}">
   <meta name="twitter:description" content="${escapeAttr(desc)}">
   <meta name="twitter:image" content="${escapeAttr(image)}">
+  <meta name="twitter:image:alt" content="${escapeAttr(imageAlt)}">
 ${jsonLd}`;
 }
 

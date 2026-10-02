@@ -4,9 +4,12 @@
   "legalName": "Capital Services (Watford) Ltd",
   "phone": "+44-1923-270022",
   "email": "info@capitalservices.com",
+  "gaMeasurementId": "G-H3R9L7D88C",
   "locale": "en_GB",
   "twitter": "",
-  "defaultImage": "https://res.cloudinary.com/foxrj3tm/image/upload/f_auto,q_auto,w_1200/v1787939252/capital-services/heroes/hero-home.jpg",
+  "defaultImage": "https://res.cloudinary.com/foxrj3tm/image/upload/f_jpg,q_80,w_1200,h_630,c_fill,g_auto/v1787939252/capital-services/heroes/hero-home.jpg",
+  "shareImageWidth": "1200",
+  "shareImageHeight": "630",
   "logo": "https://res.cloudinary.com/foxrj3tm/image/upload/f_auto,q_auto/v1787939389/capital-services/logos/capital-services-logo.jpg",
   "address": {
     "street": "Unit 9-10, Kings Park Industrial Estate, Primrose Hill",
