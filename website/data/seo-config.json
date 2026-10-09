@@ -12,7 +12,7 @@
   "shareImageHeight": "630",
   "logo": "https://res.cloudinary.com/foxrj3tm/image/upload/f_auto,q_auto/v1787939389/capital-services/logos/capital-services-logo.jpg",
   "address": {
-    "street": "Unit 9-10, Kings Park Industrial Estate, Primrose Hill",
+    "street": "Unit 9, Kings Park Industrial Estate, Primrose Hill",
     "locality": "Kings Langley",
     "region": "Hertfordshire",
     "postal": "WD4 8ST",
@@ -23,7 +23,7 @@
       "path": "/",
       "title": "Insurance Repair & Property Restoration Specialists | Capital Services",
       "description": "Capital Services — UK insurance repair specialists for fire, flood, escape of water, storm and subsidence. Emergency make-safe, drying and full reinstatement across London, Home Counties & South Coast.",
-      "keywords": "insurance repair, property restoration, fire damage restoration, flood damage, escape of water, storm damage, subsidence repair, emergency make safe, insurance claims restoration, Watford, Hertfordshire",
+      "keywords": "Capital Services, insurance repair, property restoration, fire damage restoration, flood damage, escape of water, storm damage, subsidence repair, emergency make safe, Watford, Yateley, Kings Langley",
       "ogType": "website",
       "priority": "1.0",
       "changefreq": "weekly"
@@ -38,17 +38,17 @@
     },
     "services.html": {
       "path": "/services",
-      "title": "Insurance Claims Services | Validation, Make-Safe & Reinstatement",
-      "description": "Explore Capital Services insurance claims services: validation, cash settlements, emergency make-safe & drying, leak detection, major loss, commercial claims and reinstatement.",
-      "keywords": "insurance claims services, claim validation, emergency drying, leak detection, major loss, commercial insurance repair, reinstatement",
+      "title": "Insurance Repair Services | Capital Services",
+      "description": "Capital Services insurance repair: claim validation, emergency make-safe and drying, leak detection, fire, flood, storm, subsidence, commercial claims and full reinstatement.",
+      "keywords": "Capital Services, insurance repair services, claim validation, emergency make safe, leak detection, reinstatement, commercial insurance repair",
       "priority": "0.9",
       "changefreq": "weekly"
     },
     "clients.html": {
       "path": "/clients",
-      "title": "Case Studies & Insurer Partners | Capital Services",
-      "description": "See Capital Services case studies and insurer partnerships — water, fire, storm, subsidence, commercial and major loss insurance repair projects.",
-      "keywords": "insurance repair case studies, insurer partners, property restoration projects",
+      "title": "Insurance Repair Case Studies | Capital Services",
+      "description": "Capital Services case studies for escape of water, fire and smoke, storm damage, subsidence, commercial flood and major loss insurance repair.",
+      "keywords": "Capital Services, insurance repair case studies, fire damage, storm damage, water damage, insurer partners",
       "priority": "0.8",
       "changefreq": "weekly"
     },
@@ -67,6 +67,14 @@
       "keywords": "contact Capital Services, insurance repair quote, Watford, Yateley, Kings Langley",
       "priority": "0.9",
       "changefreq": "monthly"
+    },
+    "cookies.html": {
+      "path": "/cookies",
+      "title": "Cookie Policy | Capital Services",
+      "description": "How Capital Services uses cookies. Analytics cookies run only after you accept. You can reject them and still use the site.",
+      "keywords": "Capital Services cookie policy, analytics cookies",
+      "priority": "0.3",
+      "changefreq": "yearly"
     },
     "case-water.html": {
       "path": "/case-water",

@@ -15,7 +15,7 @@ export const OFFICES = [
     lng: -0.3903,
     zoom: 13,
     directionsUrl:
-      'https://www.google.com/maps/dir/?api=1&destination=Watford%2C%20Hertfordshire%2C%20UK',
+      'https://www.google.com/maps/dir/?api=1&destination=Units%209-10%2C%20Kings%20Park%20Industrial%20Estate%2C%20Primrose%20Hill%2C%20Kings%20Langley%20WD4%208ST%2C%20United%20Kingdom',
   },
   {
     id: 'yateley',
@@ -25,13 +25,13 @@ export const OFFICES = [
     lng: -0.8298,
     zoom: 13,
     directionsUrl:
-      'https://www.google.com/maps/dir/?api=1&destination=Yateley%2C%20Hampshire%2C%20UK',
+      'https://www.google.com/maps/dir/?api=1&destination=Units%209-10%2C%20Kings%20Park%20Industrial%20Estate%2C%20Primrose%20Hill%2C%20Kings%20Langley%20WD4%208ST%2C%20United%20Kingdom',
   },
   {
     id: 'kings-langley',
     name: 'Kings Langley',
     region: 'Hertfordshire',
-    address: 'Units 9–10, Kings Park Industrial Estate, Primrose Hill, WD4 8ST',
+    address: 'Unit 9, Kings Park Industrial Estate, Primrose Hill, WD4 8ST',
     lat: 51.715047,
     lng: -0.443667,
     zoom: 16,

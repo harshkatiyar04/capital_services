@@ -222,6 +222,19 @@
   flex-wrap: wrap;
 }
 
+/* Desktop: Let's Talk takes the larger button, See Our Work the smaller one */
+@media (min-width: 769px) {
+  .hero-actions .btn-primary {
+    min-width: 220px;
+    padding: 18px 40px;
+  }
+
+  .hero-actions .btn-outline {
+    min-width: 168px;
+    padding: 12px 22px;
+  }
+}
+
 .hero .btn-outline {
   color: #ffffff;
   font-weight: 600;

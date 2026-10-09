@@ -193,6 +193,7 @@ export default defineConfig({
         clients: resolve(__dirname, 'clients.html'),
         testimonials: resolve(__dirname, 'testimonials.html'),
         contact: resolve(__dirname, 'contact.html'),
+        cookies: resolve(__dirname, 'cookies.html'),
         team: resolve(__dirname, 'team.html'),
         crew: resolve(__dirname, 'crew.html'),
         admin: resolve(__dirname, 'admin.html'),

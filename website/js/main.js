@@ -69,17 +69,47 @@ function initMobileNav() {
 }
 
 /* ── Smooth Scroll for anchor links ── */
+function scrollToHashTarget(hash, behavior) {
+  const id = decodeURIComponent((hash || '').replace(/^#/, ''));
+  if (!id) return false;
+  const target = document.getElementById(id);
+  if (!target) return false;
+  const y = target.getBoundingClientRect().top + window.scrollY - 120;
+  window.scrollTo({ top: Math.max(0, y), behavior });
+  return true;
+}
+
 function initSmoothScroll() {
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  document.querySelectorAll('a[href*="#"]').forEach((anchor) => {
     anchor.addEventListener('click', (e) => {
-      const target = document.querySelector(anchor.getAttribute('href'));
-      if (target) {
-        e.preventDefault();
-        const offset = 100;
-        const y = target.getBoundingClientRect().top + window.scrollY - offset;
-        window.scrollTo({ top: y, behavior: 'smooth' });
-      }
+      const href = anchor.getAttribute('href') || '';
+      const hashIndex = href.indexOf('#');
+      if (hashIndex < 0) return;
+      const hash = href.slice(hashIndex);
+      if (hash === '#') return;
+      const path = href.slice(0, hashIndex);
+      const page = location.pathname.split('/').pop() || 'index.html';
+      const samePage = !path || path === page || path === location.pathname;
+      if (!samePage || !document.getElementById(hash.slice(1))) return;
+      e.preventDefault();
+      scrollToHashTarget(hash, 'smooth');
+      history.pushState(null, '', hash);
     });
+  });
+
+  window.addEventListener('load', () => {
+    const id = decodeURIComponent((location.hash || '').replace(/^#/, ''));
+    const target = id && document.getElementById(id);
+    if (!target) return;
+    const place = () => scrollToHashTarget(location.hash, 'auto');
+    place();
+    let ticks = 0;
+    const timer = setInterval(() => {
+      ticks += 1;
+      const top = target.getBoundingClientRect().top;
+      if (Math.abs(top - 120) > 40) place();
+      if (ticks >= 8) clearInterval(timer);
+    }, 200);
   });
 }
 

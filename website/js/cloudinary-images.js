@@ -3,7 +3,7 @@
 export const CLOUDINARY_CLOUD = 'foxrj3tm';
 
 export const CLOUDINARY_ASSETS = {
-  images_hero_about: 'https://res.cloudinary.com/foxrj3tm/image/upload/f_auto,q_auto,w_900/v1787939245/capital-services/heroes/hero-about.jpg',
+  images_hero_about: 'https://res.cloudinary.com/foxrj3tm/image/upload/f_auto,q_auto,w_1400/v1791526520/our_story.png',
   images_hero_clients: 'https://res.cloudinary.com/foxrj3tm/image/upload/f_auto,q_auto,w_1400/v1787939247/capital-services/heroes/hero-clients.jpg',
   images_hero_contact: 'https://res.cloudinary.com/foxrj3tm/image/upload/f_auto,q_auto,w_1400/v1787939249/capital-services/heroes/hero-contact.jpg',
   images_hero_home: 'https://res.cloudinary.com/foxrj3tm/image/upload/f_auto,q_auto,w_1920/v1787939252/capital-services/heroes/hero-home.jpg',
@@ -29,6 +29,9 @@ export const CLOUDINARY_ASSETS = {
   images_partners_bovis_homes: 'https://res.cloudinary.com/foxrj3tm/image/upload/f_auto,q_auto/v1787939276/capital-services/developers/bovis-homes.jpg',
   images_partners_cale_homes: 'https://res.cloudinary.com/foxrj3tm/image/upload/f_auto,q_auto/v1787939277/capital-services/developers/cale-homes.png',
   images_partners_crawford: 'https://res.cloudinary.com/foxrj3tm/image/upload/f_auto,q_auto/v1787939277/capital-services/partners/crawford.png',
+  images_partners_gateley_vinden: 'https://res.cloudinary.com/foxrj3tm/image/upload/f_png,q_100/v1791526812/capital-services/partners/gateley-vinden-clear.png',
+  images_partners_quadra: 'https://res.cloudinary.com/foxrj3tm/image/upload/f_auto,q_auto/v1791526154/capital-services/partners/quadra.png',
+  images_partners_woodgate_clark: 'https://res.cloudinary.com/foxrj3tm/image/upload/f_auto,q_auto/v1791526155/capital-services/partners/woodgate-clark.png',
   images_partners_crest_nicholson: 'https://res.cloudinary.com/foxrj3tm/image/upload/f_auto,q_auto/v1787939278/capital-services/developers/crest-nicholson.png',
   images_partners_home: 'https://res.cloudinary.com/foxrj3tm/image/upload/f_auto,q_auto/v1787939280/capital-services/partners/home.png',
   images_partners_lovell: 'https://res.cloudinary.com/foxrj3tm/image/upload/f_auto,q_auto/v1787939281/capital-services/developers/lovell.jpg',
@@ -36,7 +39,7 @@ export const CLOUDINARY_ASSETS = {
   images_partners_lv: 'https://res.cloudinary.com/foxrj3tm/image/upload/f_auto,q_auto/v1788024362/capital-services/partners/lv.svg',
   images_partners_rectory: 'https://res.cloudinary.com/foxrj3tm/image/upload/f_auto,q_auto/v1787939288/capital-services/developers/rectory.jpg',
   images_partners_sedgwick_logo: 'https://res.cloudinary.com/foxrj3tm/image/upload/f_auto,q_auto/v1787939289/capital-services/partners/sedgwick-logo.png',
-  images_partners_sedgwick: 'https://res.cloudinary.com/foxrj3tm/image/upload/f_auto,q_auto/v1788024367/capital-services/partners/sedgwick.png',
+  images_partners_sedgwick: 'https://res.cloudinary.com/foxrj3tm/image/upload/f_png,q_100,w_640/v1791526382/capital-services/partners/sedgwick-wordmark.png',
   images_partners_sedgwick: 'https://res.cloudinary.com/foxrj3tm/image/upload/f_auto,q_auto/v1788024368/capital-services/partners/sedgwick.svg',
   images_partners_spitfire_bespoke_homes: 'https://res.cloudinary.com/foxrj3tm/image/upload/f_auto,q_auto/v1787939293/capital-services/developers/spitfire-bespoke-homes.jpg',
   images_partners_taylor_wimpey: 'https://res.cloudinary.com/foxrj3tm/image/upload/f_auto,q_auto/v1787939294/capital-services/developers/taylor-wimpey.jpg',

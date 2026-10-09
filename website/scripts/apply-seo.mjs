@@ -29,10 +29,15 @@ function orgJsonLd() {
     email: cfg.email,
     telephone: cfg.phone,
     slogan: 'We care and it shows',
+    alternateName: ['Capital Services (Watford) Ltd'],
     areaServed: [
+      { '@type': 'Country', name: 'United Kingdom' },
+      { '@type': 'AdministrativeArea', name: 'England' },
       { '@type': 'AdministrativeArea', name: 'London' },
       { '@type': 'AdministrativeArea', name: 'Home Counties' },
       { '@type': 'AdministrativeArea', name: 'South Coast' },
+      { '@type': 'AdministrativeArea', name: 'Hertfordshire' },
+      { '@type': 'AdministrativeArea', name: 'Hampshire' },
     ],
     address: {
       '@type': 'PostalAddress',
@@ -51,7 +56,63 @@ function orgJsonLd() {
       '@type': 'OpeningHoursSpecification',
       dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
       opens: '08:00',
-      closes: '17:30',
+      closes: '18:00',
+    },
+    location: [
+      {
+        '@type': 'Place',
+        name: 'Capital Services Kings Langley',
+        telephone: cfg.phone,
+        address: {
+          '@type': 'PostalAddress',
+          streetAddress: cfg.address.street,
+          addressLocality: 'Kings Langley',
+          addressRegion: 'Hertfordshire',
+          postalCode: cfg.address.postal,
+          addressCountry: 'GB',
+        },
+      },
+      {
+        '@type': 'Place',
+        name: 'Capital Services Watford',
+        telephone: cfg.phone,
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: 'Watford',
+          addressRegion: 'Hertfordshire',
+          addressCountry: 'GB',
+        },
+      },
+      {
+        '@type': 'Place',
+        name: 'Capital Services Yateley',
+        telephone: cfg.phone,
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: 'Yateley',
+          addressRegion: 'Hampshire',
+          addressCountry: 'GB',
+        },
+      },
+    ],
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Insurance repair services',
+      itemListElement: [
+        'Fire and smoke damage',
+        'Flood and escape of water',
+        'Storm damage',
+        'Subsidence',
+        'Impact damage',
+        'Emergency make-safe and drying',
+        'Leak detection',
+        'Commercial claims',
+        'Major loss',
+        'Claim validation',
+      ].map((name) => ({
+        '@type': 'Offer',
+        itemOffered: { '@type': 'Service', name, provider: { '@id': `${SITE}/#organization` } },
+      })),
     },
     sameAs: [
       'https://www.linkedin.com/company/capital-services-watford-ltd',
@@ -59,12 +120,16 @@ function orgJsonLd() {
     knowsAbout: [
       'Insurance repair',
       'Property restoration',
-      'Fire damage',
+      'Fire and smoke damage',
       'Flood damage',
       'Escape of water',
       'Storm damage',
       'Subsidence',
+      'Impact damage',
       'Major loss claims',
+      'Commercial insurance repair',
+      'Emergency make-safe',
+      'Leak detection',
     ],
   };
 }
@@ -98,6 +163,47 @@ function breadcrumbJsonLd(page) {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: items,
+  };
+}
+
+function faqJsonLd() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'What do you repair?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'We take insured homes and commercial buildings from the first make-safe through to handing them back. The work covers escape of water, flood, fire and smoke, storm, subsidence and impact.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Who do you work with?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Insurers, property owners and their partners. We validate the claim, make the property safe, then carry it through drying and reinstatement. Where a policyholder would rather not use a nominated contractor, we manage the cash settlement instead.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Where do you cover?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'London, the Home Counties and the South Coast, from offices in Watford, Yateley and Kings Langley. The coverage map shows the postcodes we attend.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'How do I reach you?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Call 01923 270022 or email info@capitalservices.com. The offices are open Monday to Friday, 8:00am to 6:00pm, and every enquiry gets a reply within 24 hours.',
+        },
+      },
+    ],
   };
 }
 
@@ -137,26 +243,23 @@ function buildHeadBlock(file, page) {
   const imageAlt = `${cfg.siteName} — insurance repair specialists`;
 
   const graphs = [orgJsonLd(), breadcrumbJsonLd(page)];
-  if (file === 'index.html') graphs.push(websiteJsonLd());
+  if (file === 'index.html') {
+    graphs.push(websiteJsonLd());
+    graphs.push(faqJsonLd());
+  }
   if (file === 'services.html') graphs.push(serviceJsonLd());
 
   const jsonLd = graphs
     .map((g) => `  <script type="application/ld+json">${JSON.stringify(g)}</script>`)
     .join('\n');
 
-  const gaId = cfg.gaMeasurementId || '';
-  const gaTag = gaId
-    ? `  <script async src="https://www.googletagmanager.com/gtag/js?id=${escapeAttr(gaId)}"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', '${escapeAttr(gaId)}');
-  </script>
+  const consentBoot = cfg.gaMeasurementId
+    ? `  <script>window.CS_GA_ID=${JSON.stringify(cfg.gaMeasurementId)};</script>
+  <script src="/js/cookie-consent.js" defer></script>
 `
     : '';
 
-  return `${gaTag}  <title>${escapeAttr(title)}</title>
+  return `${consentBoot}  <title>${escapeAttr(title)}</title>
   <meta name="description" content="${escapeAttr(desc)}">
   <meta name="keywords" content="${escapeAttr(keywords)}">
   <meta name="author" content="${escapeAttr(cfg.legalName)}">

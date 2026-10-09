@@ -54,6 +54,7 @@
     { "source": "/services", "destination": "/services.html" },
     { "source": "/clients", "destination": "/clients.html" },
     { "source": "/testimonials", "destination": "/testimonials.html" },
-    { "source": "/contact", "destination": "/contact.html" }
+    { "source": "/contact", "destination": "/contact.html" },
+    { "source": "/cookies", "destination": "/cookies.html" }
   ]
 }

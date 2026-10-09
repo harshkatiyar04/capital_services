@@ -674,7 +674,7 @@
     letter-spacing: 0.05em;
   }
 
-  /* Team */
+  /* Team — same stacked cards, slightly smaller on a phone */
   .leadership-grid,
   .directors-grid {
     grid-template-columns: 1fr;
@@ -683,16 +683,16 @@
   }
 
   .team-card-photo {
-    padding: var(--space-xl) var(--space-md) var(--space-sm);
+    padding: var(--space-lg) var(--space-md) var(--space-sm);
   }
 
   .team-card-photo-frame {
-    width: 140px;
-    height: 140px;
+    width: 124px;
+    height: 124px;
   }
 
   .team-card .card-info {
-    padding: var(--space-md) var(--space-md) var(--space-xl);
+    padding: var(--space-md) var(--space-md) var(--space-lg);
   }
 
   .team-card .bio {
@@ -702,8 +702,18 @@
 
   .leads-grid {
     grid-template-columns: 1fr;
-    max-width: 100%;
+    max-width: 22rem;
+    margin: 0 auto;
     gap: var(--space-md);
+  }
+
+  .flip-card-inner {
+    height: 320px;
+  }
+
+  .flip-photo {
+    width: 124px;
+    height: 124px;
   }
 
   .cert-grid {
@@ -840,7 +850,8 @@
   }
 
   .coverage-chips {
-    max-height: 200px;
+    max-height: none;
+    overflow: visible;
   }
 
   .coverage-check-row {
@@ -905,7 +916,7 @@
   }
 
   .footer-brand .footer-logo {
-    height: 56px;
+    height: 68px;
     margin-left: auto;
     margin-right: auto;
   }
