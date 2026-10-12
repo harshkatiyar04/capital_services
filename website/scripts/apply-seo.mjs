@@ -259,11 +259,15 @@ function buildHeadBlock(file, page) {
 `
     : '';
 
+  const gscMeta = (file === 'index.html' && cfg.googleSiteVerification)
+    ? `  <meta name="google-site-verification" content="${escapeAttr(cfg.googleSiteVerification)}">\n`
+    : '';
+
   return `${consentBoot}  <title>${escapeAttr(title)}</title>
   <meta name="description" content="${escapeAttr(desc)}">
   <meta name="keywords" content="${escapeAttr(keywords)}">
   <meta name="author" content="${escapeAttr(cfg.legalName)}">
-  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+${gscMeta}  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <meta name="googlebot" content="index, follow">
   <meta name="bingbot" content="index, follow">
   <meta name="theme-color" content="#1a1a1a">

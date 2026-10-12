@@ -23,6 +23,12 @@
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=3600" }
       ]
+    },
+    {
+      "source": "/google5f5a06f14391cef4.html",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=3600" }
+      ]
     }
   ],
   "functions": {
@@ -39,6 +45,8 @@
     }
   },
   "rewrites": [
+    { "source": "/google5f5a06f14391cef4.html", "destination": "/google5f5a06f14391cef4.html" },
+    { "source": "/google5f5a06f14391cef4", "destination": "/google5f5a06f14391cef4.html" },
     { "source": "/api/ops/:path*", "destination": "/api/ops?path=:path*" },
     { "source": "/team", "destination": "/team.html" },
     { "source": "/crew", "destination": "/crew.html" },
