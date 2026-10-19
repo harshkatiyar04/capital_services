@@ -3,9 +3,15 @@ import { getToken, ops, setToken } from './ops-client.js';
 const $ = (id) => document.getElementById(id);
 
 function show(which) {
-  ['choose', 'worker-gate', 'admin-gate'].forEach((id) => {
+  ['choose', 'worker-gate', 'admin-gate', 'wait'].forEach((id) => {
     $(id).classList.toggle('ops-hidden', id !== which);
   });
+}
+
+function hold(which, title) {
+  $('wait-title').textContent = title;
+  show('wait');
+  return which;
 }
 
 function fail(id, msg) {
@@ -16,13 +22,17 @@ function fail(id, msg) {
 
 async function routeExisting() {
   const token = getToken();
-  if (!token) return;
+  if (!token) {
+    show('choose');
+    return;
+  }
+  hold('choose', 'Checking your sign-in');
   try {
     const { user } = await ops('me');
     if (user.kind === 'admin') location.replace('admin.html');
     else location.replace('crew.html');
   } catch {
-    /* stay on gate */
+    show('choose');
   }
 }
 
@@ -36,6 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   $('worker-login').addEventListener('submit', async (e) => {
     e.preventDefault();
+    hold('worker-gate', 'Signing you in');
     try {
       const data = await ops('login', {
         method: 'POST',
@@ -45,6 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
       setToken(data.token);
       location.href = 'crew.html';
     } catch (err) {
+      show('worker-gate');
       fail('w-login-err', err.message);
     }
   });
@@ -52,6 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
   $('worker-signup').addEventListener('submit', async (e) => {
     e.preventDefault();
     if ($('s-pass').value !== $('s-pass-2').value) return fail('w-sign-err', 'Passwords do not match.');
+    hold('worker-gate', 'Creating your account');
     try {
       const data = await ops('signup', {
         method: 'POST',
@@ -64,12 +77,14 @@ document.addEventListener('DOMContentLoaded', () => {
       setToken(data.token);
       location.href = 'crew.html';
     } catch (err) {
+      show('worker-gate');
       fail('w-sign-err', err.message);
     }
   });
 
   $('admin-login').addEventListener('submit', async (e) => {
     e.preventDefault();
+    hold('admin-gate', 'Signing you in');
     try {
       const data = await ops('login', {
         method: 'POST',
@@ -79,6 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
       setToken(data.token);
       location.href = 'admin.html';
     } catch (err) {
+      show('admin-gate');
       fail('a-err', err.message);
     }
   });

@@ -29,6 +29,15 @@
       </div>
     </header>
 
+    <div id="boot" class="ops-hidden ops-wait" role="status" aria-live="polite">
+      <div>
+        <div class="ops-spinner" aria-hidden="true"></div>
+        <p class="ops-kicker">Office</p>
+        <h1 class="ops-title">Opening the ledger</h1>
+        <p>This usually takes a few seconds.</p>
+      </div>
+    </div>
+
     <div id="gate" class="ops-login ops-card">
       <p class="ops-kicker">Restricted</p>
       <h1 class="ops-title" style="font-size:2rem">Office sign-in</h1>
@@ -45,6 +54,14 @@
         <button class="btn btn-primary" type="submit" style="width:100%">Enter</button>
       </form>
     </div>
+    <script>
+      try {
+        if (localStorage.getItem('cs_ops_token') || sessionStorage.getItem('cs_ops_token')) {
+          document.getElementById('boot').classList.remove('ops-hidden');
+          document.getElementById('gate').classList.add('ops-hidden');
+        }
+      } catch (e) {}
+    </script>
 
     <div id="app" class="ops-hidden">
       <div class="ops-grid">

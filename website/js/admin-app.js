@@ -5,9 +5,10 @@ let cache = null;
 let view = 'overview';
 let boardRole = 'trade';
 
-function showGate(on) {
-  $('gate').classList.toggle('ops-hidden', !on);
-  $('app').classList.toggle('ops-hidden', on);
+function showShell(mode) {
+  $('gate').classList.toggle('ops-hidden', mode !== 'gate');
+  $('boot').classList.toggle('ops-hidden', mode !== 'boot');
+  $('app').classList.toggle('ops-hidden', mode !== 'app');
 }
 
 function tierEl(tier) {
@@ -204,7 +205,7 @@ function render() {
 
 async function boot() {
   cache = await ops('admin/overview');
-  showGate(false);
+  showShell('app');
   render();
 }
 
@@ -212,7 +213,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   $('logout-btn').addEventListener('click', async () => {
     try { await ops('logout', { method: 'POST', body: {} }); } catch {}
     clearToken();
-    showGate(true);
+    showShell('gate');
   });
 
   $('rail').addEventListener('click', (e) => {
@@ -234,8 +235,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         throw new Error('Office login only');
       }
       setToken(data.token);
+      showShell('boot');
       await boot();
     } catch (ex) {
+      showShell('gate');
       const el = $('login-error');
       el.textContent = ex.message;
       el.classList.remove('ops-hidden');
@@ -243,6 +246,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   if (getToken()) {
-    try { await boot(); } catch { clearToken(); showGate(true); }
+    showShell('boot');
+    try { await boot(); } catch { clearToken(); showShell('gate'); }
+  } else {
+    showShell('gate');
   }
 });

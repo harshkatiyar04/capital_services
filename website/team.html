@@ -28,6 +28,15 @@
       </div>
     </header>
 
+    <div id="wait" class="ops-hidden ops-wait" role="status" aria-live="polite">
+      <div>
+        <div class="ops-spinner" aria-hidden="true"></div>
+        <p class="ops-kicker">Team</p>
+        <h1 class="ops-title" id="wait-title">Checking your sign-in</h1>
+        <p id="wait-copy">This usually takes a few seconds.</p>
+      </div>
+    </div>
+
     <div id="choose">
       <p class="ops-kicker">Capital Services</p>
       <h1 class="ops-title">Who are you?</h1>
@@ -45,6 +54,14 @@
         </button>
       </div>
     </div>
+    <script>
+      try {
+        if (localStorage.getItem('cs_ops_token') || sessionStorage.getItem('cs_ops_token')) {
+          document.getElementById('wait').classList.remove('ops-hidden');
+          document.getElementById('choose').classList.add('ops-hidden');
+        }
+      } catch (e) {}
+    </script>
 
     <div id="worker-gate" class="ops-hidden ops-login-wide">
       <button type="button" class="ops-link" data-back>← Back</button>

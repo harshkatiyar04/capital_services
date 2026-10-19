@@ -28,7 +28,16 @@
         <button type="button" class="ops-link" id="logout-btn">Sign out</button>
       </div>
     </header>
-    <div id="board"></div>
+    <div id="board">
+      <div class="ops-wait" role="status" aria-live="polite">
+        <div>
+          <div class="ops-spinner" aria-hidden="true"></div>
+          <p class="ops-kicker">Worker</p>
+          <h1 class="ops-title">Opening your dashboard</h1>
+          <p>This usually takes a few seconds.</p>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="ops-overlay ops-hidden" id="review-overlay" role="dialog" aria-modal="true">
