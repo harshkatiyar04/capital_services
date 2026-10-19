@@ -7,6 +7,7 @@ export function turnstileSiteKey() {
   return import.meta.env.VITE_TURNSTILE_SITE_KEY || '';
 }
 
+const tokens = new Map();
 let scriptPromise;
 
 function loadScript() {
@@ -28,14 +29,25 @@ export async function mountTurnstile(el, { size = 'flexible' } = {}) {
   const sitekey = turnstileSiteKey();
   if (!sitekey || !el) return null;
   await loadScript();
-  return window.turnstile.render(el, { sitekey, theme: 'light', size });
+  const id = window.turnstile.render(el, {
+    sitekey,
+    theme: 'light',
+    size,
+    callback(token) { tokens.set(id, token); },
+    'expired-callback'() { tokens.delete(id); },
+    'error-callback'() { tokens.delete(id); },
+  });
+  return id;
 }
 
 export function turnstileToken(widgetId) {
+  const stored = widgetId == null ? '' : tokens.get(widgetId) || '';
+  if (stored) return stored;
   if (!window.turnstile || widgetId == null) return '';
   return window.turnstile.getResponse(widgetId) || '';
 }
 
 export function resetTurnstile(widgetId) {
+  if (widgetId != null) tokens.delete(widgetId);
   if (window.turnstile && widgetId != null) window.turnstile.reset(widgetId);
 }

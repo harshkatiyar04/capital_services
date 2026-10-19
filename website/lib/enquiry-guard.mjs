@@ -81,7 +81,6 @@ export async function assertTurnstile(token, ip) {
   const params = new URLSearchParams();
   params.set('secret', secret);
   params.set('response', response);
-  if (ip && ip !== 'unknown') params.set('remoteip', ip);
 
   let data = {};
   try {
@@ -94,5 +93,11 @@ export async function assertTurnstile(token, ip) {
   } catch {
     fail('The security check could not be reached. Please try again.', 503);
   }
-  if (!data.success) fail('Please complete the security check and try again.', 400);
+  if (!data.success) {
+    const codes = Array.isArray(data['error-codes']) ? data['error-codes'] : [];
+    if (codes.includes('invalid-input-secret')) {
+      fail('The security check on the server does not match this site. Check the Turnstile secret in Vercel, then redeploy.', 503);
+    }
+    fail('Please complete the security check and try again.', 400);
+  }
 }
