@@ -27,6 +27,7 @@ import {
   clientIp,
   honeypotFilled,
 } from './enquiry-guard.mjs';
+import { notifyEnquiry } from './enquiry-mail.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -926,6 +927,7 @@ export async function createEnquiry(body, req) {
   await assertTurnstile(body?.turnstileToken, ip);
   const enquiry = normalizeEnquiryInput(body);
   await pgInsertEnquiry(enquiry);
+  await notifyEnquiry(enquiry);
   return {
     ok: true,
     id: enquiry.id,

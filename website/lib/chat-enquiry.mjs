@@ -1,5 +1,6 @@
 import { hasDatabase, pgGetEnquiry, pgInsertEnquiry, pgUpdateEnquiryDetails } from './ops-pg.mjs';
 import { assertEnquiryContent, assertEnquiryRate, assertTurnstile } from './enquiry-guard.mjs';
+import { notifyEnquiry } from './enquiry-mail.mjs';
 
 const EMAIL = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i;
 const PHONE = /(?:\+44\s?\d[\d\s()-]{8,}|\b0\d[\d\s()-]{8,})/;
@@ -136,6 +137,15 @@ export async function recordChatEnquiry({ sessionId, messages, turnstileToken, i
     message,
     status: 'new',
     createdAt: new Date().toISOString(),
+  });
+  await notifyEnquiry({
+    source: 'chat',
+    name: fields.name,
+    email: fields.email,
+    phone: fields.phone,
+    company: fields.company,
+    service: fields.service,
+    message,
   });
   return { saved: true, needsCheck: false, id: sessionId };
 }
