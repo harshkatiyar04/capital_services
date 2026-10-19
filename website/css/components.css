@@ -2902,6 +2902,37 @@ body.cookie-banner-open .chatbot-panel {
 .chatbot-enquiry-status.is-ok { color: #1b7a3d; }
 .chatbot-enquiry-status.is-err { color: #b42318; }
 
+.enquiry-hp {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.turnstile-slot {
+  margin: 0 0 var(--space-md);
+  min-height: 70px;
+  width: 100%;
+}
+
+.chatbot-enquiry .turnstile-slot {
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.turnstile-slot iframe {
+  display: block;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: 65px !important;
+  max-height: none !important;
+}
+
+#contact-form {
+  position: relative;
+}
+
 .chatbot-composer {
   flex-shrink: 0;
   border-top: 1px solid var(--border-light);
@@ -2994,7 +3025,8 @@ body.cookie-banner-open .chatbot-panel {
     left: 12px;
     width: auto;
     bottom: 88px;
-    height: min(70vh, 560px);
+    height: min(82vh, 680px);
+    max-height: calc(100dvh - 7.5rem);
   }
   .chatbot-enquiry-grid {
     grid-template-columns: 1fr;

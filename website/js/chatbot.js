@@ -2,6 +2,8 @@
    Live AI chatbot + enquiry form (Capital Services)
    ================================================================ */
 
+import { mountTurnstile, resetTurnstile, turnstileToken } from './turnstile.js';
+
 const history = [];
 
 function el(html) {
@@ -56,6 +58,11 @@ function enhancePanel(panel) {
         </div>
         <input class="form-input" id="chat-enq-phone" name="phone" type="tel" placeholder="Phone (optional)" autocomplete="tel">
         <textarea class="form-textarea" id="chat-enq-message" name="message" rows="4" placeholder="How can we help?" required></textarea>
+        <div class="enquiry-hp" aria-hidden="true">
+          <label for="chat-enq-website">Company website</label>
+          <input type="text" id="chat-enq-website" name="company_website" tabindex="-1" autocomplete="off">
+        </div>
+        <div class="turnstile-slot" id="chat-enq-turnstile"></div>
         <p class="chatbot-enquiry-status" id="chat-enq-status" hidden></p>
         <button type="submit" class="btn btn-primary" style="width:100%">Send enquiry</button>
       </form>
@@ -77,6 +84,24 @@ function enhancePanel(panel) {
 
   const body = panel.querySelector('#chatbot-body');
   const enquiry = panel.querySelector('#chatbot-enquiry-form');
+  let turnstileId = null;
+  let turnstileMount = null;
+
+  function ensureTurnstile() {
+    if (turnstileId != null) return Promise.resolve(turnstileId);
+    if (!turnstileMount) {
+      turnstileMount = mountTurnstile(enquiry.querySelector('#chat-enq-turnstile'), { size: 'flexible' })
+        .then((id) => {
+          turnstileId = id;
+          return id;
+        })
+        .catch((err) => {
+          turnstileMount = null;
+          throw err;
+        });
+    }
+    return turnstileMount;
+  }
   const inputRow = panel.querySelector('#chatbot-input-row');
   const modes = panel.querySelector('.chatbot-modes');
   const input = inputRow.querySelector('input');
@@ -95,6 +120,7 @@ function enhancePanel(panel) {
     enquiry.classList.toggle('chatbot-hidden', isChat);
     panel.classList.toggle('is-enquiry', !isChat);
     if (isChat) input.focus();
+    else ensureTurnstile().catch(() => {});
   }
 
   modes.addEventListener('click', (e) => {
@@ -139,14 +165,18 @@ function enhancePanel(panel) {
     status.hidden = true;
     btn.disabled = true;
     try {
+      await ensureTurnstile();
       const data = await postJson('/api/ops/enquiries', {
         source: 'chat',
         name: enquiry.querySelector('#chat-enq-name').value,
         email: enquiry.querySelector('#chat-enq-email').value,
         phone: enquiry.querySelector('#chat-enq-phone').value,
         message: enquiry.querySelector('#chat-enq-message').value,
+        company_website: enquiry.querySelector('#chat-enq-website').value,
+        turnstileToken: turnstileToken(turnstileId),
       });
       enquiry.reset();
+      resetTurnstile(turnstileId);
       status.hidden = false;
       status.textContent = data.message || 'Enquiry logged. Thank you.';
       status.className = 'chatbot-enquiry-status is-ok';
@@ -156,6 +186,7 @@ function enhancePanel(panel) {
       status.hidden = false;
       status.textContent = err.message || 'Could not save enquiry';
       status.className = 'chatbot-enquiry-status is-err';
+      resetTurnstile(turnstileId);
     } finally {
       btn.disabled = false;
     }

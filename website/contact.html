@@ -557,6 +557,11 @@
               <label class="form-label" for="message">Message</label>
               <textarea class="form-textarea" id="message" name="message" required></textarea>
             </div>
+            <div class="enquiry-hp" aria-hidden="true">
+              <label for="company_website">Company website</label>
+              <input type="text" id="company_website" name="company_website" tabindex="-1" autocomplete="off">
+            </div>
+            <div class="turnstile-slot" id="contact-turnstile"></div>
             <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">Send Message</button>
           </form>
 
@@ -878,6 +883,7 @@
     <div class="chatbot-input"><input type="text" placeholder="Type your message..." aria-label="Message"><button aria-label="Send"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></button></div>
   </div>
 
+  <script type="module" src="js/contact-enquiry.js"></script>
   <script>
     async function handleSubmit(e) {
       e.preventDefault();
@@ -886,6 +892,13 @@
       const prev = btn.textContent;
       btn.disabled = true;
       btn.textContent = 'Sending…';
+      const guard = window.csEnquiryGuard;
+      if (!guard) {
+        alert('The security check is still loading. Please try again in a moment.');
+        btn.disabled = false;
+        btn.textContent = prev;
+        return false;
+      }
       try {
         const res = await fetch('/api/ops/enquiries', {
           method: 'POST',
@@ -898,6 +911,8 @@
             company: form.company.value,
             service: form.service.value,
             message: form.message.value,
+            company_website: form.company_website.value,
+            turnstileToken: guard.token(),
           }),
         });
         const data = await res.json().catch(() => ({}));
@@ -907,6 +922,7 @@
       } catch (err) {
         alert(err.message || 'Could not send message. Please try again.');
       } finally {
+        guard.reset();
         btn.disabled = false;
         btn.textContent = prev;
       }
@@ -916,6 +932,7 @@
       document.getElementById('contact-form').style.display = '';
       document.getElementById('contact-form').reset();
       document.getElementById('form-success').classList.remove('active');
+      if (window.csEnquiryGuard) window.csEnquiryGuard.reset();
     }
 
     // Animate stars when review section scrolls into view

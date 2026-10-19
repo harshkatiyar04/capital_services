@@ -20,6 +20,13 @@ import {
   pgUpdateEnquiryStatus,
   pgUpdateWorker,
 } from './ops-pg.mjs';
+import {
+  assertEnquiryContent,
+  assertEnquiryRate,
+  assertTurnstile,
+  clientIp,
+  honeypotFilled,
+} from './enquiry-guard.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -899,13 +906,24 @@ function normalizeEnquiryInput(body = {}) {
   };
 }
 
-export async function createEnquiry(body) {
+export async function createEnquiry(body, req) {
   assertStorage();
   if (!hasDatabase()) {
     const err = new Error('Enquiry storage requires DATABASE_URL');
     err.status = 503;
     throw err;
   }
+  if (honeypotFilled(body)) {
+    return {
+      ok: true,
+      id: 'enq_received',
+      message: 'Thanks — your enquiry has been logged. We aim to respond within 24 hours.',
+    };
+  }
+  const ip = clientIp(req);
+  assertEnquiryRate(ip);
+  assertEnquiryContent(body);
+  await assertTurnstile(body?.turnstileToken, ip);
   const enquiry = normalizeEnquiryInput(body);
   await pgInsertEnquiry(enquiry);
   return {

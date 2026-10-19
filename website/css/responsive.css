@@ -1069,6 +1069,13 @@
     height: auto;
   }
 
+  .turnstile-slot iframe {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 65px !important;
+    max-height: none !important;
+  }
+
   /* Prevent iOS zoom on focus */
   .form-input,
   .form-select,

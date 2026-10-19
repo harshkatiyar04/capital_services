@@ -98,7 +98,7 @@ export async function handleOpsRequest(req, res) {
     if (req.method !== 'POST') return send(res, 405, { error: 'Method not allowed' });
     const body = await readJson(req);
 
-    if (action === 'enquiries') return send(res, 200, await createEnquiry(body));
+    if (action === 'enquiries') return send(res, 200, await createEnquiry(body, req));
     if (action === 'login') return send(res, 200, await login(body));
     if (action === 'signup') return send(res, 200, await signupWorker(body));
     if (action === 'logout') return send(res, 200, await logout());
