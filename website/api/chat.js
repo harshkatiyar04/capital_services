@@ -1,4 +1,4 @@
-import { CHAT_SYSTEM_PROMPT } from '../lib/site-chat-context.mjs';
+import { replyToChat } from '../lib/chat-reply.mjs';
 
 export const config = {
   runtime: 'nodejs',
@@ -30,17 +30,6 @@ function readJson(req) {
   });
 }
 
-function normalizeMessages(input) {
-  if (!Array.isArray(input)) return [];
-  return input
-    .slice(-12)
-    .map((m) => ({
-      role: m?.role === 'assistant' ? 'assistant' : 'user',
-      content: String(m?.content || '').trim().slice(0, 2000),
-    }))
-    .filter((m) => m.content);
-}
-
 export default async function handler(req, res) {
   if (req.method === 'OPTIONS') {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -50,55 +39,20 @@ export default async function handler(req, res) {
     res.end();
     return;
   }
-
   if (req.method !== 'POST') {
     sendJson(res, 405, { error: 'POST only' });
     return;
   }
 
-  const apiKey = process.env.GROQ_API_KEY;
-  if (!apiKey) {
-    sendJson(res, 500, { error: 'Chat is not configured yet' });
-    return;
-  }
-
   try {
     const body = await readJson(req);
-    const messages = normalizeMessages(body.messages);
-    if (!messages.length) {
-      sendJson(res, 400, { error: 'Please type a message' });
-      return;
-    }
-
-    const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${apiKey}`,
-      },
-      body: JSON.stringify({
-        model: process.env.GROQ_MODEL || 'openai/gpt-oss-120b',
-        messages: [{ role: 'system', content: CHAT_SYSTEM_PROMPT }, ...messages],
-        temperature: 0.4,
-        max_tokens: 350,
-      }),
+    const result = await replyToChat({
+      body,
+      apiKey: process.env.GROQ_API_KEY,
+      model: process.env.GROQ_MODEL,
+      req,
     });
-
-    if (!response.ok) {
-      const detail = await response.text();
-      console.error('Groq chat error:', response.status, detail);
-      sendJson(res, 502, { error: 'Assistant is temporarily unavailable' });
-      return;
-    }
-
-    const data = await response.json();
-    const reply = (data.choices?.[0]?.message?.content || '').trim();
-    if (!reply) {
-      sendJson(res, 502, { error: 'Empty reply from assistant' });
-      return;
-    }
-
-    sendJson(res, 200, { reply });
+    sendJson(res, 200, result);
   } catch (err) {
     console.error('chat failed:', err);
     sendJson(res, err.status || 500, { error: err.message || 'Chat failed' });

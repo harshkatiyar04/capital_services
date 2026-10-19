@@ -562,6 +562,7 @@
               <input type="text" id="company_website" name="company_website" tabindex="-1" autocomplete="off">
             </div>
             <div class="turnstile-slot" id="contact-turnstile"></div>
+            <p class="form-error" id="contact-form-error" hidden role="alert"></p>
             <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">Send Message</button>
           </form>
 
@@ -883,18 +884,38 @@
     <div class="chatbot-input"><input type="text" placeholder="Type your message..." aria-label="Message"><button aria-label="Send"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></button></div>
   </div>
 
+  <div class="notice-pop" id="phone-notice" hidden>
+    <div class="notice-pop__card" role="dialog" aria-modal="true" aria-labelledby="phone-notice-title">
+      <span class="section-label">Phone number</span>
+      <h3 id="phone-notice-title">Enter a UK number</h3>
+      <p id="phone-notice-text">Please enter a UK phone number, or leave the phone field blank.</p>
+      <button type="button" class="btn btn-primary" id="phone-notice-ok">OK</button>
+    </div>
+  </div>
+
   <script type="module" src="js/contact-enquiry.js"></script>
   <script>
     async function handleSubmit(e) {
       e.preventDefault();
       const form = document.getElementById('contact-form');
       const btn = form.querySelector('button[type="submit"]');
+      const error = document.getElementById('contact-form-error');
       const prev = btn.textContent;
+      error.hidden = true;
+      error.textContent = '';
       btn.disabled = true;
       btn.textContent = 'Sending…';
       const guard = window.csEnquiryGuard;
       if (!guard) {
-        alert('The security check is still loading. Please try again in a moment.');
+        error.textContent = 'The security check is still loading. Please try again in a moment.';
+        error.hidden = false;
+        btn.disabled = false;
+        btn.textContent = prev;
+        return false;
+      }
+      const phoneMessage = guard.phoneMessage(form.phone.value);
+      if (phoneMessage) {
+        showPhoneNotice(phoneMessage);
         btn.disabled = false;
         btn.textContent = prev;
         return false;
@@ -920,7 +941,13 @@
         form.style.display = 'none';
         document.getElementById('form-success').classList.add('active');
       } catch (err) {
-        alert(err.message || 'Could not send message. Please try again.');
+        const message = err.message || 'Could not send message. Please try again.';
+        if (/uk phone/i.test(message)) {
+          showPhoneNotice(message);
+        } else {
+          error.textContent = message;
+          error.hidden = false;
+        }
       } finally {
         guard.reset();
         btn.disabled = false;
@@ -928,10 +955,40 @@
       }
       return false;
     }
+    function showPhoneNotice(message) {
+      const pop = document.getElementById('phone-notice');
+      const text = document.getElementById('phone-notice-text');
+      const ok = document.getElementById('phone-notice-ok');
+      text.textContent = message;
+      pop.hidden = false;
+      ok.focus();
+      function close() {
+        pop.hidden = true;
+        ok.removeEventListener('click', close);
+        pop.removeEventListener('click', onBackdrop);
+        document.removeEventListener('keydown', onKey);
+        const phone = document.getElementById('phone');
+        if (phone) phone.focus();
+      }
+      function onBackdrop(event) {
+        if (event.target === pop) close();
+      }
+      function onKey(event) {
+        if (event.key === 'Escape') close();
+      }
+      ok.addEventListener('click', close);
+      pop.addEventListener('click', onBackdrop);
+      document.addEventListener('keydown', onKey);
+    }
     function resetForm() {
       document.getElementById('contact-form').style.display = '';
       document.getElementById('contact-form').reset();
       document.getElementById('form-success').classList.remove('active');
+      const error = document.getElementById('contact-form-error');
+      if (error) {
+        error.hidden = true;
+        error.textContent = '';
+      }
       if (window.csEnquiryGuard) window.csEnquiryGuard.reset();
     }
 

@@ -3,6 +3,7 @@
    ================================================================ */
 
 import { mountTurnstile, resetTurnstile, turnstileToken } from './turnstile.js';
+import { ukPhoneMessage } from './phone-check.js';
 
 const history = [];
 
@@ -73,6 +74,11 @@ function enhancePanel(panel) {
         <button type="button" class="chatbot-mode is-on" data-tab="chat" role="tab">Ask us</button>
         <button type="button" class="chatbot-mode" data-tab="enquiry" role="tab">Leave enquiry</button>
       </div>
+      <div class="chat-register chatbot-hidden" id="chat-register">
+        <p>Complete the check to register this with the office.</p>
+        <div class="turnstile-slot" id="chat-ask-turnstile"></div>
+        <button type="button" class="btn btn-primary" id="chat-register-btn">Register using chat</button>
+      </div>
       <div class="chatbot-input" id="chatbot-input-row">
         <input type="text" placeholder="Ask about services, coverage…" aria-label="Chat message" autocomplete="off">
         <button type="button" aria-label="Send">
@@ -106,6 +112,37 @@ function enhancePanel(panel) {
   const modes = panel.querySelector('.chatbot-modes');
   const input = inputRow.querySelector('input');
   const sendBtn = inputRow.querySelector('button');
+  const registerBox = panel.querySelector('#chat-register');
+  const registerBtn = panel.querySelector('#chat-register-btn');
+  let askTurnstileId = null;
+  let askTurnstileMount = null;
+
+  function chatSessionId() {
+    const key = 'cs_chat_session';
+    let id = sessionStorage.getItem(key);
+    if (!id || !/^cs_[a-z0-9]{24}$/.test(id)) {
+      const bytes = crypto.getRandomValues(new Uint8Array(12));
+      id = `cs_${[...bytes].map((b) => b.toString(16).padStart(2, '0')).join('')}`;
+      sessionStorage.setItem(key, id);
+    }
+    return id;
+  }
+
+  function ensureAskTurnstile() {
+    if (askTurnstileId != null) return Promise.resolve(askTurnstileId);
+    if (!askTurnstileMount) {
+      askTurnstileMount = mountTurnstile(panel.querySelector('#chat-ask-turnstile'), { size: 'flexible' })
+        .then((id) => {
+          askTurnstileId = id;
+          return id;
+        })
+        .catch((err) => {
+          askTurnstileMount = null;
+          throw err;
+        });
+    }
+    return askTurnstileMount;
+  }
 
   appendMessage(
     body,
@@ -128,24 +165,54 @@ function enhancePanel(panel) {
     if (btn) showTab(btn.dataset.tab);
   });
 
+  async function postChat({ addUserText = '' } = {}) {
+    const text = addUserText.trim();
+    if (text) {
+      appendMessage(body, text, 'user');
+      history.push({ role: 'user', content: text });
+    }
+    if (!history.length) return;
+    const thinking = appendMessage(body, 'Thinking…', 'bot');
+    thinking.classList.add('is-pending');
+    registerBtn.disabled = true;
+    try {
+      const data = await postJson('/api/chat', {
+        messages: history,
+        chatSession: chatSessionId(),
+        turnstileToken: turnstileToken(askTurnstileId),
+      });
+      thinking.remove();
+      appendMessage(body, data.reply, 'bot');
+      history.push({ role: 'assistant', content: data.reply });
+      if (data.saved) {
+        registerBox.classList.add('chatbot-hidden');
+        resetTurnstile(askTurnstileId);
+      } else if (data.needsCheck) {
+        registerBox.classList.remove('chatbot-hidden');
+        ensureAskTurnstile().catch(() => {});
+      }
+    } catch (err) {
+      thinking.remove();
+      appendMessage(body, err.message || 'Chat is unavailable right now. Please leave an enquiry instead.', 'bot');
+    } finally {
+      registerBtn.disabled = false;
+    }
+  }
+
   async function sendChat() {
     const text = (input.value || '').trim();
     if (!text) return;
     input.value = '';
-    appendMessage(body, text, 'user');
-    history.push({ role: 'user', content: text });
-    const thinking = appendMessage(body, 'Thinking…', 'bot');
-    thinking.classList.add('is-pending');
-    try {
-      const data = await postJson('/api/chat', { messages: history });
-      thinking.remove();
-      appendMessage(body, data.reply, 'bot');
-      history.push({ role: 'assistant', content: data.reply });
-    } catch (err) {
-      thinking.remove();
-      appendMessage(body, err.message || 'Chat is unavailable right now. Please leave an enquiry instead.', 'bot');
-    }
+    await postChat({ addUserText: text });
   }
+
+  registerBtn.addEventListener('click', async () => {
+    if (!turnstileToken(askTurnstileId)) {
+      appendMessage(body, 'Complete the security check, then press Register using chat.', 'bot');
+      return;
+    }
+    await postChat();
+  });
 
   sendBtn.addEventListener('click', (e) => {
     e.preventDefault();
@@ -163,6 +230,13 @@ function enhancePanel(panel) {
     const status = enquiry.querySelector('#chat-enq-status');
     const btn = enquiry.querySelector('button[type="submit"]');
     status.hidden = true;
+    const phoneMessage = ukPhoneMessage(enquiry.querySelector('#chat-enq-phone').value);
+    if (phoneMessage) {
+      status.hidden = false;
+      status.textContent = phoneMessage;
+      status.className = 'chatbot-enquiry-status is-err';
+      return;
+    }
     btn.disabled = true;
     try {
       await ensureTurnstile();

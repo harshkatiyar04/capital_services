@@ -1,4 +1,5 @@
 import { mountTurnstile, resetTurnstile, turnstileToken } from './turnstile.js';
+import { ukPhoneMessage } from './phone-check.js';
 
 const slot = document.getElementById('contact-turnstile');
 let widgetId = null;
@@ -16,4 +17,5 @@ window.csEnquiryGuard = {
   reset() {
     resetTurnstile(widgetId);
   },
+  phoneMessage: ukPhoneMessage,
 };

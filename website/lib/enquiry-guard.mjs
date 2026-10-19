@@ -38,8 +38,12 @@ function looksLikeToken(value) {
 }
 
 function isUkPhone(phone) {
-  const digits = String(phone || '').replace(/\D/g, '');
-  if (!digits) return true;
+  const raw = String(phone || '').trim();
+  if (!raw) return true;
+  if (/[a-z]/i.test(raw)) return false;
+  const digits = raw.replace(/\D/g, '');
+  const compact = raw.replace(/[\s()+-]/g, '');
+  if (!digits || digits !== compact) return false;
   if (digits.startsWith('44')) return digits.length >= 11 && digits.length <= 13;
   if (digits.startsWith('0')) return digits.length >= 10 && digits.length <= 12;
   return false;

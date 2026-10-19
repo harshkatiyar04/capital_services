@@ -162,7 +162,7 @@ function render() {
         <article class="ops-card" data-enquiry="${e.id}">
           <div class="ops-section-head">
             <h2 style="font-size:1.15rem">${e.name} · ${e.email}</h2>
-            <span class="ops-hint">${new Date(e.createdAt).toLocaleString('en-GB')} · ${e.source} · ${e.status}</span>
+            <span class="ops-hint">${new Date(e.createdAt).toLocaleString('en-GB')} · ${e.source === 'chat' ? 'Registered using chat' : e.source === 'contact' ? 'Contact form' : e.source} · ${e.status}</span>
           </div>
           ${e.phone ? `<p class="ops-comment">Phone: ${e.phone}</p>` : ''}
           ${e.company ? `<p class="ops-comment">Company: ${e.company}</p>` : ''}

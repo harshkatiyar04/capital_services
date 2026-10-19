@@ -232,6 +232,26 @@ export async function pgListEnquiries(limit = 100) {
   return rows.map(mapEnquiry);
 }
 
+export async function pgGetEnquiry(id) {
+  const q = await ensureSchema();
+  const rows = await q`SELECT * FROM site_enquiries WHERE id = ${id} LIMIT 1`;
+  return mapEnquiry(rows[0]);
+}
+
+export async function pgUpdateEnquiryDetails(enquiry) {
+  const q = await ensureSchema();
+  const rows = await q`UPDATE site_enquiries SET
+    name = ${enquiry.name},
+    email = ${enquiry.email},
+    phone = ${enquiry.phone || null},
+    company = ${enquiry.company || null},
+    service = ${enquiry.service || null},
+    message = ${enquiry.message}
+    WHERE id = ${enquiry.id}
+    RETURNING *`;
+  return mapEnquiry(rows[0]);
+}
+
 export async function pgUpdateEnquiryStatus(id, status) {
   const q = await ensureSchema();
   const rows = await q`UPDATE site_enquiries SET status = ${status} WHERE id = ${id} RETURNING *`;

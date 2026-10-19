@@ -4,7 +4,7 @@ import { readFileSync } from 'fs';
 import { exec } from 'child_process';
 import 'dotenv/config';
 import { handleOpsRequest } from './lib/ops-handler.mjs';
-import { CHAT_SYSTEM_PROMPT } from './lib/site-chat-context.mjs';
+import { replyToChat } from './lib/chat-reply.mjs';
 
 function groqProxyPlugin() {
   let envKey = '';
@@ -60,43 +60,19 @@ function groqProxyPlugin() {
           return;
         }
 
-        const messages = (Array.isArray(body.messages) ? body.messages : [])
-          .slice(-12)
-          .map((m) => ({
-            role: m?.role === 'assistant' ? 'assistant' : 'user',
-            content: String(m?.content || '').trim().slice(0, 2000),
-          }))
-          .filter((m) => m.content);
-
-        if (!messages.length) {
-          res.statusCode = 400;
-          res.end(JSON.stringify({ error: 'Please type a message' }));
-          return;
-        }
-
         try {
-          const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${apiKey}` },
-            body: JSON.stringify({
-              model,
-              messages: [{ role: 'system', content: CHAT_SYSTEM_PROMPT }, ...messages],
-              temperature: 0.4,
-              max_tokens: 350,
-            }),
+          const result = await replyToChat({
+            body,
+            apiKey,
+            model,
+            req,
           });
-          if (!response.ok) {
-            res.statusCode = 502;
-            res.end(JSON.stringify({ error: 'Assistant is temporarily unavailable' }));
-            return;
-          }
-          const data = await response.json();
-          const reply = (data.choices?.[0]?.message?.content || '').trim();
           res.setHeader('Content-Type', 'application/json');
-          res.end(JSON.stringify({ reply }));
-        } catch {
-          res.statusCode = 500;
-          res.end(JSON.stringify({ error: 'Chat failed' }));
+          res.end(JSON.stringify(result));
+        } catch (err) {
+          res.statusCode = err.status || 500;
+          res.setHeader('Content-Type', 'application/json');
+          res.end(JSON.stringify({ error: err.message || 'Chat failed' }));
         }
       });
 
