@@ -573,7 +573,6 @@ function enhancePanel(panel) {
     } else if (officeReady) {
       setStatus('Waiting for an agent', 'online');
       input.placeholder = 'Message the office…';
-      input.focus();
     } else if (showNotice) {
       setStatus(office.presence?.status === 'dnd' ? 'Outside office hours' : 'Office unavailable', 'offline');
       showOfficePresenceNotice(office.presence);
@@ -609,7 +608,6 @@ function enhancePanel(panel) {
     if (isChat) {
       setStatus('Online', 'online');
       input.placeholder = 'Type your message…';
-      input.focus();
     } else if (isOffice) {
       refreshOfficePresence().then(() => {
         if (tab !== 'office') return;
@@ -951,7 +949,6 @@ export function initChatbot() {
     promptApi?.hide(true);
     panel.classList.add('active');
     fab.style.display = 'none';
-    panel.querySelector('#chatbot-input-row input')?.focus();
   };
 
   const closeChat = () => {

@@ -1278,11 +1278,13 @@
   background: transparent;
 }
 
+/* Cookie banner: keep FAB + compact prompt on one row above the banner */
 body.cookie-banner-open .chatbot-fab {
   bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px));
 }
 
 body.cookie-banner-open .chatbot-prompt {
+  left: auto;
   bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px) + 14px);
 }
 
@@ -1314,15 +1316,18 @@ body.cookie-banner-open .chatbot-panel {
   }
 
   body.cookie-banner-open .chatbot-fab {
-    bottom: calc(10rem + env(safe-area-inset-bottom, 0px));
+    bottom: calc(9.5rem + env(safe-area-inset-bottom, 0px));
   }
 
   body.cookie-banner-open .chatbot-prompt {
-    bottom: calc(10rem + env(safe-area-inset-bottom, 0px) + 14px);
+    left: auto;
+    right: calc(max(1rem, env(safe-area-inset-right, 0px)) + 54px + 12px);
+    bottom: calc(9.5rem + env(safe-area-inset-bottom, 0px) + 14px);
+    max-width: min(13.5rem, calc(100vw - 5.75rem));
   }
 
   body.cookie-banner-open .chatbot-panel {
-    bottom: calc(13.55rem + env(safe-area-inset-bottom, 0px));
+    bottom: calc(13rem + env(safe-area-inset-bottom, 0px));
   }
 }
 
