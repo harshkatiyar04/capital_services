@@ -112,7 +112,13 @@ export function getStoredMapProvider() {
 
 export function createTileLayer(L, provider = getStoredMapProvider()) {
   const p = typeof provider === 'string' ? getMapProvider(provider) : provider;
-  return L.tileLayer(p.url, { ...p.options });
+  // detectRetina doubles tile size on HiDPI and often leaves hairline gaps between Esri tiles.
+  return L.tileLayer(p.url, {
+    ...p.options,
+    detectRetina: false,
+    updateWhenZooming: false,
+    keepBuffer: 4,
+  });
 }
 
 /** Track a tile layer so the preview picker can swap it live */

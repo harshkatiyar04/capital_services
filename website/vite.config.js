@@ -4,6 +4,8 @@ import { readFileSync } from 'fs';
 import { exec } from 'child_process';
 import 'dotenv/config';
 import { handleOpsRequest } from './lib/ops-handler.mjs';
+// Xelion on hold — uncomment when resuming (also set XELION_ENABLED=true).
+// import { handleXelionRequest } from './lib/xelion-handler.mjs';
 import { replyToChat } from './lib/chat-reply.mjs';
 
 function groqProxyPlugin() {
@@ -152,6 +154,19 @@ function groqProxyPlugin() {
           res.end(JSON.stringify({ error: err.message || 'Server error' }));
         }
       });
+
+      // Xelion /api/xelion middleware on hold — uncomment when resuming.
+      // server.middlewares.use(async (req, res, next) => {
+      //   const url = req.url || '';
+      //   if (!url.startsWith('/api/xelion')) return next();
+      //   try {
+      //     await handleXelionRequest(req, res);
+      //   } catch (err) {
+      //     res.statusCode = 500;
+      //     res.setHeader('Content-Type', 'application/json');
+      //     res.end(JSON.stringify({ error: err.message || 'Server error' }));
+      //   }
+      // });
     },
   };
 }

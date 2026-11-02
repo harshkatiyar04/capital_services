@@ -28,6 +28,8 @@ import {
   honeypotFilled,
 } from './enquiry-guard.mjs';
 import { notifyEnquiry } from './enquiry-mail.mjs';
+// Xelion on hold — re-enable with XELION_ENABLED=true and uncomment notify below.
+// import { notifyEnquiryOnXelion } from './xelion.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -872,14 +874,21 @@ function normalizeEnquiryInput(body = {}) {
   const name = String(body.name || '').trim();
   const email = String(body.email || '').trim().toLowerCase();
   const message = String(body.message || '').trim();
+  const phone = String(body.phone || '').trim().slice(0, 40);
   const source = String(body.source || 'contact').trim().toLowerCase();
   if (!name || name.length > 120) {
     const err = new Error('Please enter your name');
     err.status = 400;
     throw err;
   }
-  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 160) {
-    const err = new Error('Please enter a valid email');
+  if (email) {
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 160) {
+      const err = new Error('Please enter a valid email');
+      err.status = 400;
+      throw err;
+    }
+  } else if (!phone) {
+    const err = new Error('Please enter a valid email or UK phone number');
     err.status = 400;
     throw err;
   }
@@ -898,8 +907,8 @@ function normalizeEnquiryInput(body = {}) {
     source,
     name,
     email,
-    phone: String(body.phone || '').trim().slice(0, 40),
-    company: String(body.company || '').trim().slice(0, 120),
+    phone,
+    company: String(body.postcode || body.company || '').trim().slice(0, 120),
     service: String(body.service || '').trim().slice(0, 80),
     message,
     status: 'new',
@@ -928,6 +937,8 @@ export async function createEnquiry(body, req) {
   const enquiry = normalizeEnquiryInput(body);
   await pgInsertEnquiry(enquiry);
   await notifyEnquiry(enquiry);
+  // Xelion dual-write on hold (resume: uncomment + XELION_ENABLED=true).
+  // await notifyEnquiryOnXelion(enquiry);
   return {
     ok: true,
     id: enquiry.id,

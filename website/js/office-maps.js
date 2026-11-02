@@ -11,21 +11,23 @@ export const OFFICES = [
     id: 'watford',
     name: 'Watford',
     region: 'Hertfordshire',
-    lat: 51.6565,
-    lng: -0.3903,
-    zoom: 13,
+    address: 'Kebbell House, Delta Gain, Watford WD19 5EF',
+    lat: 51.628822,
+    lng: -0.384672,
+    zoom: 16,
     directionsUrl:
-      'https://www.google.com/maps/dir/?api=1&destination=Units%209-10%2C%20Kings%20Park%20Industrial%20Estate%2C%20Primrose%20Hill%2C%20Kings%20Langley%20WD4%208ST%2C%20United%20Kingdom',
+      'https://www.google.com/maps/dir/?api=1&destination=Kebbell%20House%2C%20Delta%20Gain%2C%20Watford%20WD19%205EF%2C%20United%20Kingdom',
   },
   {
     id: 'yateley',
     name: 'Yateley',
     region: 'Hampshire',
-    lat: 51.3402,
-    lng: -0.8298,
-    zoom: 13,
+    address: 'The Forge, Cricket Hill Lane, Yateley GU46 6BB',
+    lat: 51.3326018,
+    lng: -0.8216907,
+    zoom: 16,
     directionsUrl:
-      'https://www.google.com/maps/dir/?api=1&destination=Units%209-10%2C%20Kings%20Park%20Industrial%20Estate%2C%20Primrose%20Hill%2C%20Kings%20Langley%20WD4%208ST%2C%20United%20Kingdom',
+      'https://www.google.com/maps/dir/?api=1&destination=The%20Forge%2C%20Cricket%20Hill%20Lane%2C%20Yateley%20GU46%206BB%2C%20United%20Kingdom',
   },
   {
     id: 'kings-langley',
@@ -104,6 +106,9 @@ export async function initOfficeMaps() {
       dragging: !window.matchMedia('(max-width: 768px)').matches,
       zoomControl: false,
       attributionControl: false,
+      zoomSnap: 1,
+      zoomDelta: 1,
+      fadeAnimation: false,
     }).setView([office.lat, office.lng], office.zoom);
 
     const tiles = createTileLayer(L, provider);

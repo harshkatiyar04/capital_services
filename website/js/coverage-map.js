@@ -118,6 +118,10 @@ async function mountCoverageMap(mapEl, { zoomControl = true, statusEl = null } =
     scrollWheelZoom: false,
     zoomControl,
     attributionControl: false,
+    zoomSnap: 1,
+    zoomDelta: 1,
+    // Avoid fractional CSS transforms that open 1px gaps between tiles.
+    fadeAnimation: false,
   }).setView([51.45, -0.9], 8);
 
   const tiles = createTileLayer(L, getStoredMapProvider());

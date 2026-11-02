@@ -145,6 +145,21 @@ img, video {
   max-width: 100%;
   height: auto;
   display: block;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* Leaflet: global img { max-width/height:auto } breaks tile size and shows seam lines. */
+.leaflet-container img {
+  max-width: none !important;
+  max-height: none !important;
+}
+.leaflet-container .leaflet-tile {
+  max-width: none !important;
+  max-height: none !important;
+  border: none !important;
+  outline: none !important;
 }
 
 a {
@@ -174,8 +189,13 @@ input, textarea, select {
 }
 
 ::selection {
-  background: rgba(200, 16, 46, 0.15);
-  color: var(--text-primary);
+  background: #3367d1;
+  color: #fff;
+}
+
+::-moz-selection {
+  background: #3367d1;
+  color: #fff;
 }
 
 h1, h2, h3, h4, h5, h6 {

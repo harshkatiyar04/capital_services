@@ -68,7 +68,7 @@ function enquiryHtml({ source, name, email, phone, company, service, message }) 
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
                 ${fieldRow('Email', email)}
                 ${fieldRow('Phone', phone)}
-                ${fieldRow('Company', company)}
+                ${fieldRow('Postcode', company)}
                 ${fieldRow('Service', service)}
               </table>
             </td>
@@ -113,7 +113,7 @@ export function enquiryNotice(enquiry = {}) {
     `Name: ${name}`,
     `Email: ${email || '—'}`,
     `Phone: ${phone || '—'}`,
-    `Company: ${company || '—'}`,
+    `Postcode: ${company || '—'}`,
     `Service: ${service || '—'}`,
     '',
     message,

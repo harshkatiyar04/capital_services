@@ -1,6 +1,8 @@
 import { hasDatabase, pgGetEnquiry, pgInsertEnquiry, pgUpdateEnquiryDetails } from './ops-pg.mjs';
 import { assertEnquiryContent, assertEnquiryRate, assertTurnstile } from './enquiry-guard.mjs';
 import { notifyEnquiry } from './enquiry-mail.mjs';
+// Xelion on hold — re-enable with XELION_ENABLED=true and uncomment notify below.
+// import { notifyEnquiryOnXelion } from './xelion.mjs';
 
 const EMAIL = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i;
 const PHONE = /(?:\+44\s?\d[\d\s()-]{8,}|\b0\d[\d\s()-]{8,})/;
@@ -138,7 +140,7 @@ export async function recordChatEnquiry({ sessionId, messages, turnstileToken, i
     status: 'new',
     createdAt: new Date().toISOString(),
   });
-  await notifyEnquiry({
+  const enquiry = {
     source: 'chat',
     name: fields.name,
     email: fields.email,
@@ -146,6 +148,9 @@ export async function recordChatEnquiry({ sessionId, messages, turnstileToken, i
     company: fields.company,
     service: fields.service,
     message,
-  });
+  };
+  await notifyEnquiry(enquiry);
+  // Xelion dual-write on hold (resume: uncomment + XELION_ENABLED=true).
+  // await notifyEnquiryOnXelion(enquiry);
   return { saved: true, needsCheck: false, id: sessionId };
 }

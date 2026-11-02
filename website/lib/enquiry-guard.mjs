@@ -61,12 +61,17 @@ export function assertEnquiryContent(body = {}) {
   if (looksLikeToken(name) || looksLikeToken(message)) {
     fail('Please write your enquiry in plain language.', 400);
   }
-  const local = email.split('@')[0] || '';
-  if ((local.match(/\./g) || []).length >= 4) {
-    fail('Please enter a valid email.', 400);
+  if (email) {
+    const local = email.split('@')[0] || '';
+    if ((local.match(/\./g) || []).length >= 4) {
+      fail('Please enter a valid email.', 400);
+    }
   }
   if (!isUkPhone(phone)) {
     fail('Please enter a UK phone number, or leave the phone field blank.', 400);
+  }
+  if (!email && !phone) {
+    fail('Please enter a valid email or UK phone number.', 400);
   }
 }
 

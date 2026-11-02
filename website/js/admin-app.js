@@ -166,7 +166,7 @@ function render() {
             <span class="ops-hint">${new Date(e.createdAt).toLocaleString('en-GB')} · ${e.source === 'chat' ? 'Registered using chat' : e.source === 'contact' ? 'Contact form' : e.source} · ${e.status}</span>
           </div>
           ${e.phone ? `<p class="ops-comment">Phone: ${e.phone}</p>` : ''}
-          ${e.company ? `<p class="ops-comment">Company: ${e.company}</p>` : ''}
+          ${e.company ? `<p class="ops-comment">Postcode: ${e.company}</p>` : ''}
           ${e.service ? `<p class="ops-comment">Service: ${e.service}</p>` : ''}
           <p class="ops-comment" style="margin-top:.5rem;white-space:pre-wrap">${e.message}</p>
           <div class="ops-chips" style="margin-top:.75rem">

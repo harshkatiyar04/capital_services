@@ -916,7 +916,7 @@
   }
 
   .footer-brand .footer-logo {
-    height: 68px;
+    height: 56px;
     margin-left: auto;
     margin-right: auto;
   }
@@ -939,9 +939,14 @@
     height: 60px;
   }
 
-  .chatbot-fab svg {
+  .chatbot-fab > svg:not(.chatbot-fab-mark) {
     width: 24px;
     height: 24px;
+  }
+
+  .chatbot-fab-mark {
+    width: 34px;
+    height: 34px;
   }
 
   .chatbot-panel {
