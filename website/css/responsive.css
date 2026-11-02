@@ -934,25 +934,35 @@
   /* Chatbot */
   .chatbot-fab {
     right: 1rem;
-    bottom: max(1.75rem, calc(1.25rem + env(safe-area-inset-bottom, 0px)));
-    width: 60px;
-    height: 60px;
+    bottom: max(2.25rem, calc(2rem + env(safe-area-inset-bottom, 0px)));
+    width: 54px;
+    height: 54px;
   }
 
-  .chatbot-fab > svg:not(.chatbot-fab-mark) {
-    width: 24px;
-    height: 24px;
-  }
-
+  .chatbot-fab-icon,
+  .chatbot-fab > svg:not(.chatbot-fab-mark),
   .chatbot-fab-mark {
-    width: 34px;
-    height: 34px;
+    width: 20px;
+    height: 20px;
+  }
+
+  .chatbot-prompt {
+    right: 1rem;
+    left: 1rem;
+    max-width: none;
+    bottom: calc(54px + 2.1rem + env(safe-area-inset-bottom, 0px));
+    border-radius: 1.1rem;
+    padding: 0.7rem 0.5rem 0.7rem 0.95rem;
+  }
+
+  .chatbot-prompt::after {
+    display: none;
   }
 
   .chatbot-panel {
     right: 0.75rem;
     left: 0.75rem;
-    bottom: 5.75rem;
+    bottom: calc(54px + 2.05rem + env(safe-area-inset-bottom, 0px));
     width: auto;
     height: min(70vh, 560px);
   }
@@ -1033,14 +1043,14 @@
 
   .chatbot-fab {
     right: max(1rem, env(safe-area-inset-right));
-    bottom: max(1.75rem, calc(1.5rem + env(safe-area-inset-bottom)));
+    bottom: max(calc(var(--space-xl) + 1.75rem), calc(2rem + env(safe-area-inset-bottom)));
   }
 
   /* Desktop/tablet: keep panel on the right (do not set left here) */
   .chatbot-panel {
     right: max(var(--space-xl), env(safe-area-inset-right));
     left: auto;
-    bottom: max(118px, calc(5.75rem + env(safe-area-inset-bottom)));
+    bottom: max(calc(56px + var(--space-xl) + 2.1rem), calc(6rem + env(safe-area-inset-bottom)));
   }
 }
 
@@ -1050,7 +1060,7 @@
       right: max(0.75rem, env(safe-area-inset-right));
       left: max(0.75rem, env(safe-area-inset-left));
       width: auto;
-      bottom: max(5.75rem, calc(4.75rem + env(safe-area-inset-bottom)));
+      bottom: max(calc(54px + 1.05rem), calc(4.5rem + env(safe-area-inset-bottom)));
     }
   }
 

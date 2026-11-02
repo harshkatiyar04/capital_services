@@ -60,13 +60,12 @@ function enhancePanel(panel) {
 
   panel.innerHTML = `
     <div class="chatbot-header">
-      <img class="chatbot-avatar" src="https://res.cloudinary.com/foxrj3tm/image/upload/f_auto,q_auto,w_64/v1787939391/capital-services/logos/cs-logo-no-text-house-and-heart-large-high-res.jpg" alt="">
       <div class="chatbot-header-copy">
-        <h4>Capital Services</h4>
-        <span class="chatbot-status is-online" id="chatbot-status"><i></i> <span id="chatbot-status-text">AI assistant</span></span>
+        <p class="chatbot-header-kicker">Capital Support</p>
+        <span class="chatbot-status is-online" id="chatbot-status"><i aria-hidden="true"></i> <span id="chatbot-status-text">Online</span></span>
       </div>
       <button type="button" class="chatbot-close" aria-label="Close chat">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
       </button>
     </div>
 
@@ -131,9 +130,9 @@ function enhancePanel(panel) {
         <button type="button" class="chatbot-office-end" id="chat-office-end">End chat</button>
       </div>
       <div class="chatbot-input" id="chatbot-input-row">
-        <input type="text" placeholder="Ask about services, coverage…" aria-label="Chat message" autocomplete="off">
+        <input type="text" placeholder="Type your message…" aria-label="Chat message" autocomplete="off">
         <button type="button" aria-label="Send">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
         </button>
       </div>
     </div>
@@ -535,11 +534,17 @@ function enhancePanel(panel) {
     if (tab === 'office') showTab('office');
   }
 
-  appendMessage(
-    body,
-    OFFICE_CHAT_ENABLED
-      ? 'Hi — ask about our restoration services, coverage areas, or next steps. Prefer a person? Open Office. Prefer a callback later? Open Enquiry.'
-      : 'Hi — ask about our restoration services, coverage areas, or next steps. Prefer a callback later? Open Enquiry.',
+  body.insertAdjacentHTML(
+    'beforeend',
+    `<div class="chatbot-welcome">
+      <p class="chatbot-welcome-hi">Hello there,</p>
+      <p class="chatbot-welcome-lead">How may I help you?</p>
+      <p class="chatbot-welcome-sub">${
+        OFFICE_CHAT_ENABLED
+          ? 'Ask about services, coverage, or next steps. Prefer a person? Open Office. Prefer a callback? Open Enquiry.'
+          : 'Ask about services, coverage, or next steps — or open Enquiry if you would rather leave a message.'
+      }</p>
+    </div>`,
   );
 
   function renderOfficeTab() {
@@ -602,8 +607,8 @@ function enhancePanel(panel) {
     if (!isOffice) office.presenceNoticeShown = false;
 
     if (isChat) {
-      setStatus('AI assistant', 'online');
-      input.placeholder = 'Ask about services, coverage…';
+      setStatus('Online', 'online');
+      input.placeholder = 'Type your message…';
       input.focus();
     } else if (isOffice) {
       refreshOfficePresence().then(() => {
@@ -872,26 +877,107 @@ function enhancePanel(panel) {
   });
 }
 
+const PROMPT_STORAGE_KEY = 'cs_chat_prompt_dismissed';
+
+function mountChatPrompt(fab, openChat) {
+  const prompt = document.createElement('div');
+  prompt.className = 'chatbot-prompt';
+  prompt.id = 'chatbot-prompt';
+  prompt.setAttribute('role', 'dialog');
+  prompt.setAttribute('aria-label', 'Chat with Capital Services');
+  prompt.innerHTML = `
+    <button type="button" class="chatbot-prompt-open">
+      How may I help you?
+    </button>
+    <button type="button" class="chatbot-prompt-dismiss" aria-label="Dismiss">
+      <svg width="10" height="10" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 2.5l7 7M9.5 2.5l-7 7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+    </button>
+  `;
+  document.body.appendChild(prompt);
+
+  const dismissed = () => sessionStorage.getItem(PROMPT_STORAGE_KEY) === '1';
+
+  const show = () => {
+    if (dismissed() || document.querySelector('.chatbot-panel.active')) return;
+    prompt.hidden = false;
+    requestAnimationFrame(() => prompt.classList.add('is-visible'));
+  };
+
+  const hide = (persist = false) => {
+    prompt.classList.remove('is-visible');
+    if (persist) sessionStorage.setItem(PROMPT_STORAGE_KEY, '1');
+    window.setTimeout(() => {
+      if (!prompt.classList.contains('is-visible')) prompt.hidden = true;
+    }, 200);
+  };
+
+  prompt.hidden = true;
+
+  prompt.querySelector('.chatbot-prompt-dismiss')?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    hide(true);
+  });
+
+  prompt.querySelector('.chatbot-prompt-open')?.addEventListener('click', () => {
+    hide(true);
+    openChat();
+  });
+
+  if (!dismissed()) {
+    window.setTimeout(show, 1200);
+  }
+
+  return { show, hide, el: prompt };
+}
+
 export function initChatbot() {
   const fab = document.querySelector('.chatbot-fab');
   const panel = document.querySelector('.chatbot-panel');
   if (!fab || !panel) return;
 
+  fab.classList.remove('chatbot-fab--avatar');
+  fab.innerHTML = `
+    <svg class="chatbot-fab-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  `;
+  fab.setAttribute('aria-label', 'Open chat with Capital Services');
+
   enhancePanel(panel);
 
+  let promptApi = null;
+
+  const openChat = () => {
+    promptApi?.hide(true);
+    panel.classList.add('active');
+    fab.style.display = 'none';
+    panel.querySelector('#chatbot-input-row input')?.focus();
+  };
+
+  const closeChat = () => {
+    panel.classList.remove('active');
+    fab.style.display = '';
+  };
+
+  promptApi = mountChatPrompt(fab, openChat);
+
   fab.addEventListener('click', () => {
-    panel.classList.toggle('active');
-    fab.style.display = panel.classList.contains('active') ? 'none' : '';
     if (panel.classList.contains('active')) {
-      panel.querySelector('#chatbot-input-row input')?.focus();
+      closeChat();
+      return;
     }
+    openChat();
   });
 
   const closeBtn = panel.querySelector('.chatbot-close');
   if (closeBtn) {
-    closeBtn.addEventListener('click', () => {
-      panel.classList.remove('active');
-      fab.style.display = '';
-    });
+    closeBtn.addEventListener('click', closeChat);
   }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && panel.classList.contains('active')) {
+      e.preventDefault();
+      closeChat();
+    }
+  });
 }
