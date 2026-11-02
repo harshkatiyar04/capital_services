@@ -1288,8 +1288,12 @@ body.cookie-banner-open .chatbot-prompt {
   bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px) + 14px);
 }
 
+/* Pin panel between top safe area and banner so the close control stays on-screen */
 body.cookie-banner-open .chatbot-panel {
-  bottom: calc(9.15rem + env(safe-area-inset-bottom, 0px));
+  top: max(0.75rem, env(safe-area-inset-top, 0px));
+  bottom: calc(4.75rem + env(safe-area-inset-bottom, 0px));
+  height: auto;
+  max-height: none;
 }
 
 @media (max-width: 720px) {
@@ -1327,7 +1331,10 @@ body.cookie-banner-open .chatbot-panel {
   }
 
   body.cookie-banner-open .chatbot-panel {
-    bottom: calc(13rem + env(safe-area-inset-bottom, 0px));
+    top: max(0.5rem, env(safe-area-inset-top, 0px));
+    bottom: calc(7.25rem + env(safe-area-inset-bottom, 0px));
+    height: auto;
+    max-height: none;
   }
 }
 
