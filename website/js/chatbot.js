@@ -922,7 +922,20 @@ function mountChatPrompt(fab, openChat) {
   });
 
   if (!dismissed()) {
-    window.setTimeout(show, 1200);
+    const isPhoneOrTablet = window.matchMedia('(max-width: 1024px)').matches;
+    if (isPhoneOrTablet) {
+      const SCROLL_SHOW_AT = 80;
+      const tryShowOnScroll = () => {
+        const y = window.scrollY || document.documentElement.scrollTop || 0;
+        if (y < SCROLL_SHOW_AT) return;
+        window.removeEventListener('scroll', tryShowOnScroll);
+        show();
+      };
+      window.addEventListener('scroll', tryShowOnScroll, { passive: true });
+      tryShowOnScroll();
+    } else {
+      window.setTimeout(show, 1200);
+    }
   }
 
   return { show, hide, el: prompt };
