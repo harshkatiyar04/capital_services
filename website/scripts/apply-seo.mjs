@@ -245,7 +245,6 @@ function buildHeadBlock(file, page) {
   const graphs = [orgJsonLd(), breadcrumbJsonLd(page)];
   if (file === 'index.html') {
     graphs.push(websiteJsonLd());
-    graphs.push(faqJsonLd());
   }
   if (file === 'services.html') graphs.push(serviceJsonLd());
 
